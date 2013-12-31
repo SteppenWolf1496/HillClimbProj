@@ -19,6 +19,8 @@ public class Wheel : MonoBehaviour
 		private Quaternion defRotForDefCol;
 		private float torq = 0;
 		private bool inited = false;
+
+		private bool isGroundedV = false;
 		// Use this for initializationx
 		void Start ()
 		{
@@ -88,7 +90,8 @@ public class Wheel : MonoBehaviour
 		//bool wasStopped = true;
 		public void setTorque (float _accel, float _breake, float _carVelocity, float _breaktorque)
 		{
-				
+				if (!this.gameObject.activeInHierarchy || !this.gameObject.activeSelf)
+						return;
 				if (_breake != 0) {
 						if (defWheelCol.attachedRigidbody.velocity.x > 1) {
 								defWheelCol.motorTorque = 0;
@@ -109,16 +112,28 @@ public class Wheel : MonoBehaviour
 						defWheelCol.motorTorque = 0;
 				}
 		}
+
+		//private WheelFrictionCurve curveTemp;
+
+		public void setWheelDefFreak (float _extremumSlip, float _extremumValue, float _asymptoteSlip, float _asymptoteValue)
+		{
+				WheelFrictionCurve curveTemp = defWheelCol.forwardFriction;
+				curveTemp.extremumSlip = _extremumSlip;
+				curveTemp.extremumValue = _extremumValue;
+				curveTemp.asymptoteSlip = _asymptoteSlip;
+				curveTemp.asymptoteValue = _asymptoteValue;
+				defWheelCol.forwardFriction = curveTemp;
+		}
 	
 		public void UpdateWheel (float _delta, Transform _transform)
 		{
 				if (inited == false)
 						return;
 				WheelHit hit;
-				//defWheelCol.transform.localRotation = defRotForDefCol;
-				Vector3 lp = transform.localPosition; //15
+
+				Vector3 lp = transform.localPosition; 
 				
-				if (defWheelCol.GetGroundHit (out hit)) { //16
+				if (defWheelCol.GetGroundHit (out hit)) { 
 						if (lp.y - (Vector3.Dot (transform.position - hit.point, _transform.up) - wheelRadius) >= wheelStartPos.y/* || (Vector3.Dot (transform.position - hit.point, _transform.up) - wheelRadius) < 0*/) {
 								lp.y = wheelStartPos.y;
 						} else {
@@ -126,12 +141,14 @@ public class Wheel : MonoBehaviour
 						}
 				} else { 
 			
-						lp.y = wheelStartPos.y - wheelOffset; //18
-						lp.z = wheelStartPos.z; //18
+						lp.y = wheelStartPos.y - wheelOffset; 
+						lp.z = wheelStartPos.z; 
 				}
-				transform.localPosition = lp; //1
+				transform.localPosition = lp; 
+
+
 				if (wheelTransformBack != null) {
-						wheelTransformBack.localPosition = lp; //19
+						wheelTransformBack.localPosition = lp; 
 				}
 				
 				rotation = Mathf.Repeat (rotation + _delta * defWheelCol.rpm * 360.0f / 60.0f, 360.0f); //20
@@ -143,27 +160,27 @@ public class Wheel : MonoBehaviour
 
 		}
 
+		public bool isGrounded ()
+		{
+			
+				return isGroundedV;
+		}
+
 		private void updateBestCollider ()
 		{
-
+				isGroundedV = false;
 				WheelCollider bestWheel = null;
 		
 				float bestHit = 0;
 				WheelHit hit;
-				//defWheelCol.transform.localRotation = defRotForDefCol;
-
-				/*if (defWheelCol.GetGroundHit (out hit)) {
-						bestWheel = defWheelCol;
-						bestHit = hit.force;
-					
-				}*/
+				WheelFrictionCurve curve = defWheelCol.forwardFriction;
 				foreach (WheelCollider col in colliders) {
 						if (col.isGrounded) {
 								if (bestWheel == null) {
 										if (col.GetGroundHit (out hit)) {
 												bestWheel = col;
 												bestHit = hit.force;
-					
+												curve.stiffness = hit.collider.material.staticFriction;
 										}
 								}	
 								if (col.GetGroundHit (out hit)) {
@@ -171,15 +188,21 @@ public class Wheel : MonoBehaviour
 										if (bestHit < hit.force) {
 												bestWheel = col;
 												bestHit = hit.force;
+												curve.stiffness = hit.collider.material.staticFriction;
 										}
 								}
 						}
 				}
 
-				//Quaternion.Lerp
+				
 				if (bestWheel != null) {
-						defWheelCol.transform.localRotation = Quaternion.Lerp (defWheelCol.transform.localRotation, bestWheel.transform.localRotation, Time.deltaTime * 0.03f);//bestWheel.transform.localRotation ;	
+						isGroundedV = true;
+
+						defWheelCol.forwardFriction = curve;
+						defWheelCol.transform.localRotation = Quaternion.Lerp (defWheelCol.transform.localRotation, bestWheel.transform.localRotation, Time.deltaTime * 0.01f);//bestWheel.transform.localRotation ;	
 				} 
+
+
 
 		}
 }

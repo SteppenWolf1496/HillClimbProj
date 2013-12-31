@@ -44,6 +44,7 @@ public class StartMenuScreen : IScreen
 						
 						UnityEngine.Object pPrefab = Resources.Load ("perfabs/cars/" + Model.cars [Model.curCarIndex]);
 						truck = (MonoBehaviour.Instantiate (pPrefab) as GameObject).GetComponent (typeof(TruckControll)) as TruckControll;
+						truck.makeDEMO ();
 				
 				}
 
@@ -53,7 +54,7 @@ public class StartMenuScreen : IScreen
 		{
 				UnityEngine.Object pPrefab;
 				if (terrain == null) {
-						pPrefab = Resources.Load ("perfabs/terrains/terrain1");
+						pPrefab = Resources.Load ("perfabs/terrains/carChooseTerrain");
 						terrain = (MonoBehaviour.Instantiate (pPrefab) as GameObject).GetComponent (typeof(TerrainDisplayer)) as TerrainDisplayer;
 				}
 				if (gui == null) {
@@ -63,6 +64,7 @@ public class StartMenuScreen : IScreen
 				if (truck == null) {
 						pPrefab = Resources.Load ("perfabs/cars/" + Model.cars [Model.curCarIndex]);
 						truck = (MonoBehaviour.Instantiate (pPrefab) as GameObject).GetComponent (typeof(TruckControll)) as TruckControll;
+						truck.makeDEMO ();
 				}
 		
 		}

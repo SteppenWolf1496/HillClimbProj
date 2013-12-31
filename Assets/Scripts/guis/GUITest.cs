@@ -54,6 +54,6 @@ public class GUITest : MonoBehaviour
 				truck.setAcceleration (accel);
 				truck.setBreake (breake);
 		
-				GUI.TextArea (new Rect (10, 10, UnityEngine.Screen.width / 2, UnityEngine.Screen.height / 30), "speed: " + (int)truck.rigidbody.velocity.magnitude * 3.6 + "km/h; distance: " + (int)truck.rigidbody.position.x + "m", 200, style);
+				GUI.TextArea (new Rect (10, 10, UnityEngine.Screen.width / 2, UnityEngine.Screen.height / 30), "speed: " + (int)truck.rigidbody.velocity.x * 3.6 + "km/h; distance: " + (int)truck.rigidbody.position.x + "m", 200, style);
 		}
 }
