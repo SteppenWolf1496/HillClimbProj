@@ -246,9 +246,9 @@ namespace Endless2DTerrain
 								KeyBottomVerticies = th.MoveStartVertex (KeyTopVerticies, AllTopVerticies [0], shift, true);
 
 								//Test perp verts
-								//Vector3 shift = new Vector3(firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z);
-								//AllBottomVerticies = th.GetPerpendicularOffset(AllTopVerticies, settings.MainPlaneHeight);
-								//KeyBottomVerticies = th.GetPerpendicularOffset(KeyTopVerticies, settings.MainPlaneHeight);
+								//	shift = new Vector3 (firstBottomVertex.x, firstBottomVertex.y, firstBottomVertex.z);
+								//	AllBottomVerticies = th.GetPerpendicularOffset (AllTopVerticies, settings.MainPlaneHeight);
+								//	KeyBottomVerticies = th.GetPerpendicularOffset (KeyTopVerticies, settings.MainPlaneHeight);
 						}
 
 						if (PlaneType == Plane.Detail) {

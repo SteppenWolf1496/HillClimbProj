@@ -93,7 +93,7 @@ public class Wheel : MonoBehaviour
 				if (!this.gameObject.activeInHierarchy || !this.gameObject.activeSelf)
 						return;
 				if (_breake != 0) {
-						if (defWheelCol.attachedRigidbody.velocity.x > 1) {
+						if (defWheelCol.attachedRigidbody.velocity.x > 1 || !isGroundedV) {
 								defWheelCol.motorTorque = 0;
 								defWheelCol.brakeTorque = _breake * _breaktorque;
 						} else {
@@ -199,7 +199,7 @@ public class Wheel : MonoBehaviour
 						isGroundedV = true;
 
 						defWheelCol.forwardFriction = curve;
-						defWheelCol.transform.localRotation = Quaternion.Lerp (defWheelCol.transform.localRotation, bestWheel.transform.localRotation, Time.deltaTime * 0.01f);//bestWheel.transform.localRotation ;	
+						defWheelCol.transform.localRotation = Quaternion.Lerp (defWheelCol.transform.localRotation, bestWheel.transform.localRotation, 0.02f);//bestWheel.transform.localRotation ;	
 				} 
 
 
