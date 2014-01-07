@@ -178,8 +178,10 @@ public class TruckControll : MonoBehaviour
 						if (rigidbody.velocity.x > 0) {
 								Vector3 tmpVel = rigidbody.velocity;
 								tmpVel.x -= FlySpeedResuce;
+								//tmpVel.y += rigidbody.mass
 								rigidbody.velocity = tmpVel;
 						}
+						//rigidbody.velocity
 						rigidbody.drag = 0;
 						
 				} else {

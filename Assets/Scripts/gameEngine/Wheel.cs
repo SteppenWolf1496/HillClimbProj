@@ -199,7 +199,7 @@ public class Wheel : MonoBehaviour
 						isGroundedV = true;
 
 						defWheelCol.forwardFriction = curve;
-						defWheelCol.transform.localRotation = Quaternion.Lerp (defWheelCol.transform.localRotation, bestWheel.transform.localRotation, 0.02f);//bestWheel.transform.localRotation ;	
+						defWheelCol.transform.localRotation = Quaternion.Lerp (defWheelCol.transform.localRotation, bestWheel.transform.localRotation, 0.05f);//bestWheel.transform.localRotation ;	
 				} 
 
 

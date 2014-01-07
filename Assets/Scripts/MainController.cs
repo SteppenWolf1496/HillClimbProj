@@ -20,7 +20,7 @@ public class MainController : MonoBehaviour
 		}
 		void Start ()
 		{
-
+				Application.targetFrameRate = 30;
 				Random.seed = 1;
 				inst = this;
 				cameraStartPos = transform.position;
