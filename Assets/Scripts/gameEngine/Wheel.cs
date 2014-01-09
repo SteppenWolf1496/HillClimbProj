@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class Wheel : MonoBehaviour
 {
 		//public LayerMask layer;
@@ -21,9 +22,16 @@ public class Wheel : MonoBehaviour
 		private bool inited = false;
 
 		private bool isGroundedV = false;
+		private float curSlip = 0;
+		private float forceMagnitude = 0;
+
+		public ParticleSystem particleSystem = null;
 		// Use this for initializationx
 		void Start ()
 		{
+
+				if (particleSystem)
+						particleSystem.renderer.sortingLayerName = "Particles";
 				inited = true;
 				//updateBestCollider ();
 				wheelStartPos = transform.localPosition;
@@ -86,6 +94,7 @@ public class Wheel : MonoBehaviour
 		void Update ()// Update is called once per frame
 		{
 				//updateBestCollider ();
+				updateParticles ();
 		}
 		//bool wasStopped = true;
 		public void setTorque (float _accel, float _breake, float _carVelocity, float _breaktorque)
@@ -132,13 +141,15 @@ public class Wheel : MonoBehaviour
 				WheelHit hit;
 
 				Vector3 lp = transform.localPosition; 
-				
+				//float slipV = 0;
+
 				if (defWheelCol.GetGroundHit (out hit)) { 
 						if (lp.y - (Vector3.Dot (transform.position - hit.point, _transform.up) - wheelRadius) >= wheelStartPos.y/* || (Vector3.Dot (transform.position - hit.point, _transform.up) - wheelRadius) < 0*/) {
 								lp.y = wheelStartPos.y;
 						} else {
 								lp.y -= Vector3.Dot (transform.position - hit.point, _transform.up) - wheelRadius; 
 						}
+						//slipV = hit.forwardSlip;
 				} else { 
 			
 						lp.y = wheelStartPos.y - wheelOffset; 
@@ -150,8 +161,8 @@ public class Wheel : MonoBehaviour
 				if (wheelTransformBack != null) {
 						wheelTransformBack.localPosition = lp; 
 				}
-				
-				rotation = Mathf.Repeat (rotation + _delta * defWheelCol.rpm * 360.0f / 60.0f, 360.0f); //20
+				float rotationslip = curSlip > 0 ? defWheelCol.rpm * curSlip : -defWheelCol.rpm * curSlip;
+				rotation = Mathf.Repeat (rotation + _delta * (defWheelCol.rpm + rotationslip) * 360.0f / 60.0f, 360.0f); //20
 				transform.localRotation = Quaternion.Euler (-rotation, 0f, 90.0f); //21
 				
 				
@@ -166,11 +177,54 @@ public class Wheel : MonoBehaviour
 				return isGroundedV;
 		}
 
+		private void updateParticles ()
+		{
+				if (!particleSystem)
+						return;
+
+				/*	if (isDrive) {
+						float rotationslip1 = curSlip > 0 ? defWheelCol.rpm * curSlip : -defWheelCol.rpm * curSlip;
+						print ("RPM: " + (defWheelCol.rpm + rotationslip1));
+				}*/
+						
+				/*if (!isDrive) {
+						if (!particleSystem.isStopped)
+								particleSystem.Stop ();
+						return;
+				} else */
+				if (!isGroundedV) {
+						if (!particleSystem.isStopped)
+								particleSystem.Stop ();
+						return;
+				} /*else if (Mathf.Abs (curSlip) < Mathf.Abs (defWheelCol.forwardFriction.asymptoteSlip)) {
+						if (!particleSystem.isStopped)
+								particleSystem.Stop ();
+						return;
+				}*/ else if (particleSystem.isStopped) {
+						particleSystem.Play ();
+
+				}
+				float rotationslip = curSlip > 0 ? defWheelCol.rpm * curSlip : -defWheelCol.rpm * curSlip;
+				
+				if (curSlip >= 0) {
+						particleSystem.transform.localRotation = Quaternion.Euler (-45f, -180f, 0f);
+						float coef = Mathf.Min (Mathf.Abs (curSlip), 2);
+						particleSystem.emissionRate = 200 * (coef/* + forceMagnitude*/);
+						particleSystem.startSpeed = 5 * coef;
+				} else {
+						particleSystem.transform.localRotation = Quaternion.Euler (-45f, 360f, 0f);
+						float coef = Mathf.Min (Mathf.Abs (curSlip), 2);
+						particleSystem.emissionRate = 200 * (coef/* + forceMagnitude*/);
+						particleSystem.startSpeed = 5 * coef;
+				}
+		}
+
 		private void updateBestCollider ()
 		{
 				isGroundedV = false;
 				WheelCollider bestWheel = null;
-		
+				curSlip = 0;
+				forceMagnitude = 0;
 				float bestHit = 0;
 				WheelHit hit;
 				WheelFrictionCurve curve = defWheelCol.forwardFriction;
@@ -193,14 +247,24 @@ public class Wheel : MonoBehaviour
 								}
 						}
 				}
-
 				
+				
+				
+
 				if (bestWheel != null) {
 						isGroundedV = true;
+						//curve.stiffness = curve.stiffness * forceMagnitude;
+
 
 						defWheelCol.forwardFriction = curve;
 						defWheelCol.transform.localRotation = Quaternion.Lerp (defWheelCol.transform.localRotation, bestWheel.transform.localRotation, 0.05f);//bestWheel.transform.localRotation ;	
 				} 
+
+				if (defWheelCol.GetGroundHit (out hit)) {
+						curSlip = hit.forwardSlip;// / hit.collider.material.staticFriction;
+						//curSlip = curSlip / 100;
+						forceMagnitude = hit.force;
+				}
 
 
 

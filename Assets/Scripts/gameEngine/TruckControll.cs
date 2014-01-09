@@ -137,7 +137,7 @@ public class TruckControll : MonoBehaviour
 	
 		private void UpdateWheels ()
 		{ 
-				float delta = Time.fixedDeltaTime; 
+				float delta = Time.deltaTime; 
 		
 		
 				foreach (Wheel w in wheels) { 
