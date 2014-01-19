@@ -5,9 +5,9 @@ public class Model : MonoBehaviour
 {
 
 		static public int curCarIndex = 0;
-	    static public string[] cars = new string[4]{"Vechicle_1","Vechicle_2","Vechicle_3","Vechicle_Trailer"};
+	static public string[] cars = new string[14]{"Classic","CrossBike","Quad","Tractor","SandBuggy","Crawler","PikesPeak","DieselRunner","TruckTrailer","Monster","SportBolid","Limo","DirtDragster","TITAN"};
 
-		// Use this for initialization
+		// Use this for initialization00
 		void Start ()
 		{
 	
