@@ -1,6 +1,11 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\gameEngine\TruckControll.cs">
+    <Files>
+      <File FileName="Assets\Scripts\gameEngine\TruckControll.cs" Line="198" Column="2" />
+      <File FileName="Assets\Scripts\gameEngine\TruckControll.cs" Line="195" Column="129" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

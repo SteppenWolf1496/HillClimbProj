@@ -192,7 +192,7 @@ public class TruckControll : MonoBehaviour
 				if (isDemo) 
 						MainController.instance ().mainCamera.transform.position = new Vector3 (transform.position.x + 1, transform.position.y, -8);
 				else
-						MainController.instance ().mainCamera.transform.position = new Vector3 (transform.position.x + 1, transform.position.y, -10 - (rigidbody.velocity.x > 0 ? rigidbody.velocity.x / 1.5f : 0));
+						MainController.instance ().mainCamera.transform.position = new Vector3 (transform.position.x + 1, transform.position.y, -8 - (rigidbody.velocity.x > 0 ? rigidbody.velocity.x / 1.5f : 0));
 		}
 	
 }
