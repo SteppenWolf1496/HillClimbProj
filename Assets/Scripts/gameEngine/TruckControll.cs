@@ -16,7 +16,8 @@ public class TruckControll : MonoBehaviour
 		private float wheelRadius = 1f; //2
 	
 		//public float maxSteer = 300;
-		public float engineTorque = 300;
+		public float engineMaxTorque = 300;
+
 		public float breakeTorque = 400;
 
 		public float ExtremumSlip = 1;
@@ -39,6 +40,12 @@ public class TruckControll : MonoBehaviour
 		public float FlySpeedResuce = 0.05f;
 
 		public float angolarCoef = 0.1f;
+
+		public float[] gears = new float[5]{3.6f, 1.95f, 1.357f, 0.941f, 0.784f};
+		public float maxSpeed = 180;
+		private int curGear = 9999;//between 0 - gearscount;
+		private float engineTorque;
+
 		// Use this for initialization
 		//public Camera playerCamera;
 		
@@ -65,8 +72,8 @@ public class TruckControll : MonoBehaviour
 
 				startPosition = this.transform.position;
 				startRotaion = this.transform.rotation;
+				updateGearValues ();
 				
-				countTorque ();
 				
 				drag = rigidbody.drag;
 		
@@ -89,16 +96,42 @@ public class TruckControll : MonoBehaviour
 				float middleTorq = engineTorque / radiusSumm;
 		
 				for (int i=0; i<wheels.Length-notDrive; i++) {
-						wheels [wheels.Length - i - 1 - notDrive].setTorq (wheels [i].defWheelCol.radius * middleTorq);
+						wheels [wheels.Length - i - 1 - notDrive].setTorq ((middleTorq * 1) / wheels [i].defWheelCol.radius);
 						wheels [wheels.Length - i - 1 - notDrive].setWheelDefFreak (ExtremumSlip, ExtremumValue, AsymptoteSlip, AsymptoteValue);
 				}
+		}
+
+		private void updateGearValues ()
+		{
+				float speed = Math.Abs (this.rigidbody.velocity.x) * 3.6f;
+
+				int gear = (int)(speed / (maxSpeed / gears.Length));
+				if (gear >= gears.Length)
+						gear = gears.Length - 1;
+
+				if (gear == curGear)
+						return;
+				curGear = gear;
+				engineTorque = gears [curGear] * (isDemo ? engineMaxTorque / 2 : engineMaxTorque);
+				countTorque ();
 		}
 		private bool isDemo = false;
 		public void makeDEMO ()
 		{
-				engineTorque = engineTorque / 2;
-				countTorque ();
+				//engineMaxTorque = engineMaxTorque / 2;
 				isDemo = true;
+				updateGearValues ();
+				
+		}
+
+		public int getGear ()
+		{
+				return curGear;
+		}
+
+		public float getTorque ()
+		{
+				return engineTorque;
 		}
 	
 		public void reset ()
@@ -173,7 +206,7 @@ public class TruckControll : MonoBehaviour
 	
 		void Update ()
 		{    
-
+				updateGearValues ();
 				if (!isGrounded ()) {
 						if (rigidbody.velocity.x > 0) {
 								Vector3 tmpVel = rigidbody.velocity;
