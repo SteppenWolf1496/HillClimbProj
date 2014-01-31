@@ -42,6 +42,7 @@ public class TruckControll : MonoBehaviour
 		public float angolarCoef = 0.1f;
 
 		public float[] gears = new float[5]{3.6f, 1.95f, 1.357f, 0.941f, 0.784f};
+		public float rearGear = 3;
 		public float maxSpeed = 180;
 		private int curGear = 9999;//between 0 - gearscount;
 		private float engineTorque;
@@ -72,7 +73,7 @@ public class TruckControll : MonoBehaviour
 
 				startPosition = this.transform.position;
 				startRotaion = this.transform.rotation;
-				updateGearValues ();
+				updateGearValues (0);
 				
 				
 				drag = rigidbody.drag;
@@ -101,11 +102,22 @@ public class TruckControll : MonoBehaviour
 				}
 		}
 
-		private void updateGearValues ()
+		private void updateGearValues (float accel)
 		{
-				float speed = Math.Abs (this.rigidbody.velocity.x) * 3.6f;
+				int gear;
+				if (accel > 0) {
+						gear = -1;
+						if (gear == curGear)
+								return;
+						curGear = gear;
+						engineTorque = rearGear * engineMaxTorque;
+						countTorque ();
+						return;
 
-				int gear = (int)(speed / (maxSpeed / gears.Length));
+				}
+				float speed = this.rigidbody.velocity.x * 3.6f;
+
+				gear = (int)(speed / (maxSpeed / gears.Length));
 				if (gear >= gears.Length)
 						gear = gears.Length - 1;
 
@@ -120,7 +132,7 @@ public class TruckControll : MonoBehaviour
 		{
 				//engineMaxTorque = engineMaxTorque / 2;
 				isDemo = true;
-				updateGearValues ();
+				updateGearValues (0);
 				
 		}
 
@@ -183,6 +195,8 @@ public class TruckControll : MonoBehaviour
 				if (isDemo) {
 						accel = -1;
 				}
+				updateGearValues (accel);
+
 				foreach (Wheel w in wheels) { 
 						w.setTorque (accel, breake, transform.rigidbody.velocity.x, breakeTorque);
 				}		
@@ -206,7 +220,7 @@ public class TruckControll : MonoBehaviour
 	
 		void Update ()
 		{    
-				updateGearValues ();
+				
 				if (!isGrounded ()) {
 						if (rigidbody.velocity.x > 0) {
 								Vector3 tmpVel = rigidbody.velocity;
