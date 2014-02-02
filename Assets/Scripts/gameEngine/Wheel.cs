@@ -99,6 +99,7 @@ public class Wheel : MonoBehaviour
 		//bool wasStopped = true;
 		public void setTorque (float _accel, float _breake, float _carVelocity, float _breaktorque)
 		{
+
 				if (!this.gameObject.activeInHierarchy || !this.gameObject.activeSelf)
 						return;
 				if (_breake != 0) {
@@ -107,7 +108,7 @@ public class Wheel : MonoBehaviour
 								defWheelCol.brakeTorque = _breake * _breaktorque;
 						} else {
 								defWheelCol.brakeTorque = 0;
-								if (isDrive)
+								if (isDrive) 
 										defWheelCol.motorTorque = _accel * torq;
 						}
 						//_accel = 0f;
@@ -121,6 +122,8 @@ public class Wheel : MonoBehaviour
 						defWheelCol.motorTorque = 0;
 				}
 		}
+
+
 
 		//private WheelFrictionCurve curveTemp;
 

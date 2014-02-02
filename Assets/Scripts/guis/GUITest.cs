@@ -75,6 +75,6 @@ public class GUITest : MonoBehaviour
 				truck.setAcceleration (accel);
 				truck.setBreake (breake);
 		
-				GUI.TextArea (new Rect (10, 10, UnityEngine.Screen.width / 2, UnityEngine.Screen.height / 30), "speed: " + (int)truck.rigidbody.velocity.x * 3.6 + "km/h; gear: " + (int)truck.getGear () + "g; torque = " + truck.getTorque (), 200, style);
+				GUI.TextArea (new Rect (10, 10, UnityEngine.Screen.width / 2, UnityEngine.Screen.height / 30), "speed: " + (int)truck.getSpeed () + "km/h; gear: " + (int)truck.getGear () + "g; torque = " + truck.getTorque (), 200, style);
 		}
 }

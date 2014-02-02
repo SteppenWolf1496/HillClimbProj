@@ -1,14 +1,17 @@
 ﻿<Properties GitUserInfo="UsingGIT">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Endless2DTerrain/Core/Scripts/TerrainRule.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/gameEngine/TruckControll.cs">
     <Files>
-      <File FileName="Assets/Scripts/gameEngine/TruckControll.cs" Line="111" Column="16" />
-      <File FileName="Assets/Scripts/guis/GUITest.cs" Line="66" Column="5" />
-      <File FileName="Assets/Endless2DTerrain/Core/Scripts/TerrainRule.cs" Line="19" Column="34" />
+      <File FileName="Assets/Scripts/gameEngine/TruckControll.cs" Line="287" Column="45" />
+      <File FileName="Assets/Scripts/guis/GUITest.cs" Line="1" Column="1" />
+      <File FileName="Assets/Endless2DTerrain/Core/Scripts/TerrainRule.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/gameEngine/Wheel.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/slava/war/HillClimbRepo/HillClimbProj/Assets/Scripts/gameEngine/TruckControll.cs" line="131" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
