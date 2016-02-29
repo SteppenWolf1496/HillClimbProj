@@ -8,7 +8,7 @@ public class Wheel : MonoBehaviour
 		//private Vector3 wheelStartTransform; //4
 		public Transform wheelTransformBack = null; //4
 		
-		private WheelCollider[] colliders = new WheelCollider[5]; //5
+		private WheelCollider[] colliders = new WheelCollider[1]; //5
 		public WheelCollider defWheelCol;
 		private Vector3 wheelStartPos; //6 
 		private float rotation = 0.0f;  //7
@@ -31,20 +31,20 @@ public class Wheel : MonoBehaviour
 		{
 
 				if (particleSystem)
-						particleSystem.renderer.sortingLayerName = "Particles";
+						particleSystem.GetComponent<Renderer>().sortingLayerName = "Particles";
 				inited = true;
 				//updateBestCollider ();
 				wheelStartPos = transform.localPosition;
 				wheelRadius = defWheelCol.radius;
 				wheelOffset = defWheelCol.suspensionDistance;
 				defRotForDefCol = defWheelCol.transform.localRotation;
-				//wheelStartTransform = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
-				//transform.position = defWheelCol.transform.position;
-				// fill colliders
-
-				for (int i=0; i<5; i++) {
+        //wheelStartTransform = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+        //transform.position = defWheelCol.transform.position;
+        // fill colliders
+		    colliders[0] = defWheelCol;
+              /*  for (int i=0; i<5; i++) {
 						colliders [i] = generateWheelCollider (i, rotations [i]);
-				}
+				}*/
 		}
 
 		public void setTorq (float torque)

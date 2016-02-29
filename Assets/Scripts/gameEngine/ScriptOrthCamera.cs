@@ -8,7 +8,7 @@ internal class ScriptOrthCamera : MonoBehaviour
 
   private void Awake()
   {
-    camera.orthographic = true;
+    GetComponent<Camera>().orthographic = true;
 
     if (uniform)
       SetUniform();
@@ -20,8 +20,8 @@ internal class ScriptOrthCamera : MonoBehaviour
   } 
   private void SetUniform()
   {
-    float orthographicSize = camera.pixelHeight/2;
-    if (orthographicSize != camera.orthographicSize)
-      camera.orthographicSize = orthographicSize;
+    float orthographicSize = GetComponent<Camera>().pixelHeight/2;
+    if (orthographicSize != GetComponent<Camera>().orthographicSize)
+      GetComponent<Camera>().orthographicSize = orthographicSize;
   }
 }

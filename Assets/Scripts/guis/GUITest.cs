@@ -17,6 +17,7 @@ public class GUITest : MonoBehaviour
 		void Update ()
 		{
 
+/*
 #if UNITY_EDITOR
 				if (truck == null)
 						return;
@@ -35,7 +36,7 @@ public class GUITest : MonoBehaviour
 
 				truck.setAcceleration (accel);
 				truck.setBreake (breake);
-#endif
+#endif*/
 		}
 	
 		void OnGUI ()

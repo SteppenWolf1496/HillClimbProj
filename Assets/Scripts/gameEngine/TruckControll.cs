@@ -72,14 +72,14 @@ public class TruckControll : MonoBehaviour
 		
 				//playerCamera.transparencySortMode = TransparencySortMode.Orthographic;
 
-				rigidbody.centerOfMass = CenterOfMass.localPosition;
+				GetComponent<Rigidbody>().centerOfMass = CenterOfMass.localPosition;
 
 				startPosition = this.transform.position;
 				startRotaion = this.transform.rotation;
 				
 				
 				
-				drag = rigidbody.drag;
+				drag = GetComponent<Rigidbody>().drag;
 				speedbyGear = maxSpeed / gears.Length;
 				//	updateGearValues (0);
 		
@@ -125,10 +125,16 @@ public class TruckControll : MonoBehaviour
 						return;
 
 				}
-				
 
-				gear = (int)(speed / speedbyGear);
-				if (gear >= gears.Length)
+		    if (speed > 0)
+		    {
+		        gear = (int) (speed/speedbyGear);
+		    }
+		    else
+		    {
+		        gear = 0;
+		    }
+		    if (gear >= gears.Length)
 						gear = gears.Length - 1;
 
 				if (gear == curGear)
@@ -209,7 +215,7 @@ public class TruckControll : MonoBehaviour
 
 				float realAccel = 0;
 				if (breake != 0) {
-						if (transform.rigidbody.velocity.x > 1 || !isGrounded ()) {
+						if (transform.GetComponent<Rigidbody>().velocity.x > 1 || !isGrounded ()) {
 
 						} else {
 								realAccel = accel;
@@ -224,17 +230,17 @@ public class TruckControll : MonoBehaviour
 				updateGearValues (realAccel);
 
 				foreach (Wheel w in wheels) { 
-						w.setTorque (accel, breake, transform.rigidbody.velocity.x, breakeTorque);
+						w.setTorque (accel, breake, transform.GetComponent<Rigidbody>().velocity.x, breakeTorque);
 				}		
 				if (!isGrounded ()) {
 
 						if (_breake != 0) {
-								rigidbody.angularVelocity = new Vector3 (0, 0, rigidbody.angularVelocity.z - angolarCoef);
+								GetComponent<Rigidbody>().angularVelocity = new Vector3 (0, 0, GetComponent<Rigidbody>().angularVelocity.z - angolarCoef);
 								//rigidbody.AddTorque (0, 0, -5 * rigidbody.mass, ForceMode.Force);
 								//_accel = 0f;
 						} else if (_accel != 0) {
 				
-								rigidbody.angularVelocity = new Vector3 (0, 0, rigidbody.angularVelocity.z + angolarCoef);
+								GetComponent<Rigidbody>().angularVelocity = new Vector3 (0, 0, GetComponent<Rigidbody>().angularVelocity.z + angolarCoef);
 						} else {
 								//rigidbody.AddTorque (0, 0, 0, ForceMode.Force);
 						}
@@ -246,27 +252,27 @@ public class TruckControll : MonoBehaviour
 		}
 	
 		void Update ()
-		{    
-				speed = this.rigidbody.velocity.x * 3.6f;
+		{
+		    speed = this.GetComponent<Rigidbody>().velocity.x * 3.6f;
 				if (!isGrounded ()) {
-						if (rigidbody.velocity.x > 0) {
-								Vector3 tmpVel = rigidbody.velocity;
+						if (GetComponent<Rigidbody>().velocity.x > 0) {
+								Vector3 tmpVel = GetComponent<Rigidbody>().velocity;
 								tmpVel.x -= FlySpeedResuce;
 								//tmpVel.y += rigidbody.mass
-								rigidbody.velocity = tmpVel;
+								GetComponent<Rigidbody>().velocity = tmpVel;
 						}
 						//rigidbody.velocity
-						rigidbody.drag = 0;
+						GetComponent<Rigidbody>().drag = 0;
 						
 				} else {
-						rigidbody.drag = drag;
+						GetComponent<Rigidbody>().drag = drag;
 				}
 				UpdateWheels (); 
 				CarMove (_accel, _breake);
 				if (isDemo) 
 						MainController.instance ().mainCamera.transform.position = new Vector3 (transform.position.x + 1, transform.position.y, -8);
 				else
-						MainController.instance ().mainCamera.transform.position = new Vector3 (transform.position.x + 1, transform.position.y, -8 - (rigidbody.velocity.x > 0 ? rigidbody.velocity.x / 1.5f : 0));
+						MainController.instance ().mainCamera.transform.position = new Vector3 (transform.position.x + 1, transform.position.y, -8 - (GetComponent<Rigidbody>().velocity.x > 0 ? GetComponent<Rigidbody>().velocity.x / 1.5f : 0));
 
 				
 		}

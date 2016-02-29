@@ -122,8 +122,8 @@ namespace Endless2DTerrain
         {
 
             //Our plane is made up of the last top and bottom verts of the previous mesh, and the first top and bottom verts of the current mesh
-            List<Vector3> topVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Front, topVerts: true);
-            List<Vector3> bottomVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Front, topVerts: false);
+            List<Vector3> topVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Front, true);
+            List<Vector3> bottomVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Front, false);
 
             //Create our front mesh piece
             MeshPiece meshPiece = new MeshPiece(vg, MeshPiece.Plane.Front, settings);
@@ -143,8 +143,8 @@ namespace Endless2DTerrain
                 if (settings.DrawDetailMeshRenderer)
                 {
                     MeshPiece meshPieceDetail = new MeshPiece(vg, MeshPiece.Plane.Detail, settings);
-                    topVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Detail, topVerts: true);
-                    bottomVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Detail, topVerts: false);
+                    topVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Detail, true);
+                    bottomVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Detail, false);
                     meshPieceDetail.CreateCorner(topVerticies, bottomVerticies);
                     MeshPieces.Add(meshPieceDetail);
                 }            

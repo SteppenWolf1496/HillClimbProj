@@ -8,7 +8,7 @@ public class CenterMass : MonoBehaviour {
 //-----------------------------
 
     void Start () {
-       rigidbody.centerOfMass = COM.localPosition;
+       GetComponent<Rigidbody>().centerOfMass = COM.localPosition;
 }
 	
 	// Update is called once per frame

@@ -28,7 +28,7 @@ class ShowSize : EditorWindow
 		
 
 		
-		var renderer = thisObject.renderer;
+		var renderer = thisObject.GetComponent<Renderer>();
 
 		if (!renderer) {
 			bool inited = false;
@@ -44,17 +44,17 @@ class ShowSize : EditorWindow
 			{
 
 				if (!childTransforms.gameObject) continue;
-				if (!childTransforms.gameObject.renderer) continue; 
+				if (!childTransforms.gameObject.GetComponent<Renderer>()) continue; 
 
 
 				if (!inited)
 				{
 					inited = true;
 					minX = childTransforms.gameObject.transform.position.x;
-					maxX = childTransforms.gameObject.transform.position.x + childTransforms.gameObject.renderer.bounds.size.x;
+					maxX = childTransforms.gameObject.transform.position.x + childTransforms.gameObject.GetComponent<Renderer>().bounds.size.x;
 
 					minY = childTransforms.gameObject.transform.position.y;
-					maxY = childTransforms.gameObject.transform.position.y + childTransforms.gameObject.renderer.bounds.size.y;
+					maxY = childTransforms.gameObject.transform.position.y + childTransforms.gameObject.GetComponent<Renderer>().bounds.size.y;
 				}
 
 
@@ -69,14 +69,14 @@ class ShowSize : EditorWindow
 					minY = childTransforms.gameObject.transform.position.y;
 				}
 
-				if (maxX < childTransforms.gameObject.transform.position.x + childTransforms.gameObject.renderer.bounds.size.x) 
+				if (maxX < childTransforms.gameObject.transform.position.x + childTransforms.gameObject.GetComponent<Renderer>().bounds.size.x) 
 				{
-					maxX = childTransforms.gameObject.transform.position.x + childTransforms.gameObject.renderer.bounds.size.x;
+					maxX = childTransforms.gameObject.transform.position.x + childTransforms.gameObject.GetComponent<Renderer>().bounds.size.x;
 				}
 
-				if (maxY < childTransforms.gameObject.transform.position.y + childTransforms.gameObject.renderer.bounds.size.y) 
+				if (maxY < childTransforms.gameObject.transform.position.y + childTransforms.gameObject.GetComponent<Renderer>().bounds.size.y) 
 				{
-					maxY = childTransforms.gameObject.transform.position.y + childTransforms.gameObject.renderer.bounds.size.y;
+					maxY = childTransforms.gameObject.transform.position.y + childTransforms.gameObject.GetComponent<Renderer>().bounds.size.y;
 				}
 
 			}
