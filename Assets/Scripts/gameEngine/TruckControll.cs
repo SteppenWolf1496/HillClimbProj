@@ -55,10 +55,10 @@ public class TruckControll : MonoBehaviour
 		
 		int CompareCondition (Wheel itemA, Wheel itemB)
 		{
-				if (itemA.defWheelCol.radius * (itemA.isDrive ? 1 : 0) < itemB.defWheelCol.radius * (itemB.isDrive ? 1 : 0))
+			/*	if (itemA.defWheelCol.radius * (itemA.isDrive ? 1 : 0) < itemB.defWheelCol.radius * (itemB.isDrive ? 1 : 0))
 						return 1;
 				if (itemA.defWheelCol.radius * (itemA.isDrive ? 1 : 0) > itemB.defWheelCol.radius * (itemB.isDrive ? 1 : 0))
-						return -1;
+						return -1;*/
 				return 0;
 		}
 
@@ -71,6 +71,7 @@ public class TruckControll : MonoBehaviour
 		
 		
 				//playerCamera.transparencySortMode = TransparencySortMode.Orthographic;
+/*
 
 				GetComponent<Rigidbody>().centerOfMass = CenterOfMass.localPosition;
 
@@ -80,7 +81,7 @@ public class TruckControll : MonoBehaviour
 				
 				
 				drag = GetComponent<Rigidbody>().drag;
-				speedbyGear = maxSpeed / gears.Length;
+				speedbyGear = maxSpeed / gears.Length;*/
 				//	updateGearValues (0);
 		
 		}
@@ -92,29 +93,29 @@ public class TruckControll : MonoBehaviour
 
 		private void countTorque ()
 		{
-				float radiusSumm = 0;
+				/*float radiusSumm = 0;
 				Array.Sort (wheels, CompareCondition);
 				torqByWheel = new float[wheels.Length];
 				int notDrive = 0;
 		
-				for (int i=0; i<wheels.Length; i++) {
+				/ *for (int i=0; i<wheels.Length; i++) {
 						if (wheels [i].isDrive)
 								radiusSumm += wheels [i].defWheelCol.radius;
 						else 
 								notDrive++;
-				}
+				}* /
 		
-				float middleTorq = engineTorque / radiusSumm;
+				float middleTorq = engineTorque / radiusSumm;*/
 		
-				for (int i=0; i<wheels.Length-notDrive; i++) {
+				/*for (int i=0; i<wheels.Length-notDrive; i++) {
 						wheels [wheels.Length - i - 1 - notDrive].setTorq ((middleTorq * 1) / wheels [i].defWheelCol.radius);
 						wheels [wheels.Length - i - 1 - notDrive].setWheelDefFreak (ExtremumSlip, ExtremumValue, AsymptoteSlip, AsymptoteValue);
-				}
+				}*/
 		}
 
 		private void updateGearValues (float accel)
 		{
-				int gear;
+				/*int gear;
 				if (accel > 0) {
 						gear = -1;
 						if (gear == curGear)
@@ -141,7 +142,7 @@ public class TruckControll : MonoBehaviour
 						return;
 				curGear = gear;
 				engineTorque = gears [curGear] * (isDemo ? engineMaxTorque / 2 : engineMaxTorque);
-				countTorque ();
+				countTorque ();*/
 		}
 		private bool isDemo = false;
 
@@ -189,27 +190,27 @@ public class TruckControll : MonoBehaviour
 		public bool isGrounded ()
 		{
 				bool ret = false;
-				foreach (Wheel w in wheels) { 
+			/*	foreach (Wheel w in wheels) { 
 						if (w.isGrounded ())
 								ret = true;
-				}
+				}*/
 
 				return ret;
 		}
 	
 		private void UpdateWheels ()
 		{ 
-				float delta = Time.deltaTime; 
+				/*float delta = Time.deltaTime; 
 		
 		
 				foreach (Wheel w in wheels) { 
 						w.UpdateWheel (delta, transform);
-				}	
+				}	*/
 		}
 		
 		private void CarMove (float accel, float breake)
 		{
-				if (isDemo) {
+			/*	if (isDemo) {
 						accel = -1;
 				}
 
@@ -247,13 +248,13 @@ public class TruckControll : MonoBehaviour
 						
 				}
 				updateExhaustSystem (realAccel);
-				
+				*/
 		
 		}
 	
 		void Update ()
 		{
-		    speed = this.GetComponent<Rigidbody>().velocity.x * 3.6f;
+		   /* speed = this.GetComponent<Rigidbody>().velocity.x * 3.6f;
 				if (!isGrounded ()) {
 						if (GetComponent<Rigidbody>().velocity.x > 0) {
 								Vector3 tmpVel = GetComponent<Rigidbody>().velocity;
@@ -267,9 +268,11 @@ public class TruckControll : MonoBehaviour
 				} else {
 						GetComponent<Rigidbody>().drag = drag;
 				}
+                
 				UpdateWheels (); 
 				CarMove (_accel, _breake);
-				if (isDemo) 
+                */
+                if (isDemo) 
 						MainController.instance ().mainCamera.transform.position = new Vector3 (transform.position.x + 1, transform.position.y, -8);
 				else
 						MainController.instance ().mainCamera.transform.position = new Vector3 (transform.position.x + 1, transform.position.y, -8 - (GetComponent<Rigidbody>().velocity.x > 0 ? GetComponent<Rigidbody>().velocity.x / 1.5f : 0));
@@ -279,7 +282,7 @@ public class TruckControll : MonoBehaviour
 
 		private void updateExhaustSystem (float accel)
 		{
-				if (exhaustSystem.Length == 0)
+				/*if (exhaustSystem.Length == 0)
 						return;
 				accel = Mathf.Abs (accel);
 				float percent = Mathf.Abs (speed) % speedbyGear / speedbyGear;
@@ -288,11 +291,11 @@ public class TruckControll : MonoBehaviour
 				float color = 0.7f - percent * accel * 0.5f;
 
 				for (int i =0; i<exhaustSystem.Length; i++) {
-						exhaustSystem [i].emissionRate = 70 * (coef/* + forceMagnitude*/);
+						exhaustSystem [i].emissionRate = 70 * (coef/ * + forceMagnitude* /);
 						exhaustSystem [i].startColor = new Color (color, color, color);
 						exhaustSystem [i].startSpeed = 1f + 15f * accel;
 						exhaustSystem [i].startSize = 0.3f + 1f * accel;
-				}
+				}*/
 		}
 	
 }

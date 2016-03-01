@@ -61,11 +61,11 @@ public class StartMenuScreen : IScreen
 						pPrefab = Resources.Load ("perfabs/GUI/MainGUI");
 						gui = (MonoBehaviour.Instantiate (pPrefab) as GameObject).GetComponent (typeof(MainGUI)) as MainGUI;
 				}
-				if (truck == null) {
+				/*if (truck == null) {
 						pPrefab = Resources.Load ("perfabs/cars/" + Model.cars [Model.curCarIndex]);
 						truck = (MonoBehaviour.Instantiate (pPrefab) as GameObject).GetComponent (typeof(TruckControll)) as TruckControll;
 						truck.makeDEMO ();
-				}
+				}*/
 		
 		}
 }

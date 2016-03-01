@@ -11,7 +11,7 @@ public class MainController : MonoBehaviour
 		static private MainController inst;
 		public void resetCamera ()
 		{
-				mainCamera.transform.position = cameraStartPos;
+				//mainCamera.transform.position = cameraStartPos;
 		}
 
 		static public MainController instance ()
