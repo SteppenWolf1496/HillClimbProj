@@ -1,6 +1,10 @@
 fileFormatVersion: 2
 guid: 0b0886d94ce5f4f49beb6b1fdca17561
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: bsp_long_0
+    21300002: bsp_long_1
+    21300004: bsp_long_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -14,11 +18,14 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 512
@@ -29,12 +36,15 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
+  rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 128
   alphaIsTransparency: 1
   textureType: 8
@@ -50,6 +60,26 @@ TextureImporter:
         height: 351
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 256, y: -29.125458}
+        - {x: 256, y: -14.125458}
+        - {x: 252, y: -6.125458}
+        - {x: 209, y: 6.874542}
+        - {x: 204, y: -5.125458}
+        - {x: 205, y: -17.125458}
+        - {x: 206, y: -21.125458}
+        - {x: 208, y: -23.125458}
+        - {x: 170, y: -21.125458}
+        - {x: 33, y: 78.87454}
+        - {x: -253, y: 78.87454}
+        - {x: -256, y: 56.874542}
+        - {x: -256, y: -71.12546}
+        - {x: 51, y: -78.12546}
+        - {x: 219, y: -78.12546}
+        - {x: 235, y: -60.125458}
+        - {x: 236, y: -53.125458}
+        - {x: 228, y: -49.125458}
     - name: bsp_long_1
       rect:
         serializedVersion: 2
@@ -59,6 +89,21 @@ TextureImporter:
         height: 222
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 159.80095, y: -47.751892}
+        - {x: 182.80095, y: -44.751892}
+        - {x: 205.80095, y: -22.751892}
+        - {x: 205.80095, y: 42.248108}
+        - {x: 184.80095, y: 50.248108}
+        - {x: -192.19905, y: 50.248108}
+        - {x: -204.19905, y: 28.248108}
+        - {x: -204.19905, y: -32.751892}
+        - {x: -175.19905, y: -49.751892}
+        - {x: 152.80095, y: -49.751892}
+        - {x: 154.80095, y: -48.751892}
+        - {x: 154.80095, y: -37.751892}
+        - {x: 155.80095, y: -40.751892}
     - name: bsp_long_2
       rect:
         serializedVersion: 2
@@ -68,5 +113,31 @@ TextureImporter:
         height: 332
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 137.89246, y: -74.38773}
+        - {x: 140.89246, y: -72.38773}
+        - {x: 144.89246, y: -61.387733}
+        - {x: 231.89246, y: -64.38773}
+        - {x: 252.89246, y: -53.387733}
+        - {x: 256.89246, y: -48.387733}
+        - {x: 256.89246, y: -16.387733}
+        - {x: 235.89246, y: 29.612267}
+        - {x: 214.89246, y: 50.612267}
+        - {x: -76.107544, y: 50.612267}
+        - {x: -74.107544, y: 61.612267}
+        - {x: -101.107544, y: 74.61227}
+        - {x: -229.10754, y: 74.61227}
+        - {x: -255.10754, y: 49.612267}
+        - {x: -255.10754, y: -50.387733}
+        - {x: -235.10754, y: -60.387733}
+        - {x: -142.10754, y: -60.387733}
+        - {x: -115.107544, y: -74.38773}
+        - {x: -79.107544, y: -74.38773}
+        - {x: -12.107544, y: -60.387733}
+        - {x: 90.892456, y: -74.38773}
+    outline: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 
