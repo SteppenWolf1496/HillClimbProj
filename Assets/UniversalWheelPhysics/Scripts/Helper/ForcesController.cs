@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Enums;
 
 public class ForcesController : MonoBehaviour
 {
@@ -23,10 +24,10 @@ public class ForcesController : MonoBehaviour
 
 	public float GForce;
 
+    public TypeOfDrive typeOfDrive;
 
-
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
 	{
 		rb = GetComponent<Rigidbody> ();
 	}
@@ -90,8 +91,21 @@ public class ForcesController : MonoBehaviour
 		frontRightWheel.axisBrake = _brakingForce;
 		*/
 
-		rearRightWheel.axisTorque = Input.GetAxis ("Vertical") * maxTorque;
-		rearLeftWheel.axisTorque = Input.GetAxis ("Vertical") * maxTorque;
+	    if (typeOfDrive == TypeOfDrive.RearDrive)
+	    {
+	        rearRightWheel.axisTorque = Input.GetAxis("Vertical")*maxTorque;
+	        rearLeftWheel.axisTorque = Input.GetAxis("Vertical")*maxTorque;
+	    } else if (typeOfDrive == TypeOfDrive.ForwardDrive)
+	    {
+	        frontLeftWheel.axisTorque = Input.GetAxis("Vertical") * maxTorque;
+            frontRightWheel.axisTorque = Input.GetAxis("Vertical") * maxTorque;
+        } else
+	    {
+            rearRightWheel.axisTorque = Input.GetAxis("Vertical") * maxTorque;
+            rearLeftWheel.axisTorque = Input.GetAxis("Vertical") * maxTorque;
+            frontLeftWheel.axisTorque = Input.GetAxis("Vertical") * maxTorque;
+            frontRightWheel.axisTorque = Input.GetAxis("Vertical") * maxTorque;
+        }
 
 	}
 }
