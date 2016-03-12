@@ -42,7 +42,7 @@ public class ForcesController : MonoBehaviour
 	void Update ()
 	{
 
-		if (Input.GetKey (KeyCode.O)) {
+		/*if (Input.GetKey (KeyCode.O)) {
 			rb.velocity = Vector3.zero;
 		}
 		if (Input.GetKey (KeyCode.H)) {
@@ -61,8 +61,8 @@ public class ForcesController : MonoBehaviour
 		if (Input.GetKey (KeyCode.R)) {
 			Application.LoadLevel (0);
 		}
-
-		if (Input.GetKey (KeyCode.Space)) {
+        */
+		/*if (Input.GetKey (KeyCode.Space)) {
 			rearRightWheel.axisBrake = brakeForce;
 			rearLeftWheel.axisBrake = brakeForce;
 			frontLeftWheel.axisBrake = brakeForce;
@@ -81,7 +81,7 @@ public class ForcesController : MonoBehaviour
 
 		frontLeftWheel.transform.localEulerAngles = new Vector3 (0, Input.GetAxis ("Horizontal") * steerAngle, 0);
 		frontRightWheel.transform.localEulerAngles = new Vector3 (0, Input.GetAxis ("Horizontal") * steerAngle, 0);
-
+        */
 		/*
 		float _brakingForce = -Mathf.Clamp (Input.GetAxis ("Vertical"), -1, 0) * brakeForce;
 		rearRightWheel.axisBrake = _brakingForce;
