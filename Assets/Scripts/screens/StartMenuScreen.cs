@@ -54,7 +54,7 @@ public class StartMenuScreen : IScreen
 		{
 				UnityEngine.Object pPrefab;
 				if (terrain == null) {
-						pPrefab = Resources.Load ("perfabs/terrains/carChooseTerrain");
+						pPrefab = Resources.Load ("perfabs/terrains/terrain1");
 						terrain = (MonoBehaviour.Instantiate (pPrefab) as GameObject).GetComponent (typeof(TerrainDisplayer)) as TerrainDisplayer;
 				}
 				if (gui == null) {
