@@ -58,7 +58,7 @@ public class StartMenuScreen : IScreen
 						terrain = (MonoBehaviour.Instantiate (pPrefab) as GameObject).GetComponent (typeof(TerrainDisplayer)) as TerrainDisplayer;
 				}
 				if (gui == null) {
-						pPrefab = Resources.Load ("perfabs/GUI/MainGUI");
+						pPrefab = MonoBehaviour.Instantiate(MainController.instance().);
 						gui = (MonoBehaviour.Instantiate (pPrefab) as GameObject).GetComponent (typeof(MainGUI)) as MainGUI;
 				}
 				if (truck == null) {

@@ -5,7 +5,9 @@ public class GUITest : MonoBehaviour
 {
 
 		// Use this for initialization
-		public TruckControll truck;
+		[SerializeField] public TruckControll truck;
+        
+
 		private GUIStyle style;
 		void Start ()
 		{

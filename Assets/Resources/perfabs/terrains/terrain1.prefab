@@ -52992,8 +52992,8 @@ MonoBehaviour:
     SelectedTerrainLength: 1
     MinimumKeyVertexHeight: 0
     MaximumKeyVertexHeight: 1.89
-    MinimumKeyVertexSpacing: 2
-    MaximumKeyVertexSpacing: 3
+    MinimumKeyVertexSpacing: 3
+    MaximumKeyVertexSpacing: 5
     CalculatedVertexSpacing: 0.5
     RuleLength: 100
     MeshLength: 50

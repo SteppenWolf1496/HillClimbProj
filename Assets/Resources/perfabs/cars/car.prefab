@@ -650,7 +650,7 @@ MonoBehaviour:
   springRate: 5000
   springPreload: 0.275
   damping: 1000
-  forwardFrictionCoef: 1.2
+  forwardFrictionCoef: 0.5
   forwardSlipCoef: 1
   sidewayFrictionCoef: 1.2
   sidewaySlipCoef: 1
@@ -12714,7 +12714,7 @@ MonoBehaviour:
   springRate: 5000
   springPreload: 0.275
   damping: 1000
-  forwardFrictionCoef: 1.2
+  forwardFrictionCoef: 0.5
   forwardSlipCoef: 1
   sidewayFrictionCoef: 1.2
   sidewaySlipCoef: 1
@@ -24754,7 +24754,7 @@ MonoBehaviour:
   springRate: 5000
   springPreload: 0.275
   damping: 1000
-  forwardFrictionCoef: 1.2
+  forwardFrictionCoef: 0.5
   forwardSlipCoef: 1
   sidewayFrictionCoef: 1.2
   sidewaySlipCoef: 1
@@ -36816,7 +36816,7 @@ MonoBehaviour:
   springRate: 5000
   springPreload: 0.275
   damping: 1000
-  forwardFrictionCoef: 1.2
+  forwardFrictionCoef: 0.5
   forwardSlipCoef: 1
   sidewayFrictionCoef: 1.2
   sidewaySlipCoef: 1

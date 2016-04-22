@@ -6,35 +6,39 @@ public class MainController : MonoBehaviour
 {
 
 		// Use this for initialization
-		public Camera mainCamera;
-		private Vector3 cameraStartPos;
-		static private MainController inst;
-		public void resetCamera ()
-		{
-				//mainCamera.transform.position = cameraStartPos;
-		}
+	public Camera mainCamera;
+    [SerializeField] public GameObject LobbyGui;
+    [SerializeField] public GameObject Gamegui;
+    [SerializeField] public Canvas GuiCanvas;
+	private Vector3 cameraStartPos;
+	static private MainController inst;
+	public void resetCamera ()
+	{
+			//mainCamera.transform.position = cameraStartPos;
+	}
 
-		static public MainController instance ()
-		{
-				return inst;
-		}
-		void Start ()
-		{
+	static public MainController instance ()
+	{
+			return inst;
+	}
+
+    void Start ()
+	{
 				
-				Application.targetFrameRate = 30;
-				Random.seed = 1;
-				inst = this;
-				cameraStartPos = transform.position;
-				ScreenManager.showScreen (ScreenManager.Screens.START_MENU);
+		Application.targetFrameRate = 30;
+		Random.seed = 1;
+		inst = this;
+	    cameraStartPos = transform.position;
+		ScreenManager.showScreen (ScreenManager.Screens.START_MENU);
 	
-		}
+	}
 
 
 		
 	
 		// Update is called once per frame
-		void Update ()
-		{
+	void Update ()
+	{
 
-		}
+	}
 }
