@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &103218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 415536}
+  m_Layer: 0
+  m_Name: centerofMass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &106650
 GameObject:
   m_ObjectHideFlags: 1
@@ -185,8 +200,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 460918}
   - 65: {fileID: 6552852}
-  - 54: {fileID: 5492454}
-  - 114: {fileID: 11490006}
+  - 54: {fileID: 5418186}
   - 114: {fileID: 11458984}
   m_Layer: 0
   m_Name: car
@@ -194,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &185700
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,6 +284,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 427556}
   m_RootOrder: 0
+--- !u!4 &415536
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103218}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.34, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 460918}
+  m_RootOrder: 5
 --- !u!4 &416456
 Transform:
   m_ObjectHideFlags: 1
@@ -277,7 +303,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 112126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 6.88, z: -2.03}
+  m_LocalPosition: {x: -1.19, y: 6.59, z: -1.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 494610}
@@ -317,7 +343,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.69, y: 0, z: -2}
+  m_LocalPosition: {x: 0.5, y: -0.29, z: -0.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 478710}
@@ -355,7 +381,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.69, y: 0, z: -1.98}
+  m_LocalPosition: {x: -0.5, y: -0.29, z: -0.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 428730}
@@ -368,7 +394,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177622}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: -1, y: 6.745, z: 4.7}
+  m_LocalPosition: {x: 0.05, y: 5.66, z: 4.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 464052}
@@ -376,6 +402,7 @@ Transform:
   - {fileID: 437542}
   - {fileID: 468356}
   - {fileID: 416456}
+  - {fileID: 415536}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &464052
@@ -385,7 +412,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.69, y: 0, z: -0}
+  m_LocalPosition: {x: -0.5, y: -0.29, z: 1.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 427556}
@@ -398,7 +425,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.69, y: 0, z: 0.01}
+  m_LocalPosition: {x: 0.5, y: -0.29, z: 1.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 451600}
@@ -597,19 +624,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 106650}
   m_Mesh: {fileID: 4300000, guid: 1cdf5217103e8d440a442cbd35e2bd4d, type: 3}
---- !u!54 &5492454
+--- !u!54 &5418186
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177622}
   serializedVersion: 2
-  m_Mass: 1200
+  m_Mass: 500
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 104
   m_CollisionDetection: 0
 --- !u!65 &6552852
@@ -622,8 +649,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2600325, y: 0.7262354, z: 2.1040568}
-  m_Center: {x: 1.1853273, y: 0.31167603, z: -1.0094941}
+  m_Size: {x: 0.9927876, y: 1.046505, z: 3.7461605}
+  m_Center: {x: 0.012430671, y: 0.22141838, z: -0.031210419}
 --- !u!114 &11458856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -635,22 +662,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd3e650b2ef6f24684ac48129ae11db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDrive: 1
   drawDebugLines: 1
   collisionMask:
     serializedVersion: 2
     m_Bits: 8192
-  rigidBody: {fileID: 5492454}
+  rigidBody: {fileID: 5418186}
   visualWheel: {fileID: 427556}
-  affectOtherRigidbodies: 0
+  affectOtherRigidbodies: 1
   fluentWheelMovement: 1
-  visualWheelMoveSpeed: 0.5
+  visualWheelMoveSpeed: 1
   mass: 15
   radius: 0.35
-  suspensionTravel: 0.5
-  springRate: 5000
-  springPreload: 0.275
-  damping: 1000
-  forwardFrictionCoef: 0.5
+  suspensionTravel: 0.25
+  springRate: 3000
+  springPreload: 0.5
+  damping: 1500
+  forwardFrictionCoef: 1
   forwardSlipCoef: 1
   sidewayFrictionCoef: 1.2
   sidewaySlipCoef: 1
@@ -12675,8 +12703,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e870ca513fb4c08b351d8113da1cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheels: []
-  engineMaxTorque: 300
+  wheels:
+  - {fileID: 11458856}
+  - {fileID: 11494222}
+  - {fileID: 11471414}
+  - {fileID: 11478586}
+  GForce: 0
+  accel: 0
+  breaking: 0
+  rear: 0
+  rigid: {fileID: 5418186}
+  engineMaxTorque: 6000
+  brakeForce: 25000
+  handBrakeForce: 30000
+  CenterOfMass: {fileID: 415536}
   FlySpeedResuce: 0.05
   angolarCoef: 0.1
   gears:
@@ -12685,7 +12725,7 @@ MonoBehaviour:
   - 1.357
   - 0.941
   - 0.784
-  rearGear: 3
+  rearGear: 2
   maxSpeed: 180
   exhaustSystem: []
 --- !u!114 &11471414
@@ -12699,22 +12739,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd3e650b2ef6f24684ac48129ae11db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDrive: 1
   drawDebugLines: 1
   collisionMask:
     serializedVersion: 2
     m_Bits: 8192
-  rigidBody: {fileID: 5492454}
+  rigidBody: {fileID: 5418186}
   visualWheel: {fileID: 478710}
-  affectOtherRigidbodies: 0
+  affectOtherRigidbodies: 1
   fluentWheelMovement: 1
-  visualWheelMoveSpeed: 0.5
+  visualWheelMoveSpeed: 1
   mass: 15
   radius: 0.35
-  suspensionTravel: 0.5
-  springRate: 5000
-  springPreload: 0.275
-  damping: 1000
-  forwardFrictionCoef: 0.5
+  suspensionTravel: 0.25
+  springRate: 3000
+  springPreload: 0.5
+  damping: 1500
+  forwardFrictionCoef: 1
   forwardSlipCoef: 1
   sidewayFrictionCoef: 1.2
   sidewaySlipCoef: 1
@@ -24739,22 +24780,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd3e650b2ef6f24684ac48129ae11db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDrive: 1
   drawDebugLines: 1
   collisionMask:
     serializedVersion: 2
     m_Bits: 8192
-  rigidBody: {fileID: 5492454}
+  rigidBody: {fileID: 5418186}
   visualWheel: {fileID: 451600}
-  affectOtherRigidbodies: 0
+  affectOtherRigidbodies: 1
   fluentWheelMovement: 1
-  visualWheelMoveSpeed: 0.5
+  visualWheelMoveSpeed: 1
   mass: 15
   radius: 0.35
-  suspensionTravel: 0.5
-  springRate: 5000
-  springPreload: 0.275
-  damping: 1000
-  forwardFrictionCoef: 0.5
+  suspensionTravel: 0.25
+  springRate: 3000
+  springPreload: 0.5
+  damping: 1500
+  forwardFrictionCoef: 1
   forwardSlipCoef: 1
   sidewayFrictionCoef: 1.2
   sidewaySlipCoef: 1
@@ -36768,28 +36810,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &11490006
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b95c81f5fc5ebd34f8743931264a4cec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frontLeftWheel: {fileID: 11458856}
-  frontRightWheel: {fileID: 11478586}
-  rearLeftWheel: {fileID: 11494222}
-  rearRightWheel: {fileID: 11471414}
-  steerAngle: 0
-  maxTorque: 90000
-  brakeForce: 25000
-  handBrakeForce: 30000
-  force: 10000
-  GForce: 0
-  typeOfDrive: 2
 --- !u!114 &11494222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36801,22 +36821,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd3e650b2ef6f24684ac48129ae11db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDrive: 1
   drawDebugLines: 1
   collisionMask:
     serializedVersion: 2
     m_Bits: 8192
-  rigidBody: {fileID: 5492454}
+  rigidBody: {fileID: 5418186}
   visualWheel: {fileID: 428730}
-  affectOtherRigidbodies: 0
+  affectOtherRigidbodies: 1
   fluentWheelMovement: 1
-  visualWheelMoveSpeed: 0.5
+  visualWheelMoveSpeed: 1
   mass: 15
   radius: 0.35
-  suspensionTravel: 0.5
-  springRate: 5000
-  springPreload: 0.275
-  damping: 1000
-  forwardFrictionCoef: 0.5
+  suspensionTravel: 0.25
+  springRate: 3000
+  springPreload: 0.5
+  damping: 1500
+  forwardFrictionCoef: 1
   forwardSlipCoef: 1
   sidewayFrictionCoef: 1.2
   sidewaySlipCoef: 1

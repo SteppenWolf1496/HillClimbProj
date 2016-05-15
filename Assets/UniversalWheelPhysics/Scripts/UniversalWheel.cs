@@ -6,6 +6,7 @@ public class UniversalWheel : MonoBehaviour
 
 	#region public fields
 
+    [SerializeField] public bool isDrive;
 	public bool drawDebugLines = true;
 	public LayerMask collisionMask = 1;
 
