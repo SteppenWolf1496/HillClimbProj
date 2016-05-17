@@ -13,6 +13,7 @@ namespace Endless2DTerrain
         {
             settings = s;
             MeshPieces = new List<MeshPiece>();
+            
         }
 
         //Just for reference
@@ -211,6 +212,7 @@ namespace Endless2DTerrain
         {
             //This is just a placeholder for all the mesh pieces
             TerrainObject = new GameObject("TerrainPiece");
+            TerrainObject.layer = settings.terrainDisplayer.gameObject.layer;
         }
 
         private void ParentMeshesToTerrainObject()

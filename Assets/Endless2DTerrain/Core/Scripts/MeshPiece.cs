@@ -15,6 +15,7 @@ namespace Endless2DTerrain
             this.vg = vg;
             PlaneType = planeType;
             settings = s;
+            
         }
 
  
@@ -307,6 +308,7 @@ namespace Endless2DTerrain
         private void InstantiateMeshObject()
         {
             MeshObject = new GameObject("MeshPiece");
+            MeshObject.layer = settings.terrainDisplayer.gameObject.layer;
             AddMeshComponents();
         }
 

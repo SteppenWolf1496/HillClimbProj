@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Assets.Scripts.screens;
 
 public class ScreenManager : MonoBehaviour
 {
@@ -36,15 +37,15 @@ public class ScreenManager : MonoBehaviour
 				}
 				MainController.instance ().resetCamera ();
 				switch (_name) {
-				case Screens.START_MENU:
-						screenInstance = new StartMenuScreen ();
-						(screenInstance as StartMenuScreen).create ();
-						break;
-				case Screens.GAME:
-						screenInstance = new GameScreen ();
-						(screenInstance as GameScreen).create ();
-						break;
-				}
+				    case Screens.START_MENU:
+						    screenInstance = new StartMenuScreen ();
+						    (screenInstance as StartMenuScreen).create ();
+						    break;
+				    case Screens.GAME:
+						    screenInstance = new GameScreen ();
+						    (screenInstance as GameScreen).create ();
+						    break;
+				    }
 		}
 
 
