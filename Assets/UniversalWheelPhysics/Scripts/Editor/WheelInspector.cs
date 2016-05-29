@@ -2,7 +2,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
-[CustomEditor(typeof(UniversalWheel))]
+//[CustomEditor(typeof(UniversalWheel))]
+[CustomEditor(typeof(Wheel))]
 [CanEditMultipleObjects]
 public class WheelInspector : Editor
 {

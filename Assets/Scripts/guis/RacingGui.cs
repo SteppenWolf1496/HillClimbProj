@@ -10,7 +10,7 @@ namespace Assets.Scripts.guis
 
         [SerializeField] AdditionalMouseEvents breakButton;
         [SerializeField] AdditionalMouseEvents accelButton;
-
+        [SerializeField] Transform arrow;
 
 
 
@@ -40,63 +40,12 @@ namespace Assets.Scripts.guis
         // Update is called once per frame
         void Update()
         {
-
-            /*
-        #if UNITY_EDITOR
-                        if (truck == null)
-                                return;
-                        float accel = 0;
-                        float breake = 0;
-
-                        if (Input.GetKey (KeyCode.RightArrow)) {
-                                accel = -1;
-                                breake = 0;
-                        }
-                        if (Input.GetKey (KeyCode.LeftArrow)) {
-                                breake = 1;
-                                accel = 1;
-                        }
+            arrow.rotation = Quaternion.Euler(0,0,truck.EngineRPM()/(float)truck.MaxEngineRPM*(-180.0f));
 
 
-                        truck.setAcceleration (accel);
-                        truck.setBreake (breake);
-        #endif*/
         }
 
-      /*  void OnGUI()
-        {
-            if (truck == null)
-                return;
-
-            float accel = 0;
-            float breake = 0;
-
-            
-            float bWidth = UnityEngine.Screen.width / 5;
-            float bHeight = UnityEngine.Screen.height / 3;
-
-
-            if (GUI.RepeatButton(new Rect(Screen.width - bWidth, Screen.height - bHeight, bWidth, bHeight), "accelerate"))
-            {
-                accel = -1;
-                breake = 0;
-            }
-
-            if (GUI.RepeatButton(new Rect(0, Screen.height - bHeight, bWidth, bHeight), "breake"))
-            {
-                breake = 1;
-                accel = 1;
-            }
-
-
-            if (truck == null)
-                return;
-            truck.setAcceleration(accel);
-            truck.setBreake(breake);
-
-           // GUI.TextArea(new Rect(10, 10, UnityEngine.Screen.width / 2, UnityEngine.Screen.height / 30), "speed: " + (int)truck.getSpeed() + "km/h; gear: " + (int)truck.getGear() + "g; torque = " + truck.getTorque(), 200, style);
-        }
-        */
+      
         public void OnReset()
         {
             truck.reset();
