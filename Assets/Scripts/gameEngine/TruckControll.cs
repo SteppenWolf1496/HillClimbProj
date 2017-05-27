@@ -47,9 +47,9 @@ public class TruckControll : MonoBehaviour
 
     int CompareCondition(Wheel itemA, Wheel itemB)
     {
-        if (itemA.radius*(itemA.isDrive ? 1 : 0) < itemB.radius*(itemB.isDrive ? 1 : 0))
+        if (itemA.collider.radius*(itemA.isDrive ? 1 : 0) < itemB.collider.radius *(itemB.isDrive ? 1 : 0))
             return 1;
-        if (itemA.radius*(itemA.isDrive ? 1 : 0) > itemB.radius*(itemB.isDrive ? 1 : 0))
+        if (itemA.collider.radius *(itemA.isDrive ? 1 : 0) > itemB.collider.radius *(itemB.isDrive ? 1 : 0))
             return -1;
         return 0;
     }
@@ -83,7 +83,7 @@ public class TruckControll : MonoBehaviour
         for (int i = 0; i < wheels.Length; i++)
         {
             if (wheels[i].isDrive)
-                radiusSumm += wheels[i].radius;
+                radiusSumm += wheels[i].collider.radius;
             else
                 notDrive++;
         }
@@ -94,15 +94,15 @@ public class TruckControll : MonoBehaviour
         {
             if (!rear && accel)
             {
-                wheels[wheels.Length - i - 1 - notDrive].axisTorque = ((middleTorq*1) /*/ wheels [i].radius*/);
+                wheels[wheels.Length - i - 1 - notDrive].collider.motorTorque = ((middleTorq*1) /*/ wheels [i].radius*/);
             }
             else if (rear)
             {
-                wheels[wheels.Length - i - 1 - notDrive].axisTorque = -1*middleTorq;
+                wheels[wheels.Length - i - 1 - notDrive].collider.motorTorque = -1*middleTorq;
             }
             else
             {
-                wheels[wheels.Length - i - 1 - notDrive].axisTorque = 0;
+                wheels[wheels.Length - i - 1 - notDrive].collider.motorTorque = 0;
             }
 
             //	wheels [wheels.Length - i - 1 - notDrive].setWheelDefFreak (ExtremumSlip, ExtremumValue, AsymptoteSlip, AsymptoteValue);
@@ -112,11 +112,11 @@ public class TruckControll : MonoBehaviour
         {
             if ((breaking && !rear) || (accel && rigid.velocity.x < -1))
             {
-                wheels[i].axisBrake = brakeForce;
+                wheels[i].collider.brakeTorque = brakeForce;
             }
             else
             {
-                wheels[i].axisBrake = 0;
+                wheels[i].collider.brakeTorque = 0;
             }
         }
     }
@@ -281,9 +281,9 @@ public class TruckControll : MonoBehaviour
 
         if (wheels.Length<=0)return 0;
         if (gears.Length <= 0 || curGear>gears.Length-1) return 0;
-        if (curGear < 0) return wheels[0].RPM *rearGear;
-        Debug.Log(wheels[0].RPM * gears[curGear]);
-        return wheels[0].RPM * gears[curGear];
+        if (curGear < 0) return wheels[0].collider.rpm *rearGear;
+        Debug.Log(wheels[0].collider.rpm * gears[curGear]);
+        return wheels[0].collider.rpm * gears[curGear];
     }
 
     private void updateExhaustSystem()
@@ -298,10 +298,10 @@ public class TruckControll : MonoBehaviour
 
         for (int i = 0; i < exhaustSystem.Length; i++)
         {
-            exhaustSystem[i].emissionRate = 70*(coef/*+forceMagnitude*/)
+            exhaustSystem[i].emissionRate = 7*(coef/*+forceMagnitude*/)
             ;
             exhaustSystem[i].startColor = new Color(color, color, color);
-            exhaustSystem[i].startSpeed = 1f + 15f* accelVar;
+            exhaustSystem[i].startSpeed = 1f + 0.5f* accelVar;
             exhaustSystem[i].startSize = 0.3f + 1f* accelVar;
         }
     }

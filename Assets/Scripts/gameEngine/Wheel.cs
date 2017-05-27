@@ -2,23 +2,35 @@
 using System.Collections;
 
 
-public class Wheel : UniversalWheel
+public class Wheel : MonoBehaviour
 {
 
     [SerializeField]public bool isDrive = false;
     [SerializeField] ParticleSystem particle;
    
     private bool inited = false;
-   
-    public override void Start()
+    public bool HasContact = false;
+
+    public Transform visualWheel;
+   // private float ForwardSlip;
+
+    public WheelCollider collider;
+
+    public void Awake()
     {
-       base.Start();
+        collider = GetComponent<WheelCollider>();
+        collider.steerAngle = 90;
+    }
+
+    public void Start()
+    {
+        //base.Start();
         
     }
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
+       // base.Update();
         updateParticles();
     }
 
@@ -40,21 +52,34 @@ public class Wheel : UniversalWheel
         }
         
 
-        if (ForwardSlip >= 0)
+        /*if (ForwardSlip >= 0)
         {
           //  particle.transform.localRotation = Quaternion.Euler(-45f, -180f, 0f);
             float coef = Mathf.Min(Mathf.Abs(ForwardSlip), 2);
-            particle.emissionRate = 20*(coef /* + forceMagnitude*/);
+            particle.emissionRate = 20*(coef / * + forceMagnitude* /);
             particle.startSpeed = 5*coef;
         }
         else
         {
            // particle.transform.localRotation = Quaternion.Euler(-45f, 360f, 0f);
             float coef = Mathf.Min(Mathf.Abs(ForwardSlip), 2);
-            particle.emissionRate = 20*(coef /* + forceMagnitude*/);
+            particle.emissionRate = 20*(coef / * + forceMagnitude* /);
             particle.startSpeed = 5*coef;
-        }
+        }*/
     }
 
-   
+    public void FixedUpdate()
+    {
+
+       
+
+        Vector3 position;
+        Quaternion rotation;
+        collider.GetWorldPose(out position, out rotation);
+
+        visualWheel.transform.position = position;
+        visualWheel.transform.rotation = rotation;
+    }
+
+
 }
