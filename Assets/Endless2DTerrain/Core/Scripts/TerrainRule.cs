@@ -31,6 +31,9 @@ namespace Endless2DTerrain
         //Determine the top and bottom y values that will be used for terrain generation
         public float MinimumKeyVertexHeight;
         public float MaximumKeyVertexHeight;
+        public float IncreasingMultiplier = 0;
+        [HideInInspector]
+        private int usingCount = 0;
 
         //The minimum and maximum values between key points in the terrain
         public float MinimumKeyVertexSpacing;
@@ -51,6 +54,19 @@ namespace Endless2DTerrain
         //Prefabs that are allowed to generate on this rule
         public bool ExpandedRules;
         public List<AllowedPrefabRule> AllowedPrefabs;
+
+        public int UsingCount
+        {
+            get
+            {
+                return usingCount;
+            }
+
+            set
+            {
+                usingCount = value;
+            }
+        }
 
         [Serializable]
         public class AllowedPrefabRule

@@ -15,7 +15,6 @@ namespace Endless2DTerrain
             this.vg = vg;
             PlaneType = planeType;
             settings = s;
-            
         }
 
  
@@ -104,10 +103,10 @@ namespace Endless2DTerrain
         /// We currently only want to update our repeating point location for the front plane
         /// </summary>
         /// <param name="planeType"></param>
-        public void PopulateKeyVerticies(Plane planeType)
+        public void PopulateKeyVerticies(Plane planeType, float lastY)
         {
             bool updateRepeatingPointLocation = (planeType == Plane.Front);
-            KeyTopVerticies = vg.GenerateKeyVerticies(updateRepeatingPointLocation);
+            KeyTopVerticies = vg.GenerateKeyVerticies(updateRepeatingPointLocation, lastY);
         }
 
         public void MoveMesh(Vector3 move, Plane planeType)
@@ -308,7 +307,6 @@ namespace Endless2DTerrain
         private void InstantiateMeshObject()
         {
             MeshObject = new GameObject("MeshPiece");
-            MeshObject.layer = settings.terrainDisplayer.gameObject.layer;
             AddMeshComponents();
         }
 

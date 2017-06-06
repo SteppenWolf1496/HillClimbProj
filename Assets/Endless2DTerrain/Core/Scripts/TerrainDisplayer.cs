@@ -170,6 +170,7 @@ public class TerrainDisplayer : MonoBehaviour {
 
         while (TerrainManager.VertexGen.CurrentTerrainRule != null && TerrainManager.GetFarthestX() < endX)
         {
+            
             TerrainManager.Generate(endX);   
             //Update our prefabs with the current terrain info       
             PrefabManager.PlacePrefabs(TerrainManager);

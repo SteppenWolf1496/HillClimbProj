@@ -231,8 +231,9 @@ public class TerrainEditor : Editor {
 				SerializedProperty selectedTerrainStyle = terrainRule.FindPropertyRelative("SelectedTerrainStyle");
 				SerializedProperty selectedTerrainLength = terrainRule.FindPropertyRelative("SelectedTerrainLength");
 		        SerializedProperty minimumKeyVertexHeight = terrainRule.FindPropertyRelative("MinimumKeyVertexHeight");
-		        SerializedProperty maximumKeyVertexHeight = terrainRule.FindPropertyRelative("MaximumKeyVertexHeight");      
-		        SerializedProperty minimumKeyVertexSpacing = terrainRule.FindPropertyRelative("MinimumKeyVertexSpacing");
+		        SerializedProperty maximumKeyVertexHeight = terrainRule.FindPropertyRelative("MaximumKeyVertexHeight");
+			    SerializedProperty increasingMultiplier = terrainRule.FindPropertyRelative("IncreasingMultiplier");
+                SerializedProperty minimumKeyVertexSpacing = terrainRule.FindPropertyRelative("MinimumKeyVertexSpacing");
 		        SerializedProperty maximumKeyVertexSpacing = terrainRule.FindPropertyRelative("MaximumKeyVertexSpacing");    
 		        SerializedProperty calculatedVertexSpacing = terrainRule.FindPropertyRelative("CalculatedVertexSpacing"); 
 		        SerializedProperty ruleLength = terrainRule.FindPropertyRelative("RuleLength");
@@ -287,7 +288,10 @@ public class TerrainEditor : Editor {
 	
 						EditorGUILayout.PropertyField(minimumKeyVertexHeight, new GUIContent("Min Terrain Height", "Low point for generated mesh verticies."));
 						EditorGUILayout.PropertyField(maximumKeyVertexHeight, new GUIContent("Max Terrain Height", "High point for generated mesh verticies."));
-						EditorGUILayout.PropertyField(minimumKeyVertexSpacing, new GUIContent("Min Key Vertex Spacing", "The minimum distance apart your key vertices will be placed."));
+					    EditorGUILayout.PropertyField(increasingMultiplier, new GUIContent("Encreasing for every using", "After every using encrease max height."));
+                        
+
+                        EditorGUILayout.PropertyField(minimumKeyVertexSpacing, new GUIContent("Min Key Vertex Spacing", "The minimum distance apart your key vertices will be placed."));
 						EditorGUILayout.PropertyField(maximumKeyVertexSpacing, new GUIContent("Max Key Vertex Spacing", "The maximum distance apart your key verticies will be placed."));
 						EditorGUILayout.PropertyField(calculatedVertexSpacing, new GUIContent("Calculated Vertex Spacing", "How far apart the verticies between key verticies will be placed."));
 						

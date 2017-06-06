@@ -282,7 +282,7 @@ public class TruckControll : MonoBehaviour
         if (wheels.Length<=0)return 0;
         if (gears.Length <= 0 || curGear>gears.Length-1) return 0;
         if (curGear < 0) return wheels[0].collider.rpm *rearGear;
-        Debug.Log(wheels[0].collider.rpm * gears[curGear]);
+        //Debug.Log(wheels[0].collider.rpm * gears[curGear]);
         return wheels[0].collider.rpm * gears[curGear];
     }
 
