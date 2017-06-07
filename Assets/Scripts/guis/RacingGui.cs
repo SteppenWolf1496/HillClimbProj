@@ -40,6 +40,9 @@ namespace Assets.Scripts.guis
         // Update is called once per frame
         void Update()
         {
+            
+            if (truck.tmpWheel == null) return;
+            Debug.Log(truck.EngineRPM());
             arrow.rotation = Quaternion.Euler(0,0,truck.EngineRPM()/(float)truck.MaxEngineRPM*(-180.0f));
 
 

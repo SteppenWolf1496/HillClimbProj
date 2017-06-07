@@ -54,6 +54,11 @@ public class TruckControll : MonoBehaviour
         return 0;
     }
 
+    void Awake()
+    {
+        
+    }
+
     void Start()
     {
         if (!rigid) rigid = this.GetComponent<Rigidbody>();
@@ -65,6 +70,23 @@ public class TruckControll : MonoBehaviour
 
 
         speedbyGear = maxSpeed/gears.Length;
+
+
+
+        if (wheels.Length <= 0) return;
+        if (gears.Length <= 0) return;
+        int i = 0;
+        while (i < wheels.Length)
+        {
+            if (wheels[i].isDrive)
+            {
+                tmpWheel = wheels[i].collider;
+                break;
+            }
+            ++i;
+        }
+
+
 
     }
 
@@ -276,14 +298,17 @@ public class TruckControll : MonoBehaviour
         
     }
 
+    public WheelCollider tmpWheel = null;
+    public float WheelRPM
+    {
+        get { return tmpWheel.rpm; }
+        
+}
+
     public float EngineRPM()
     {
 
-        if (wheels.Length<=0)return 0;
-        if (gears.Length <= 0 || curGear>gears.Length-1) return 0;
-        if (curGear < 0) return wheels[0].collider.rpm *rearGear;
-        //Debug.Log(wheels[0].collider.rpm * gears[curGear]);
-        return wheels[0].collider.rpm * gears[curGear];
+        return WheelRPM / gears[curGear];
     }
 
     private void updateExhaustSystem()
