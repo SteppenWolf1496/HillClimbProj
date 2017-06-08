@@ -55764,7 +55764,7 @@ MonoBehaviour:
       Index: 1
       Allowed: 1
   PrefabRules:
-  - Offset: {x: 0, y: 6.39, z: 3.9}
+  - Offset: {x: 5, y: 6, z: 5}
     PrefabToClone: {fileID: 100000, guid: 6eba1a114df590a43bc80eb4e8853f91, type: 2}
     MinRepeatDistance: 15
     MaxRepeatDistance: 20
@@ -55774,12 +55774,12 @@ MonoBehaviour:
     MaxGroupSpacing: 1
     MinSlope: -10
     MaxSlope: 10
-    MatchGroundAngle: 0
+    MatchGroundAngle: 1
     UseMinDistance: 0
     MinDistance: 0
     UseMaxDistance: 0
     MaxDistance: 0
-  - Offset: {x: 0, y: 6.52, z: 3.9}
+  - Offset: {x: 5, y: 6, z: 3.5}
     PrefabToClone: {fileID: 100020, guid: 11ae0e77f4ffac3409fc463a42140361, type: 2}
     MinRepeatDistance: 10
     MaxRepeatDistance: 10
@@ -55789,7 +55789,7 @@ MonoBehaviour:
     MaxGroupSpacing: 1
     MinSlope: -10
     MaxSlope: 10
-    MatchGroundAngle: 0
+    MatchGroundAngle: 1
     UseMinDistance: 0
     MinDistance: 0
     UseMaxDistance: 0
