@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.guis
 {
@@ -11,7 +12,7 @@ namespace Assets.Scripts.guis
         [SerializeField] AdditionalMouseEvents breakButton;
         [SerializeField] AdditionalMouseEvents accelButton;
         [SerializeField] Transform arrow;
-
+        [SerializeField] public Text Gear;
 
 
         private GUIStyle style;
@@ -42,9 +43,9 @@ namespace Assets.Scripts.guis
         {
             
             if (truck.tmpWheel == null) return;
-            Debug.Log(truck.EngineRPM());
-            arrow.rotation = Quaternion.Euler(0,0,truck.EngineRPM()/(float)truck.MaxEngineRPM*(-180.0f));
-
+           
+            arrow.rotation = Quaternion.Euler(0,0,truck.EngineRPM()/9000*(-180.0f));
+            Gear.text = (truck.getGear()+1).ToString();
 
         }
 

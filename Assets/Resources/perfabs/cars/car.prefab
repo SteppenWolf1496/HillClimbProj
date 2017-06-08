@@ -651,7 +651,7 @@ MonoBehaviour:
   rear: 0
   MaxEngineRPM: 6000
   rigid: {fileID: 5418186}
-  engineMaxTorque: 600
+  engineMaxTorque: 200
   brakeForce: 25000
   handBrakeForce: 30000
   CenterOfMass: {fileID: 415536}
@@ -667,6 +667,7 @@ MonoBehaviour:
   maxSpeed: 180
   exhaustSystem:
   - {fileID: 19811948}
+  tmpWheel: {fileID: 0}
 --- !u!114 &11464376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10488,7 +10489,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.35
   m_SuspensionSpring:
-    spring: 35000
+    spring: 45000
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.2
@@ -10517,7 +10518,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.35
   m_SuspensionSpring:
-    spring: 35000
+    spring: 45000
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.2
@@ -10546,7 +10547,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.35
   m_SuspensionSpring:
-    spring: 35000
+    spring: 45000
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.2
@@ -10575,7 +10576,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.35
   m_SuspensionSpring:
-    spring: 35000
+    spring: 45000
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.2

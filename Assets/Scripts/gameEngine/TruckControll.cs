@@ -38,7 +38,7 @@ public class TruckControll : MonoBehaviour
     public float[] gears = new float[5] {3.6f, 1.95f, 1.357f, 0.941f, 0.784f};
     public float rearGear = 3;
     public float maxSpeed = 180;
-    private int curGear = 9999; //between 0 - gearscount;
+    private int curGear = 0; //between 0 - gearscount;
     private float engineTorque;
 
     public ParticleSystem[] exhaustSystem;
@@ -59,6 +59,9 @@ public class TruckControll : MonoBehaviour
         
     }
 
+    private float radiusSumm;
+    private int notDrive;
+    private float middleTorq;
     void Start()
     {
         if (!rigid) rigid = this.GetComponent<Rigidbody>();
@@ -68,9 +71,7 @@ public class TruckControll : MonoBehaviour
         startPosition = this.transform.position;
         startRotaion = this.transform.rotation;
 
-
         speedbyGear = maxSpeed/gears.Length;
-
 
 
         if (wheels.Length <= 0) return;
@@ -86,7 +87,23 @@ public class TruckControll : MonoBehaviour
             ++i;
         }
 
+        Array.Sort(wheels, CompareCondition);
 
+        radiusSumm = 0;
+        //Array.Sort(wheels, CompareCondition);
+        torqByWheel = new float[wheels.Length];
+        notDrive = 0;
+
+        foreach (var t in wheels)
+        {
+            if (t.isDrive)
+                radiusSumm += t.collider.radius;
+            else
+                notDrive++;
+        }
+
+        engineTorque = gears[curGear] * engineMaxTorque;
+        middleTorq = engineTorque / radiusSumm;
 
     }
 
@@ -97,20 +114,7 @@ public class TruckControll : MonoBehaviour
 
     private void countTorque()
     {
-        float radiusSumm = 0;
-        Array.Sort(wheels, CompareCondition);
-        torqByWheel = new float[wheels.Length];
-        int notDrive = 0;
-
-        for (int i = 0; i < wheels.Length; i++)
-        {
-            if (wheels[i].isDrive)
-                radiusSumm += wheels[i].collider.radius;
-            else
-                notDrive++;
-        }
-
-        float middleTorq = engineTorque/radiusSumm;
+        
 
         for (int i = 0; i < wheels.Length - notDrive; i++)
         {
@@ -145,34 +149,49 @@ public class TruckControll : MonoBehaviour
 
     private void updateGearValues()
     {
-        int gear;
+        //int gear;
         if (rear)
         {
-            gear = -1;
-            /* if (gear == curGear)
-                return;*/
-            curGear = gear;
+            curGear = 0;
             engineTorque = rearGear*engineMaxTorque;
             countTorque();
             return;
         }
-
-        if (speed > 0)
+        Debug.Log("COUNT GEAR");
+        if (EngineRPM() >= (MaxEngineRPM - 2000))
         {
-            gear = (int) (speed/speedbyGear);
-        }
-        else
+            UpGear();
+        } else if (EngineRPM() < 1500)
         {
-            gear = 0;
+            DownGear();
         }
-        if (gear >= gears.Length)
-            gear = gears.Length - 1;
 
-        /*  if (gear == curGear)
-            return;*/
-        curGear = gear;
-        engineTorque = gears[curGear]*(isDemo ? engineMaxTorque/2 : engineMaxTorque);
+       
+        
         countTorque();
+    }
+
+    private void UpGear()
+    {
+        Debug.Log("TRY UP GEAR");
+        if (curGear < gears.Length-1)
+        {
+            ++curGear;
+            engineTorque = gears[curGear] * engineMaxTorque;
+            middleTorq = engineTorque / radiusSumm;
+            Debug.Log("UP GEAR");
+        }
+    }
+
+    private void DownGear()
+    {
+        if (curGear > 0)
+        {
+            --curGear;
+            engineTorque = gears[curGear] * engineMaxTorque;
+            middleTorq = engineTorque / radiusSumm;
+            Debug.Log("DOWN GEAR");
+        }
     }
 
     private bool isDemo = false;
@@ -290,10 +309,10 @@ public class TruckControll : MonoBehaviour
 
         if (isDemo)
             MainController.instance().mainCamera.transform.position = new Vector3(transform.position.x + 1,
-                transform.position.y, -8);
+                transform.position.y+7, -8);
         else
             MainController.instance().mainCamera.transform.position = new Vector3(transform.position.x,
-                transform.position.y, -8 - (rigid.velocity.x > 0 ? rigid.velocity.x/1.5f : 0));
+                transform.position.y+3+ (rigid.velocity.x/2), -8 - (rigid.velocity.x));
 
         
     }
@@ -301,14 +320,18 @@ public class TruckControll : MonoBehaviour
     public WheelCollider tmpWheel = null;
     public float WheelRPM
     {
-        get { return tmpWheel.rpm; }
+
+        get { if (tmpWheel == null) return 0;
+            return tmpWheel.rpm;
+        }
         
 }
 
+    private float tmpRPM = 0;
     public float EngineRPM()
     {
-
-        return WheelRPM / gears[curGear];
+        tmpRPM = WheelRPM * gears[curGear];
+        return tmpRPM>MaxEngineRPM? MaxEngineRPM : tmpRPM ;
     }
 
     private void updateExhaustSystem()
