@@ -62,6 +62,7 @@ public class TruckControll : MonoBehaviour
     private float radiusSumm;
     private int notDrive;
     private float middleTorq;
+
     void Start()
     {
         if (!rigid) rigid = this.GetComponent<Rigidbody>();
@@ -76,7 +77,7 @@ public class TruckControll : MonoBehaviour
 
         if (wheels.Length <= 0) return;
         if (gears.Length <= 0) return;
-        int i = 0;
+        /*int i = 0;
         while (i < wheels.Length)
         {
             if (wheels[i].isDrive)
@@ -85,7 +86,7 @@ public class TruckControll : MonoBehaviour
                 break;
             }
             ++i;
-        }
+        }*/
 
         Array.Sort(wheels, CompareCondition);
 
@@ -112,10 +113,12 @@ public class TruckControll : MonoBehaviour
         return speed;
     }
 
+    private float wheelMiddleRPM = 0;
+    private float wheelsRPMSumm = 0;
     private void countTorque()
     {
-        
 
+        wheelsRPMSumm = 0;
         for (int i = 0; i < wheels.Length - notDrive; i++)
         {
             if (!rear && accel)
@@ -130,9 +133,10 @@ public class TruckControll : MonoBehaviour
             {
                 wheels[wheels.Length - i - 1 - notDrive].collider.motorTorque = 0;
             }
-
+            wheelsRPMSumm += wheels[wheels.Length - i - 1 - notDrive].collider.rpm;
             //	wheels [wheels.Length - i - 1 - notDrive].setWheelDefFreak (ExtremumSlip, ExtremumValue, AsymptoteSlip, AsymptoteValue);
         }
+        wheelMiddleRPM = wheelsRPMSumm / wheels.Length - notDrive;
 
         for (int i = 0; i < wheels.Length; i++)
         {
@@ -223,17 +227,15 @@ public class TruckControll : MonoBehaviour
 
     private bool inited = false;
 
-
+   
     public bool isGrounded()
     {
-        bool ret = false;
         foreach (Wheel w in wheels)
         {
-            if (w.HasContact)
-                ret = true;
+            if (w.HasContact) return true;
+               
         }
-
-        return ret;
+        return false;
     }
 
 
@@ -279,7 +281,7 @@ public class TruckControll : MonoBehaviour
         currV = rigid.velocity;
         acceleration = (currV - lastV)/Time.deltaTime;
         GForce = acceleration.magnitude/9.806f;
-        //transform.rotation = new Quaternion();
+
         Vector3 oldRot = transform.rotation.eulerAngles;
         transform.rotation = Quaternion.Euler(0, 0, oldRot.z);
     }
@@ -293,15 +295,14 @@ public class TruckControll : MonoBehaviour
             {
                 Vector3 tmpVel = rigid.velocity;
                 tmpVel.x -= FlySpeedResuce;
-                //tmpVel.y += rigidbody.mass
                 rigid.velocity = tmpVel;
             }
-            //rigidbody.velocity
+            //rigidbody.velocity 
             rigid.drag = 0;
         }
         else
         {
-            //	GetComponent<Rigidbody>().drag = drag;
+            rigid.drag = drag;
         }
 
 
@@ -312,12 +313,12 @@ public class TruckControll : MonoBehaviour
                 transform.position.y+7, -8);
         else
             MainController.instance().mainCamera.transform.position = new Vector3(transform.position.x,
-                transform.position.y+3+ (rigid.velocity.x/2), -8 - (rigid.velocity.x));
+                transform.position.y+3+ Mathf.Abs(rigid.velocity.x/2), -8 - Mathf.Abs(rigid.velocity.x));
 
         
     }
 
-    public WheelCollider tmpWheel = null;
+   /* public WheelCollider tmpWheel = null;
     public float WheelRPM
     {
 
@@ -325,12 +326,14 @@ public class TruckControll : MonoBehaviour
             return tmpWheel.rpm;
         }
         
-}
+}*/
 
     private float tmpRPM = 0;
+    private float drag = 50.2f;
+
     public float EngineRPM()
     {
-        tmpRPM = WheelRPM * gears[curGear];
+        tmpRPM = wheelMiddleRPM * gears[curGear];
         return tmpRPM>MaxEngineRPM? MaxEngineRPM : tmpRPM ;
     }
 
@@ -339,18 +342,25 @@ public class TruckControll : MonoBehaviour
         if (exhaustSystem.Length == 0)
             return;
 
-        float percent = Mathf.Abs(speed)%speedbyGear/speedbyGear;
-        float accelVar = (accel || rear) ? 1 : 0;
-        float coef = 0.1f + (accelVar == 0 ? 0 : 1);
-        float color = 0.7f - percent* accelVar * 0.5f;
+        float percent = EngineRPM() / MaxEngineRPM;
+        float color = (1 - percent);
+        ParticleSystem.MainModule main;
+        ParticleSystem.EmissionModule emissionModule;
+
+        float rateOverTime = 50 * percent;
+        Color colorC = new Color(color, color, color);
+        float startSpeed = 1f + 0.7f * (percent);
+        float startSize = 0.3f + (percent);
 
         for (int i = 0; i < exhaustSystem.Length; i++)
         {
-            exhaustSystem[i].emissionRate = 7*(coef/*+forceMagnitude*/)
-            ;
-            exhaustSystem[i].startColor = new Color(color, color, color);
-            exhaustSystem[i].startSpeed = 1f + 0.5f* accelVar;
-            exhaustSystem[i].startSize = 0.3f + 1f* accelVar;
+            main = exhaustSystem[i].main;
+            emissionModule = exhaustSystem[i].emission;
+
+            emissionModule.rateOverTime = rateOverTime;
+            main.startColor = colorC;
+            main.startSpeed = startSpeed;
+            main.startSize = startSize;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Assets.Scripts.guis
         void Update()
         {
             
-            if (truck.tmpWheel == null) return;
+            //if (truck.tmpWheel == null) return;
            
             arrow.rotation = Quaternion.Euler(0,0,truck.EngineRPM()/9000*(-180.0f));
             Gear.text = (truck.getGear()+1).ToString();

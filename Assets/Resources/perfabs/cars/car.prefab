@@ -527,7 +527,7 @@ MonoBehaviour:
   rear: 0
   MaxEngineRPM: 6000
   rigid: {fileID: 5418186}
-  engineMaxTorque: 200
+  engineMaxTorque: 300
   brakeForce: 25000
   handBrakeForce: 30000
   CenterOfMass: {fileID: 415536}
@@ -543,7 +543,6 @@ MonoBehaviour:
   maxSpeed: 180
   exhaustSystem:
   - {fileID: 19811948}
-  tmpWheel: {fileID: 0}
 --- !u!114 &11464376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -583,7 +582,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 164728}
   serializedVersion: 5
-  lengthInSec: 5
+  lengthInSec: 1
   simulationSpeed: 1
   looping: 1
   prewarm: 0
@@ -10198,7 +10197,7 @@ WheelCollider:
     spring: 90000
     damper: 9000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.2
+  m_SuspensionDistance: 0.4
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -10227,7 +10226,7 @@ WheelCollider:
     spring: 90000
     damper: 9000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.2
+  m_SuspensionDistance: 0.4
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25

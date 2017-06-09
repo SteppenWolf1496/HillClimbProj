@@ -11,8 +11,6 @@ public class StartMenuScreen : IScreen
     override public void destroy()
     {
         MonoBehaviour.Destroy(gui.gameObject);
-       // terrain.Cleanup();
-        
         MonoBehaviour.Destroy(terrain.gameObject);
         MonoBehaviour.Destroy(truck.gameObject);
 

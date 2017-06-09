@@ -55800,7 +55800,7 @@ MonoBehaviour:
   MainMaterialRotation: 0
   MainPlaneHeight: 35
   MainPlaneFollowTerrainCurve: 1
-  TopMaterial: {fileID: 2100000, guid: d0faa4390285c184ead19822b9b40454, type: 2}
+  TopMaterial: {fileID: 2100000, guid: b0c65baa8b7776142b9f731073c85787, type: 2}
   TopMaterialXTiling: 100
   TopMaterialYTiling: 100
   TopMaterialRotation: 0
