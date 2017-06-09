@@ -6,5 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/SmartSceneChanger/Demo Samples/Scenes/SSC Demo Init Scene.unity
+    guid: f725a72b3ada70a49a158a901e2fe200
+  - enabled: 1
     path: Assets/Trophy.unity
     guid: 704d1e55aa2873e4f9f9aace3c9944fe
+  - enabled: 0
+    path: Assets/SmartSceneChanger/Demo Samples/Scenes/SCC Sample Scene.unity
+    guid: 73e9960fa9d9b8d4f82ad0cca6304a5a
+  - enabled: 0
+    path: Assets/SmartSceneChanger/Demo Samples/Scenes/SSC Dummy Title.unity
+    guid: edd994d84d6506943b276a93f7e5b6a4
+  - enabled: 0
+    path: Assets/SmartSceneChanger/Demo Samples/Scenes/Additive Scene 01.unity
+    guid: cc9653744f8bc654ab52e8a027981995
+  - enabled: 0
+    path: Assets/SmartSceneChanger/Demo Samples/Scenes/Additive Scene 02.unity
+    guid: 06a0c83553b6e564db32f6bdfb5defa2
