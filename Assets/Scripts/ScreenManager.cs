@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using System.Collections;
-using Assets.Scripts.screens;
+
+using SSC;
 
 public class ScreenManager : MonoBehaviour
 {
@@ -16,50 +18,38 @@ public class ScreenManager : MonoBehaviour
 
 
 		
-		private static IScreen screenInstance;
+		
 		private static Screens curScreen;
 
-		public static IScreen getCurScreen ()
-		{
-				return screenInstance;
-		}
+		
 
 
 		public static void showScreen (Screens _name)
 		{
-				if (curScreen == _name)
-						return;
+			if (curScreen == _name)
+				return;
 
-				curScreen = _name;
-				if (screenInstance != null) {
-						screenInstance.destroy ();
-						screenInstance = null;
-				}
-				MainController.instance ().resetCamera ();
-				switch (_name) {
-				    case Screens.START_MENU:
-						    screenInstance = new StartMenuScreen ();
-						    (screenInstance as StartMenuScreen).create ();
-						    break;
-				    case Screens.GAME:
-						    screenInstance = new GameScreen ();
-						    (screenInstance as GameScreen).create ();
-						    break;
-				    }
+			curScreen = _name;
+		    switch (curScreen)
+		    {
+		        case Screens.NONE:
+		            break;
+		        case Screens.START_MENU:
+                    SceneChangeManager.Instance.loadNextScene("MainLobby");
+		            break;
+		        case Screens.CHOOSE_CAR_MENU:
+		            SceneChangeManager.Instance.loadNextScene("CarChoosing");
+                break;
+		        case Screens.CHOOSE_MAP_MENU:
+		            break;
+		        case Screens.GAME:
+		            SceneChangeManager.Instance.loadNextScene("RaceWillage");
+                    break;
+		        default:
+		            throw new ArgumentOutOfRangeException();
+		    }
 		}
 
-
-
-		// Use this for initialization
-		void Start ()
-		{
-	
-		}
-	
-		// Update is called once per frame
-		void Update ()
-		{
-	
-		}
+    
 }
 

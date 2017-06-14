@@ -13,7 +13,7 @@ namespace Assets.Scripts.guis
         [SerializeField] AdditionalMouseEvents accelButton;
         [SerializeField] Transform arrow;
         [SerializeField] public Text Gear;
-
+        public bool Ready = false;
 
         private GUIStyle style;
         void Start()
@@ -41,7 +41,7 @@ namespace Assets.Scripts.guis
         // Update is called once per frame
         void Update()
         {
-            
+            if (!Ready) return;
             //if (truck.tmpWheel == null) return;
            
             arrow.rotation = Quaternion.Euler(0,0,truck.EngineRPM()/9000*(-180.0f));

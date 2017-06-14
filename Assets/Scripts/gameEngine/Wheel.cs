@@ -25,12 +25,18 @@ public class Wheel : MonoBehaviour
     public void Start()
     {
         //base.Start();
-        
+        collider.steerAngle = 90;
+    }
+
+    void OnEnable()
+    {
+        collider.steerAngle = 90;
     }
 
     public void Update()
     {
-       // base.Update();
+        // base.Update();
+       // collider.steerAngle = 90;
         updateParticles();
     }
 

@@ -11,6 +11,11 @@ public class TruckControll : MonoBehaviour
     Vector3 acceleration;
     Vector3 lastV;
     Vector3 currV;
+
+    public float Spring = 90000;
+    public float Damper = 9000;
+    public float TargetPosition = 0.5f;
+
     public float GForce;
 
     public bool accel = false;
@@ -18,6 +23,9 @@ public class TruckControll : MonoBehaviour
     public bool rear = false;
 
     public int MaxEngineRPM = 6000;
+
+
+
 
     [SerializeField] protected Rigidbody rigid;
     [SerializeField] public float engineMaxTorque = 300;
@@ -56,7 +64,10 @@ public class TruckControll : MonoBehaviour
 
     void Awake()
     {
-        
+        if (!MainController.mainCamera)
+        {
+            MainController.mainCamera = Camera.main;
+        }
     }
 
     private float radiusSumm;
@@ -65,7 +76,7 @@ public class TruckControll : MonoBehaviour
 
     void Start()
     {
-        if (!rigid) rigid = this.GetComponent<Rigidbody>();
+       // rigid = this.GetComponent<Rigidbody>();
 
         rigid.centerOfMass = CenterOfMass.localPosition;
 
@@ -95,8 +106,16 @@ public class TruckControll : MonoBehaviour
         torqByWheel = new float[wheels.Length];
         notDrive = 0;
 
+        //JointSpring joint;
         foreach (var t in wheels)
         {
+            JointSpring joint = t.collider.suspensionSpring;
+            joint.spring = Spring;
+            joint.damper = Damper;
+            joint.targetPosition = TargetPosition;
+
+            t.collider.suspensionSpring = joint;
+
             if (t.isDrive)
                 radiusSumm += t.collider.radius;
             else
@@ -161,7 +180,7 @@ public class TruckControll : MonoBehaviour
             countTorque();
             return;
         }
-        Debug.Log("COUNT GEAR");
+        //Debug.Log("COUNT GEAR");
         if (EngineRPM() >= (MaxEngineRPM - 2000))
         {
             UpGear();
@@ -177,13 +196,13 @@ public class TruckControll : MonoBehaviour
 
     private void UpGear()
     {
-        Debug.Log("TRY UP GEAR");
+       // Debug.Log("TRY UP GEAR");
         if (curGear < gears.Length-1)
         {
             ++curGear;
             engineTorque = gears[curGear] * engineMaxTorque;
             middleTorq = engineTorque / radiusSumm;
-            Debug.Log("UP GEAR");
+           // Debug.Log("UP GEAR");
         }
     }
 
@@ -194,7 +213,7 @@ public class TruckControll : MonoBehaviour
             --curGear;
             engineTorque = gears[curGear] * engineMaxTorque;
             middleTorq = engineTorque / radiusSumm;
-            Debug.Log("DOWN GEAR");
+            //Debug.Log("DOWN GEAR");
         }
     }
 
@@ -258,7 +277,7 @@ public class TruckControll : MonoBehaviour
 
         updateGearValues();
      
-        if (!isGrounded())
+        if (!isGrounded() && !isDemo)
         {
             if (breaking)
             {
@@ -282,8 +301,8 @@ public class TruckControll : MonoBehaviour
         acceleration = (currV - lastV)/Time.deltaTime;
         GForce = acceleration.magnitude/9.806f;
 
-        Vector3 oldRot = transform.rotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(0, 0, oldRot.z);
+       /* Vector3 oldRot = transform.rotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(0, 0, oldRot.z);*/
     }
 
     void Update()
@@ -309,10 +328,10 @@ public class TruckControll : MonoBehaviour
         CarMove();
 
         if (isDemo)
-            MainController.instance().mainCamera.transform.position = new Vector3(transform.position.x + 1,
+            MainController.mainCamera.transform.position = new Vector3(transform.position.x + 1,
                 transform.position.y+7, -8);
         else
-            MainController.instance().mainCamera.transform.position = new Vector3(transform.position.x,
+            MainController.mainCamera.transform.position = new Vector3(transform.position.x,
                 transform.position.y+3+ Mathf.Abs(rigid.velocity.x/2), -8 - Mathf.Abs(rigid.velocity.x));
 
         
