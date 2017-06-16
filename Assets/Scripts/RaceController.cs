@@ -12,9 +12,10 @@ public class RaceController : MonoBehaviour {
 	    Object pPrefab = Resources.Load("perfabs/cars/" + Model.cars[CarChoosingController.index]);
 	    truck = (MonoBehaviour.Instantiate(pPrefab) as GameObject).GetComponent<TruckControll>();
 	    truck.gameObject.SetActive(true);
-
-       
         
+
+
+
         truckGUI.truck = truck;
     }
 	

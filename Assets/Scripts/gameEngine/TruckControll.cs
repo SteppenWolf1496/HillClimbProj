@@ -12,9 +12,14 @@ public class TruckControll : MonoBehaviour
     Vector3 lastV;
     Vector3 currV;
 
+
+    [Header("Suspension")]
     public float Spring = 90000;
     public float Damper = 9000;
     public float TargetPosition = 0.5f;
+
+
+    [Header("Debug")]
 
     public float GForce;
 
@@ -26,7 +31,7 @@ public class TruckControll : MonoBehaviour
 
 
 
-
+    [Header("Engine")]
     [SerializeField] protected Rigidbody rigid;
     [SerializeField] public float engineMaxTorque = 300;
     [SerializeField] public float brakeForce = 25000;
@@ -52,6 +57,13 @@ public class TruckControll : MonoBehaviour
     public ParticleSystem[] exhaustSystem;
     private float speedbyGear;
     private float speed;
+
+    [Header("Wheels")]
+    public float ExtremumSlip = 0.4f;
+    public float ExtremumValue = 1f;
+    public float AsymptoteSlip = 0.8f;
+    public float AsymptoteValue = 1f;
+    public float Stiffness = 1f;
 
     int CompareCondition(Wheel itemA, Wheel itemB)
     {
@@ -105,16 +117,32 @@ public class TruckControll : MonoBehaviour
         //Array.Sort(wheels, CompareCondition);
         torqByWheel = new float[wheels.Length];
         notDrive = 0;
-
+        WheelFrictionCurve curve;
+        JointSpring joint;
         //JointSpring joint;
         foreach (var t in wheels)
         {
-            JointSpring joint = t.collider.suspensionSpring;
+
+            // Set Suspension parameters ------------------------------------------
+            joint = t.collider.suspensionSpring;
             joint.spring = Spring;
             joint.damper = Damper;
             joint.targetPosition = TargetPosition;
 
             t.collider.suspensionSpring = joint;
+
+
+
+
+            // Set Wheels parameters ------------------------------------------
+            curve = t.collider.forwardFriction;
+            curve.extremumSlip = ExtremumSlip;
+            curve.extremumValue = ExtremumValue;
+            curve.asymptoteSlip = AsymptoteSlip;
+            curve.asymptoteValue = AsymptoteValue;
+            curve.stiffness = Stiffness;
+
+            t.collider.forwardFriction = curve;
 
             if (t.isDrive)
                 radiusSumm += t.collider.radius;
@@ -125,12 +153,13 @@ public class TruckControll : MonoBehaviour
         engineTorque = gears[curGear] * engineMaxTorque;
         middleTorq = engineTorque / radiusSumm;
 
+        inited = true;
     }
 
-    public float getSpeed()
+  /*  public float getSpeed()
     {
         return speed;
-    }
+    }*/
 
     private float wheelMiddleRPM = 0;
     private float wheelsRPMSumm = 0;
@@ -221,6 +250,7 @@ public class TruckControll : MonoBehaviour
 
     public void makeDEMO()
     {
+        
         engineMaxTorque = engineMaxTorque/2;
         isDemo = true;
         updateGearValues();
@@ -246,12 +276,16 @@ public class TruckControll : MonoBehaviour
 
     private bool inited = false;
 
+    public bool Inited
+    {
+        get { return inited; }
+    }
    
     public bool isGrounded()
     {
         foreach (Wheel w in wheels)
         {
-            if (w.HasContact) return true;
+            if (w.collider.isGrounded) return true;
                
         }
         return false;
@@ -307,7 +341,7 @@ public class TruckControll : MonoBehaviour
 
     void Update()
     {
-        speed = rigid.velocity.x*3.6f;
+       // speed = rigid.velocity.x*3.6f;
         if (!isGrounded())
         {
             if (rigid.velocity.x > 0)
@@ -348,7 +382,7 @@ public class TruckControll : MonoBehaviour
 }*/
 
     private float tmpRPM = 0;
-    private float drag = 50.2f;
+    private float drag = 0.2f;
 
     public float EngineRPM()
     {
