@@ -11,6 +11,16 @@ public class TruckControll : MonoBehaviour
     Vector3 acceleration;
     Vector3 lastV;
     Vector3 currV;
+
+
+    [Header("Suspension")]
+    public float Spring = 90000;
+    public float Damper = 9000;
+    public float TargetPosition = 0.5f;
+
+
+    [Header("Debug")]
+
     public float GForce;
 
     public bool accel = false;
@@ -19,6 +29,9 @@ public class TruckControll : MonoBehaviour
 
     public int MaxEngineRPM = 6000;
 
+
+
+    [Header("Engine")]
     [SerializeField] protected Rigidbody rigid;
     [SerializeField] public float engineMaxTorque = 300;
     [SerializeField] public float brakeForce = 25000;
@@ -38,125 +51,206 @@ public class TruckControll : MonoBehaviour
     public float[] gears = new float[5] {3.6f, 1.95f, 1.357f, 0.941f, 0.784f};
     public float rearGear = 3;
     public float maxSpeed = 180;
-    private int curGear = 9999; //between 0 - gearscount;
+    private int curGear = 0; //between 0 - gearscount;
     private float engineTorque;
 
     public ParticleSystem[] exhaustSystem;
     private float speedbyGear;
     private float speed;
 
+    [Header("Wheels")]
+    public float ExtremumSlip = 0.4f;
+    public float ExtremumValue = 1f;
+    public float AsymptoteSlip = 0.8f;
+    public float AsymptoteValue = 1f;
+    public float Stiffness = 1f;
+
     int CompareCondition(Wheel itemA, Wheel itemB)
     {
-        if (itemA.radius*(itemA.isDrive ? 1 : 0) < itemB.radius*(itemB.isDrive ? 1 : 0))
+        if (itemA.collider.radius*(itemA.isDrive ? 1 : 0) < itemB.collider.radius *(itemB.isDrive ? 1 : 0))
             return 1;
-        if (itemA.radius*(itemA.isDrive ? 1 : 0) > itemB.radius*(itemB.isDrive ? 1 : 0))
+        if (itemA.collider.radius *(itemA.isDrive ? 1 : 0) > itemB.collider.radius *(itemB.isDrive ? 1 : 0))
             return -1;
         return 0;
     }
 
+    void Awake()
+    {
+        if (!MainController.mainCamera)
+        {
+            MainController.mainCamera = Camera.main;
+        }
+    }
+
+    private float radiusSumm;
+    private int notDrive;
+    private float middleTorq;
+
     void Start()
     {
-        if (!rigid) rigid = this.GetComponent<Rigidbody>();
+       // rigid = this.GetComponent<Rigidbody>();
 
         rigid.centerOfMass = CenterOfMass.localPosition;
 
         startPosition = this.transform.position;
         startRotaion = this.transform.rotation;
 
-
         speedbyGear = maxSpeed/gears.Length;
 
-    }
 
-    public float getSpeed()
-    {
-        return speed;
-    }
-
-    private void countTorque()
-    {
-        float radiusSumm = 0;
-        Array.Sort(wheels, CompareCondition);
-        torqByWheel = new float[wheels.Length];
-        int notDrive = 0;
-
-        for (int i = 0; i < wheels.Length; i++)
+        if (wheels.Length <= 0) return;
+        if (gears.Length <= 0) return;
+        /*int i = 0;
+        while (i < wheels.Length)
         {
             if (wheels[i].isDrive)
-                radiusSumm += wheels[i].radius;
+            {
+                tmpWheel = wheels[i].collider;
+                break;
+            }
+            ++i;
+        }*/
+
+        Array.Sort(wheels, CompareCondition);
+
+        radiusSumm = 0;
+        //Array.Sort(wheels, CompareCondition);
+        torqByWheel = new float[wheels.Length];
+        notDrive = 0;
+        WheelFrictionCurve curve;
+        JointSpring joint;
+        //JointSpring joint;
+        foreach (var t in wheels)
+        {
+
+            // Set Suspension parameters ------------------------------------------
+            joint = t.collider.suspensionSpring;
+            joint.spring = Spring;
+            joint.damper = Damper;
+            joint.targetPosition = TargetPosition;
+
+            t.collider.suspensionSpring = joint;
+
+
+
+
+            // Set Wheels parameters ------------------------------------------
+            curve = t.collider.forwardFriction;
+            curve.extremumSlip = ExtremumSlip;
+            curve.extremumValue = ExtremumValue;
+            curve.asymptoteSlip = AsymptoteSlip;
+            curve.asymptoteValue = AsymptoteValue;
+            curve.stiffness = Stiffness;
+
+            t.collider.forwardFriction = curve;
+
+            if (t.isDrive)
+                radiusSumm += t.collider.radius;
             else
                 notDrive++;
         }
 
-        float middleTorq = engineTorque/radiusSumm;
+        engineTorque = gears[curGear] * engineMaxTorque;
+        middleTorq = engineTorque / radiusSumm;
 
+        inited = true;
+    }
+
+  /*  public float getSpeed()
+    {
+        return speed;
+    }*/
+
+    private float wheelMiddleRPM = 0;
+    private float wheelsRPMSumm = 0;
+    private void countTorque()
+    {
+
+        wheelsRPMSumm = 0;
         for (int i = 0; i < wheels.Length - notDrive; i++)
         {
             if (!rear && accel)
             {
-                wheels[wheels.Length - i - 1 - notDrive].axisTorque = ((middleTorq*1) /*/ wheels [i].radius*/);
+                wheels[wheels.Length - i - 1 - notDrive].collider.motorTorque = ((middleTorq*1) /*/ wheels [i].radius*/);
             }
             else if (rear)
             {
-                wheels[wheels.Length - i - 1 - notDrive].axisTorque = -1*middleTorq;
+                wheels[wheels.Length - i - 1 - notDrive].collider.motorTorque = -1*middleTorq;
             }
             else
             {
-                wheels[wheels.Length - i - 1 - notDrive].axisTorque = 0;
+                wheels[wheels.Length - i - 1 - notDrive].collider.motorTorque = 0;
             }
-
+            wheelsRPMSumm += wheels[wheels.Length - i - 1 - notDrive].collider.rpm;
             //	wheels [wheels.Length - i - 1 - notDrive].setWheelDefFreak (ExtremumSlip, ExtremumValue, AsymptoteSlip, AsymptoteValue);
         }
+        wheelMiddleRPM = wheelsRPMSumm / wheels.Length - notDrive;
 
         for (int i = 0; i < wheels.Length; i++)
         {
             if ((breaking && !rear) || (accel && rigid.velocity.x < -1))
             {
-                wheels[i].axisBrake = brakeForce;
+                wheels[i].collider.brakeTorque = brakeForce;
             }
             else
             {
-                wheels[i].axisBrake = 0;
+                wheels[i].collider.brakeTorque = 0;
             }
         }
     }
 
     private void updateGearValues()
     {
-        int gear;
+        //int gear;
         if (rear)
         {
-            gear = -1;
-            /* if (gear == curGear)
-                return;*/
-            curGear = gear;
+            curGear = 0;
             engineTorque = rearGear*engineMaxTorque;
             countTorque();
             return;
         }
-
-        if (speed > 0)
+        //Debug.Log("COUNT GEAR");
+        if (EngineRPM() >= (MaxEngineRPM - 2000))
         {
-            gear = (int) (speed/speedbyGear);
-        }
-        else
+            UpGear();
+        } else if (EngineRPM() < 1500)
         {
-            gear = 0;
+            DownGear();
         }
-        if (gear >= gears.Length)
-            gear = gears.Length - 1;
 
-        /*  if (gear == curGear)
-            return;*/
-        curGear = gear;
-        engineTorque = gears[curGear]*(isDemo ? engineMaxTorque/2 : engineMaxTorque);
+       
+        
         countTorque();
+    }
+
+    private void UpGear()
+    {
+       // Debug.Log("TRY UP GEAR");
+        if (curGear < gears.Length-1)
+        {
+            ++curGear;
+            engineTorque = gears[curGear] * engineMaxTorque;
+            middleTorq = engineTorque / radiusSumm;
+           // Debug.Log("UP GEAR");
+        }
+    }
+
+    private void DownGear()
+    {
+        if (curGear > 0)
+        {
+            --curGear;
+            engineTorque = gears[curGear] * engineMaxTorque;
+            middleTorq = engineTorque / radiusSumm;
+            //Debug.Log("DOWN GEAR");
+        }
     }
 
     private bool isDemo = false;
 
     public void makeDEMO()
     {
+        
         engineMaxTorque = engineMaxTorque/2;
         isDemo = true;
         updateGearValues();
@@ -182,17 +276,19 @@ public class TruckControll : MonoBehaviour
 
     private bool inited = false;
 
-
+    public bool Inited
+    {
+        get { return inited; }
+    }
+   
     public bool isGrounded()
     {
-        bool ret = false;
         foreach (Wheel w in wheels)
         {
-            if (w.HasContact)
-                ret = true;
+            if (w.collider.isGrounded) return true;
+               
         }
-
-        return ret;
+        return false;
     }
 
 
@@ -215,7 +311,7 @@ public class TruckControll : MonoBehaviour
 
         updateGearValues();
      
-        if (!isGrounded())
+        if (!isGrounded() && !isDemo)
         {
             if (breaking)
             {
@@ -238,52 +334,60 @@ public class TruckControll : MonoBehaviour
         currV = rigid.velocity;
         acceleration = (currV - lastV)/Time.deltaTime;
         GForce = acceleration.magnitude/9.806f;
-        //transform.rotation = new Quaternion();
-        Vector3 oldRot = transform.rotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(0, 0, oldRot.z);
+
+       /* Vector3 oldRot = transform.rotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(0, 0, oldRot.z);*/
     }
 
     void Update()
     {
-        speed = rigid.velocity.x*3.6f;
+       // speed = rigid.velocity.x*3.6f;
         if (!isGrounded())
         {
             if (rigid.velocity.x > 0)
             {
                 Vector3 tmpVel = rigid.velocity;
                 tmpVel.x -= FlySpeedResuce;
-                //tmpVel.y += rigidbody.mass
                 rigid.velocity = tmpVel;
             }
-            //rigidbody.velocity
+            //rigidbody.velocity 
             rigid.drag = 0;
         }
         else
         {
-            //	GetComponent<Rigidbody>().drag = drag;
+            rigid.drag = drag;
         }
 
 
         CarMove();
 
         if (isDemo)
-            MainController.instance().mainCamera.transform.position = new Vector3(transform.position.x + 1,
-                transform.position.y, -8);
+            MainController.mainCamera.transform.position = new Vector3(transform.position.x + 1,
+                transform.position.y+7, -8);
         else
-            MainController.instance().mainCamera.transform.position = new Vector3(transform.position.x,
-                transform.position.y, -8 - (rigid.velocity.x > 0 ? rigid.velocity.x/1.5f : 0));
+            MainController.mainCamera.transform.position = new Vector3(transform.position.x,
+                transform.position.y+3+ Mathf.Abs(rigid.velocity.x/2), -8 - Mathf.Abs(rigid.velocity.x));
 
         
     }
 
-    public float EngineRPM()
+   /* public WheelCollider tmpWheel = null;
+    public float WheelRPM
     {
 
-        if (wheels.Length<=0)return 0;
-        if (gears.Length <= 0 || curGear>gears.Length-1) return 0;
-        if (curGear < 0) return wheels[0].RPM *rearGear;
-        Debug.Log(wheels[0].RPM * gears[curGear]);
-        return wheels[0].RPM * gears[curGear];
+        get { if (tmpWheel == null) return 0;
+            return tmpWheel.rpm;
+        }
+        
+}*/
+
+    private float tmpRPM = 0;
+    private float drag = 0.2f;
+
+    public float EngineRPM()
+    {
+        tmpRPM = wheelMiddleRPM * gears[curGear];
+        return tmpRPM>MaxEngineRPM? MaxEngineRPM : tmpRPM ;
     }
 
     private void updateExhaustSystem()
@@ -291,18 +395,25 @@ public class TruckControll : MonoBehaviour
         if (exhaustSystem.Length == 0)
             return;
 
-        float percent = Mathf.Abs(speed)%speedbyGear/speedbyGear;
-        float accelVar = (accel || rear) ? 1 : 0;
-        float coef = 0.1f + (accelVar == 0 ? 0 : 1);
-        float color = 0.7f - percent* accelVar * 0.5f;
+        float percent = EngineRPM() / MaxEngineRPM;
+        float color = (1 - percent);
+        ParticleSystem.MainModule main;
+        ParticleSystem.EmissionModule emissionModule;
+
+        float rateOverTime = 50 * percent;
+        Color colorC = new Color(color, color, color);
+        float startSpeed = 1f + 0.7f * (percent);
+        float startSize = 0.3f + (percent);
 
         for (int i = 0; i < exhaustSystem.Length; i++)
         {
-            exhaustSystem[i].emissionRate = 70*(coef/*+forceMagnitude*/)
-            ;
-            exhaustSystem[i].startColor = new Color(color, color, color);
-            exhaustSystem[i].startSpeed = 1f + 15f* accelVar;
-            exhaustSystem[i].startSize = 0.3f + 1f* accelVar;
+            main = exhaustSystem[i].main;
+            emissionModule = exhaustSystem[i].emission;
+
+            emissionModule.rateOverTime = rateOverTime;
+            main.startColor = colorC;
+            main.startSpeed = startSpeed;
+            main.startSize = startSize;
         }
     }
 }

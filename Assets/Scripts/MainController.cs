@@ -5,34 +5,41 @@ using Endless2DTerrain;
 public class MainController : MonoBehaviour
 {
 
-		// Use this for initialization
-	public Camera mainCamera;
-    [SerializeField] public GameObject LobbyGui;
-    [SerializeField] public GameObject Gamegui;
-    [SerializeField] public Canvas GuiCanvas;
+	// Use this for initialization
+	public static Camera mainCamera;
+    //[SerializeField] public GameObject LobbyGui;
+   // [SerializeField] public GameObject Gamegui;
+    //[SerializeField] public Canvas GuiCanvas;
 	private Vector3 cameraStartPos;
-	static private MainController inst;
-   
-	public void resetCamera ()
+    private static MainController inst;
+
+    public static int carNum;
+
+    private TerrainDisplayer terrain = null;
+
+    public void resetCamera ()
 	{
 			mainCamera.transform.position = cameraStartPos;
 	}
 
-	static public MainController instance ()
+    public static MainController instance ()
 	{
 			return inst;
 	}
 
     void Start ()
 	{
-				
+		mainCamera = Camera.main;
 		Application.targetFrameRate = 30;
-		Random.seed = 1;
+	    Random.InitState(1);
 		inst = this;
 	    cameraStartPos = transform.position;
-		ScreenManager.showScreen (ScreenManager.Screens.START_MENU);
-	
-	}
+        //ScreenManager.showScreen (ScreenManager.Screens.START_MENU);
+       
+	    terrain = GetComponent<TerrainDisplayer>();
+	    terrain.Setup();
+
+    }
 
 
 		

@@ -9,12 +9,12 @@ TextureImporter:
     21300008: PilotSheet_4
     21300010: PilotSheet_5
     21300012: PilotSheet_6
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -26,23 +26,19 @@ TextureImporter:
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 256
   textureSettings:
-    filterMode: 2
+    filterMode: 0
     aniso: 1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -50,12 +46,52 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 370
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 256
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 256
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 256
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: PilotSheet_0
+    - serializedVersion: 2
+      name: PilotSheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -65,19 +101,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 7, y: 49}
-        - {x: -29, y: 49}
-        - {x: -29, y: 12}
-        - {x: -28, y: 9}
-        - {x: -23, y: -37}
-        - {x: -19, y: -45}
-        - {x: -4, y: -48}
-        - {x: 17, y: -48}
-        - {x: 29, y: -40}
-        - {x: 29, y: 2}
-        - {x: 16, y: 46}
-    - name: PilotSheet_1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: PilotSheet_1
       rect:
         serializedVersion: 2
         x: 116
@@ -87,19 +114,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 7, y: 49}
-        - {x: -29, y: 49}
-        - {x: -29, y: 12}
-        - {x: -28, y: 9}
-        - {x: -23, y: -37}
-        - {x: -19, y: -45}
-        - {x: -4, y: -48}
-        - {x: 17, y: -48}
-        - {x: 29, y: -40}
-        - {x: 29, y: 2}
-        - {x: 16, y: 46}
-    - name: PilotSheet_2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: PilotSheet_2
       rect:
         serializedVersion: 2
         x: 239
@@ -109,16 +127,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -9.5, y: 57}
-        - {x: -22.5, y: 57}
-        - {x: -27.5, y: 49}
-        - {x: -27.5, y: -46}
-        - {x: -16.5, y: -56}
-        - {x: 28.5, y: -56}
-        - {x: 28.5, y: 38}
-        - {x: 19.5, y: 47}
-    - name: PilotSheet_3
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: PilotSheet_3
       rect:
         serializedVersion: 2
         x: 353
@@ -128,14 +140,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -8.5, y: 58}
-        - {x: -39.5, y: 39}
-        - {x: -39.5, y: -58}
-        - {x: 40.5, y: -58}
-        - {x: 40.5, y: 42}
-        - {x: 28.5, y: 58}
-    - name: PilotSheet_4
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: PilotSheet_4
       rect:
         serializedVersion: 2
         x: 1
@@ -145,16 +153,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -37.5, y: -51}
-        - {x: -33.5, y: -70}
-        - {x: -28.5, y: -78}
-        - {x: 38.5, y: -78}
-        - {x: 38.5, y: 66}
-        - {x: 36.5, y: 78}
-        - {x: -32.5, y: 78}
-        - {x: -37.5, y: 57}
-    - name: PilotSheet_5
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: PilotSheet_5
       rect:
         serializedVersion: 2
         x: 155
@@ -164,17 +166,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 24.5, y: 53}
-        - {x: -55.5, y: 53}
-        - {x: -58.5, y: 51}
-        - {x: -58.5, y: -45}
-        - {x: -15.5, y: -53}
-        - {x: 45.5, y: -53}
-        - {x: 56.5, y: -39}
-        - {x: 59.5, y: -29}
-        - {x: 59.5, y: 38}
-    - name: PilotSheet_6
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: PilotSheet_6
       rect:
         serializedVersion: 2
         x: 392
@@ -184,13 +179,8 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -18, y: 47}
-        - {x: -30, y: 41}
-        - {x: -30, y: -47}
-        - {x: 19, y: -47}
-        - {x: 30, y: -4}
-        - {x: 30, y: 47}
+      outline: []
+      tessellationDetail: -1
     outline: []
   spritePackingTag: 
   userData: 

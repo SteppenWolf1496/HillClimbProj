@@ -4,4 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/LobbyScenes/StartScene.unity
+    guid: d5a96d80fc6f0284e9af5adac5104bc9
+  - enabled: 1
+    path: Assets/Scenes/LobbyScenes/CarChoosing.unity
+    guid: 1a00999e31e5262408907d47e8c2cbc5
+  - enabled: 1
+    path: Assets/Scenes/LobbyScenes/MainLobby.unity
+    guid: 6e10e2ff87b89234bbb9597acbd00a2a
+  - enabled: 1
+    path: Assets/Scenes/RacingScenes/RaceWillage.unity
+    guid: 5826dd93c99ef2141bfdd715456bba9b

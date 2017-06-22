@@ -13,7 +13,6 @@ namespace Endless2DTerrain
         {
             settings = s;
             MeshPieces = new List<MeshPiece>();
-            
         }
 
         //Just for reference
@@ -70,7 +69,7 @@ namespace Endless2DTerrain
 
 
 
-        public void Create(VertexGenerator vg, Vector3 origin)
+        public void Create(VertexGenerator vg, Vector3 origin, float lastY)
         {
 
             //Track the angle we are currenlty on          
@@ -78,7 +77,7 @@ namespace Endless2DTerrain
 
             //Create the front mesh and populate our key verts for the front plane
             MeshPiece mp = new MeshPiece(vg, MeshPiece.Plane.Front, settings);
-            mp.PopulateKeyVerticies(MeshPiece.Plane.Front);            
+            mp.PopulateKeyVerticies(MeshPiece.Plane.Front, lastY);            
             
             //Now create the mesh
             mp.Create(origin, TerrainAngle);
@@ -212,7 +211,6 @@ namespace Endless2DTerrain
         {
             //This is just a placeholder for all the mesh pieces
             TerrainObject = new GameObject("TerrainPiece");
-            TerrainObject.layer = settings.terrainDisplayer.gameObject.layer;
         }
 
         private void ParentMeshesToTerrainObject()

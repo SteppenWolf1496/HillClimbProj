@@ -19,31 +19,31 @@ public class MainGUI : MonoBehaviour
     public void NextCar()
     {
         Model.curCarIndex++;
-        checkCar();
-        (ScreenManager.getCurScreen() as StartMenuScreen).changeCar();
+       
+        CarChoosingController.Instance.NextCar();
+        // (ScreenManager.getCurScreen() as StartMenuScreen).changeCar();
     }
 
     public void PrevCar()
     {
         Model.curCarIndex--;
-        checkCar();
-        (ScreenManager.getCurScreen() as StartMenuScreen).changeCar();
+        
+        CarChoosingController.Instance.PrewCar();
+        //(ScreenManager.getCurScreen() as StartMenuScreen).changeCar();
     }
 
     public void StartGame()
     {
         ScreenManager.showScreen(ScreenManager.Screens.GAME);
     }
-	
-		
-		void checkCar ()
-		{
-				if (Model.curCarIndex < 0)
-						Model.curCarIndex = Model.cars.Length - 1;
 
-				if (Model.curCarIndex >= Model.cars.Length)
-						Model.curCarIndex = 0;
-		}
+    public void MainScreen()
+    {
+        ScreenManager.showScreen(ScreenManager.Screens.START_MENU);
+    }
+
+
+   
 }
 
 

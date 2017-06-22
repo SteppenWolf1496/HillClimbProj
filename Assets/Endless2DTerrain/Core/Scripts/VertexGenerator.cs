@@ -64,11 +64,12 @@ namespace Endless2DTerrain
             {
                 return false;
             }
-
+            
             if (CurrentTerrainRule.SelectedTerrainLength == TerrainRule.TerrainLength.Fixed)
             {
                 if (DistanceTraveledSinceRuleStart > CurrentTerrainRule.RuleLength)
                 {
+                    ++CurrentTerrainRule.UsingCount;
                     return true;
                 }
             }
@@ -144,7 +145,8 @@ namespace Endless2DTerrain
             return -1;     
         }
 
-        public List<Vector3> GenerateKeyVerticies(bool updateRepeatingPointLocation)
+        public static float lastY = 0;
+        public List<Vector3> GenerateKeyVerticies(bool updateRepeatingPointLocation,float startY)
         {
             List<Vector3> verticies = new List<Vector3>();
 
@@ -158,18 +160,19 @@ namespace Endless2DTerrain
             float startLocation = CurrentLocation;
             float endLocation = CurrentTerrainRule.MeshLength + startLocation;
 
-
+            float keyVertexStepSize = startY;
             //Loop until we've generated enough vertices to reach the desired mesh length (or we hit a new rule)
             while (CurrentLocation < endLocation && !MoveToNextTerrainRule())
             {
 
-                float keyVertexStepSize = GetKeyVertexStepSize();
+                
 
                 //Random terrain generation
                 if (CurrentTerrainRule.SelectedTerrainStyle == TerrainRule.TerrainStyle.Random)
                 {
                     float y = GetKeyVertexRandomHeight();
                     float x = CurrentLocation + keyVertexStepSize;
+                    lastY = y;
                     verticies.Add(new Vector3(x, y, settings.OriginalStartPoint.z));
                 }
 
@@ -177,10 +180,10 @@ namespace Endless2DTerrain
                 if (CurrentTerrainRule.SelectedTerrainStyle == TerrainRule.TerrainStyle.Repeated && updateRepeatingPointLocation)
                 {
 
-                
 
+                    float increaser = CurrentTerrainRule.UsingCount * CurrentTerrainRule.IncreasingMultiplier;
                     float yMin = CurrentTerrainRule.MinimumKeyVertexHeight;
-                    float yMax = CurrentTerrainRule.MaximumKeyVertexHeight;
+                    float yMax = CurrentTerrainRule.MaximumKeyVertexHeight+ increaser;
                     float x = CurrentLocation + keyVertexStepSize;
 
                     //Determine if we want to start the curve at the top or the bottom
@@ -212,6 +215,8 @@ namespace Endless2DTerrain
                   
                     RepeatingPointsAtTop = !RepeatingPointsAtTop;
                 }
+
+                keyVertexStepSize = GetKeyVertexStepSize();
             }
             
             //Store before switching to the next rule so calculated verts will use the proper spacing for this current rule
@@ -319,7 +324,8 @@ namespace Endless2DTerrain
 
         public float GetKeyVertexRandomHeight()
         {
-            return Random.Range(CurrentTerrainRule.MinimumKeyVertexHeight, CurrentTerrainRule.MaximumKeyVertexHeight);
+            float increaser = CurrentTerrainRule.UsingCount * CurrentTerrainRule.IncreasingMultiplier;
+            return Random.Range(CurrentTerrainRule.MinimumKeyVertexHeight, CurrentTerrainRule.MaximumKeyVertexHeight+ increaser);
         }
 
         public float GetKeyVertexStepSize()

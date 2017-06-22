@@ -2,23 +2,41 @@
 using System.Collections;
 
 
-public class Wheel : UniversalWheel
+public class Wheel : MonoBehaviour
 {
 
     [SerializeField]public bool isDrive = false;
     [SerializeField] ParticleSystem particle;
    
     private bool inited = false;
-   
-    public override void Start()
+    
+
+    public Transform visualWheel;
+   // private float ForwardSlip;
+
+    public WheelCollider collider;
+
+    public void Awake()
     {
-       base.Start();
-        
+        collider = GetComponent<WheelCollider>();
+        collider.steerAngle = 90;
     }
 
-    public override void Update()
+    public void Start()
     {
-        base.Update();
+        //base.Start();
+        collider.steerAngle = 90;
+    }
+
+    void OnEnable()
+    {
+        collider.steerAngle = 90;
+    }
+
+    public void Update()
+    {
+        // base.Update();
+       // collider.steerAngle = 90;
         updateParticles();
     }
 
@@ -28,7 +46,7 @@ public class Wheel : UniversalWheel
         if (!particle)
             return;
         
-        if (!HasContact)
+        if (!collider.isGrounded)
         {
             if (!particle.isStopped)
                 particle.Stop();
@@ -38,23 +56,40 @@ public class Wheel : UniversalWheel
         {
             particle.Play();
         }
-        
-
-        if (ForwardSlip >= 0)
-        {
+        WheelHit hit;
+        collider.GetGroundHit(out hit);
+        ParticleSystem.EmissionModule emission = particle.emission;
+        ParticleSystem.MainModule main = particle.main;
+        float coef = hit.forwardSlip < 0 ? Mathf.Abs(hit.forwardSlip) : 0;
+       /* if (hit.forwardSlip >= 0)
+        {*/
           //  particle.transform.localRotation = Quaternion.Euler(-45f, -180f, 0f);
-            float coef = Mathf.Min(Mathf.Abs(ForwardSlip), 2);
-            particle.emissionRate = 20*(coef /* + forceMagnitude*/);
-            particle.startSpeed = 5*coef;
-        }
-        else
+        float coefrot = (collider.rpm / 100);
+        coefrot = coefrot > 7 ? 7 : coefrot;
+            emission.rateOverTime = 20 * (collider.radius+ collider.rpm/70) * hit.forwardSlip;
+            main.startSpeed =  new ParticleSystem.MinMaxCurve(2, coefrot); ;
+       // }
+       /* else
         {
            // particle.transform.localRotation = Quaternion.Euler(-45f, 360f, 0f);
-            float coef = Mathf.Min(Mathf.Abs(ForwardSlip), 2);
-            particle.emissionRate = 20*(coef /* + forceMagnitude*/);
-            particle.startSpeed = 5*coef;
-        }
+           // float coef = Mathf.Min(Mathf.Abs(hit.forwardSlip), 2);
+            emission.rateOverTime = 30*(coef  + collider.radius ) * hit.forwardSlip;
+            main.startSpeed = 5*coef;
+        }*/
     }
 
-   
+    public void FixedUpdate()
+    {
+
+       
+
+        Vector3 position;
+        Quaternion rotation;
+        collider.GetWorldPose(out position, out rotation);
+
+        visualWheel.transform.position = position;
+        visualWheel.transform.rotation = rotation;
+    }
+
+
 }
