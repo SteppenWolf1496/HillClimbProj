@@ -515,7 +515,7 @@ MonoBehaviour:
   Damper: 2900
   TargetPosition: 0.5
   GForce: 0.23860118
-  accel: 1
+  accel: 0
   breaking: 0
   rear: 0
   MaxEngineRPM: 6000

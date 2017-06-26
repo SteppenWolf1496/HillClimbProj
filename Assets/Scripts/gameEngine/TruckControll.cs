@@ -365,7 +365,7 @@ public class TruckControll : MonoBehaviour
             MainController.mainCamera.transform.position = new Vector3(transform.position.x + 1,
                 transform.position.y+7, -8);
         else
-            MainController.mainCamera.transform.position = new Vector3(transform.position.x,
+            MainController.mainCamera.transform.position = new Vector3(transform.position.x+3 + Mathf.Abs(rigid.velocity.x / 2),
                 transform.position.y+3+ Mathf.Abs(rigid.velocity.x/2), -8 - Mathf.Abs(rigid.velocity.x));
 
         
