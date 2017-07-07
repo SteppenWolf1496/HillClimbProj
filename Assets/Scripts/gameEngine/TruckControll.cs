@@ -58,6 +58,7 @@ public class TruckControll : MonoBehaviour
     private float speedbyGear;
     private float speed;
 
+
     [Header("Wheels")]
     public float ExtremumSlip = 0.4f;
     public float ExtremumValue = 1f;

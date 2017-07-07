@@ -1,11 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CodeStage.AntiCheat.ObscuredTypes;
 using JetBrains.Annotations;
 using UnityEngine;
 
-public class UserDataController : SingletonePattern<UserDataController> {
+public class UserDataController : SingletonePattern<UserDataController>
+{
 
-    //private 
+    private ObscuredInt exp = 0;
+    private ObscuredInt gold = 0;
+    private string lastSelectedCar;
+    private string lastSelectedMap;
+
+
+    
 
 
     public void SaveAll()
