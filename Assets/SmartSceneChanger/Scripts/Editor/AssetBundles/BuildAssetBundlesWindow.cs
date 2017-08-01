@@ -946,7 +946,7 @@ namespace SSC
 
                     if (EditorUtility.DisplayDialog("Clear Editor AssetBundle Cache", "Clear Editor Cache ?", "Yes", "No"))
                     {
-                        EditorUtility.DisplayDialog("Clear Editor AssetBundle Cache", Caching.CleanCache() ? "Success" : "Failed", "Ok");
+                        EditorUtility.DisplayDialog("Clear Editor AssetBundle Cache", Caching.ClearCache() ? "Success" : "Failed", "Ok");
                     }
 
                 }
