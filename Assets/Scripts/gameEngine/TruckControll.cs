@@ -4,7 +4,7 @@ using System;
 using Enums;
 
 
-public class TruckControll : MonoBehaviour
+public class TruckControll : BaseCar
 {
     public Wheel[] wheels;
 
@@ -13,58 +13,24 @@ public class TruckControll : MonoBehaviour
     Vector3 currV;
 
 
-    [Header("Suspension")]
-    public float Spring = 90000;
-    public float Damper = 9000;
-    public float TargetPosition = 0.5f;
-
 
     [Header("Debug")]
 
     public float GForce;
-
     public bool accel = false;
     public bool breaking = false;
     public bool rear = false;
 
-    public int MaxEngineRPM = 6000;
 
-
-
-    [Header("Engine")]
-    [SerializeField] protected Rigidbody rigid;
-    [SerializeField] public float engineMaxTorque = 300;
-    [SerializeField] public float brakeForce = 25000;
-    [SerializeField] public float handBrakeForce = 30000;
-    
-    private Vector3 startPosition;
     private Quaternion startRotaion;
-    [SerializeField] public Transform CenterOfMass;
 
-    private float[] torqByWheel;
-
-
-    public float FlySpeedResuce = 0.05f;
-
-    public float angolarCoef = 0.1f;
-
-    public float[] gears = new float[5] {3.6f, 1.95f, 1.357f, 0.941f, 0.784f};
-    public float rearGear = 3;
-    public float maxSpeed = 180;
     private int curGear = 0; //between 0 - gearscount;
     private float engineTorque;
 
-    public ParticleSystem[] exhaustSystem;
+    
     private float speedbyGear;
     private float speed;
 
-
-    [Header("Wheels")]
-    public float ExtremumSlip = 0.4f;
-    public float ExtremumValue = 1f;
-    public float AsymptoteSlip = 0.8f;
-    public float AsymptoteValue = 1f;
-    public float Stiffness = 1f;
 
     int CompareCondition(Wheel itemA, Wheel itemB)
     {
@@ -89,34 +55,18 @@ public class TruckControll : MonoBehaviour
 
     void Start()
     {
-       // rigid = this.GetComponent<Rigidbody>();
+        Rigid.centerOfMass = CenterOfMass.localPosition;
 
-        rigid.centerOfMass = CenterOfMass.localPosition;
-
-        startPosition = this.transform.position;
         startRotaion = this.transform.rotation;
 
-        speedbyGear = maxSpeed/gears.Length;
-
+        speedbyGear = MaxSpeed/Gears.Length;
 
         if (wheels.Length <= 0) return;
-        if (gears.Length <= 0) return;
-        /*int i = 0;
-        while (i < wheels.Length)
-        {
-            if (wheels[i].isDrive)
-            {
-                tmpWheel = wheels[i].collider;
-                break;
-            }
-            ++i;
-        }*/
-
+        if (Gears.Length <= 0) return;
+        
         Array.Sort(wheels, CompareCondition);
 
         radiusSumm = 0;
-        //Array.Sort(wheels, CompareCondition);
-        torqByWheel = new float[wheels.Length];
         notDrive = 0;
         WheelFrictionCurve curve;
         JointSpring joint;
@@ -131,9 +81,6 @@ public class TruckControll : MonoBehaviour
             joint.targetPosition = TargetPosition;
 
             t.collider.suspensionSpring = joint;
-
-
-
 
             // Set Wheels parameters ------------------------------------------
             curve = t.collider.forwardFriction;
@@ -151,16 +98,12 @@ public class TruckControll : MonoBehaviour
                 notDrive++;
         }
 
-        engineTorque = gears[curGear] * engineMaxTorque;
+        engineTorque = Gears[curGear] * EngineMaxTorque;
         middleTorq = engineTorque / radiusSumm;
 
         inited = true;
     }
 
-  /*  public float getSpeed()
-    {
-        return speed;
-    }*/
 
     private float wheelMiddleRPM = 0;
     private float wheelsRPMSumm = 0;
@@ -189,9 +132,9 @@ public class TruckControll : MonoBehaviour
 
         for (int i = 0; i < wheels.Length; i++)
         {
-            if ((breaking && !rear) || (accel && rigid.velocity.x < -1))
+            if ((breaking && !rear) || (accel && Rigid.velocity.x < -1))
             {
-                wheels[i].collider.brakeTorque = brakeForce;
+                wheels[i].collider.brakeTorque = BrakeForce;
             }
             else
             {
@@ -206,7 +149,7 @@ public class TruckControll : MonoBehaviour
         if (rear)
         {
             curGear = 0;
-            engineTorque = rearGear*engineMaxTorque;
+            engineTorque = RearGear*EngineMaxTorque;
             countTorque();
             return;
         }
@@ -227,10 +170,10 @@ public class TruckControll : MonoBehaviour
     private void UpGear()
     {
        // Debug.Log("TRY UP GEAR");
-        if (curGear < gears.Length-1)
+        if (curGear < Gears.Length-1)
         {
             ++curGear;
-            engineTorque = gears[curGear] * engineMaxTorque;
+            engineTorque = Gears[curGear] * EngineMaxTorque;
             middleTorq = engineTorque / radiusSumm;
            // Debug.Log("UP GEAR");
         }
@@ -241,7 +184,7 @@ public class TruckControll : MonoBehaviour
         if (curGear > 0)
         {
             --curGear;
-            engineTorque = gears[curGear] * engineMaxTorque;
+            engineTorque = Gears[curGear] * EngineMaxTorque;
             middleTorq = engineTorque / radiusSumm;
             //Debug.Log("DOWN GEAR");
         }
@@ -252,7 +195,7 @@ public class TruckControll : MonoBehaviour
     public void makeDEMO()
     {
         
-        engineMaxTorque = engineMaxTorque/2;
+        EngineMaxTorque = EngineMaxTorque/2;
         isDemo = true;
         updateGearValues();
     }
@@ -262,10 +205,10 @@ public class TruckControll : MonoBehaviour
         return curGear;
     }
 
-    public float getTorque()
+   /* public float getTorque()
     {
         return engineTorque;
-    }
+    }*/
 
     public void reset()
     {
@@ -300,7 +243,7 @@ public class TruckControll : MonoBehaviour
             accel = true;
         }
 
-        if (rigid.velocity.x <= 0.1 && breaking)
+        if (Rigid.velocity.x <= 0.1 && breaking)
         {
             rear = true;
         }
@@ -316,11 +259,11 @@ public class TruckControll : MonoBehaviour
         {
             if (breaking)
             {
-                rigid.angularVelocity = new Vector3(0, 0, rigid.angularVelocity.z - angolarCoef);
+                Rigid.angularVelocity = new Vector3(0, 0, Rigid.angularVelocity.z - AngolarCoef);
             }
             else if (accel)
             {
-                rigid.angularVelocity = new Vector3(0, 0, rigid.angularVelocity.z + angolarCoef);
+                Rigid.angularVelocity = new Vector3(0, 0, Rigid.angularVelocity.z + AngolarCoef);
             }
             else
             {
@@ -332,33 +275,27 @@ public class TruckControll : MonoBehaviour
     void FixedUpdate()
     {
         lastV = currV;
-        currV = rigid.velocity;
+        currV = Rigid.velocity;
         acceleration = (currV - lastV)/Time.deltaTime;
         GForce = acceleration.magnitude/9.806f;
-
-       /* Vector3 oldRot = transform.rotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(0, 0, oldRot.z);*/
     }
 
     void Update()
     {
-       // speed = rigid.velocity.x*3.6f;
         if (!isGrounded())
         {
-            if (rigid.velocity.x > 0)
+            if (Rigid.velocity.x > 0)
             {
-                Vector3 tmpVel = rigid.velocity;
+                Vector3 tmpVel = Rigid.velocity;
                 tmpVel.x -= FlySpeedResuce;
-                rigid.velocity = tmpVel;
+                Rigid.velocity = tmpVel;
             }
-            //rigidbody.velocity 
-            rigid.drag = 0;
+            Rigid.drag = 0;
         }
         else
         {
-            rigid.drag = drag;
+            Rigid.drag = drag;
         }
-
 
         CarMove();
 
@@ -366,8 +303,8 @@ public class TruckControll : MonoBehaviour
             MainController.mainCamera.transform.position = new Vector3(transform.position.x + 1,
                 transform.position.y+7, -8);
         else
-            MainController.mainCamera.transform.position = new Vector3(transform.position.x+3 + Mathf.Abs(rigid.velocity.x / 2),
-                transform.position.y+3+ Mathf.Abs(rigid.velocity.x/2), -8 - Mathf.Abs(rigid.velocity.x));
+            MainController.mainCamera.transform.position = new Vector3(transform.position.x+3 + Mathf.Abs(Rigid.velocity.x / 2),
+                transform.position.y+3+ Mathf.Abs(Rigid.velocity.x/2), -8 - Mathf.Abs(Rigid.velocity.x));
 
         
     }
@@ -387,13 +324,13 @@ public class TruckControll : MonoBehaviour
 
     public float EngineRPM()
     {
-        tmpRPM = wheelMiddleRPM * gears[curGear];
+        tmpRPM = wheelMiddleRPM * Gears[curGear];
         return tmpRPM>MaxEngineRPM? MaxEngineRPM : tmpRPM ;
     }
 
     private void updateExhaustSystem()
     {
-        if (exhaustSystem.Length == 0)
+        if (ExhaustSystem.Length == 0)
             return;
 
         float percent = EngineRPM() / MaxEngineRPM;
@@ -406,10 +343,10 @@ public class TruckControll : MonoBehaviour
         float startSpeed = 1f + 0.7f * (percent);
         float startSize = 0.3f + (percent);
 
-        for (int i = 0; i < exhaustSystem.Length; i++)
+        for (int i = 0; i < ExhaustSystem.Length; i++)
         {
-            main = exhaustSystem[i].main;
-            emissionModule = exhaustSystem[i].emission;
+            main = ExhaustSystem[i].main;
+            emissionModule = ExhaustSystem[i].emission;
 
             emissionModule.rateOverTime = rateOverTime;
             main.startColor = colorC;

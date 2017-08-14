@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class BaseCarModificator
 {
-    public static CarModificatorType ModificatorType;
-    public static CarModificationActivation ActivationType;
-    public static CarModifationRarity ModifationRarity;
+    public CarModificatorType ModificatorType;
+    public CarModificationActivation ActivationType;
+    public CarModifationRarity ModifationRarity;
     
     public ObscuredInt MoficatorLvl;
 
