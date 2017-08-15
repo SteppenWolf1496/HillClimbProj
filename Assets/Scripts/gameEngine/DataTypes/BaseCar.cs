@@ -6,6 +6,7 @@ using UnityEngine;
 public class BaseCar : MonoBehaviour
 {
 
+    [SerializeField] protected string Key;
 
     [Header("Suspension")]
     private ObscuredFloat spring;
@@ -373,6 +374,58 @@ public class BaseCar : MonoBehaviour
                 break;
         }
     }
+
+    private void ApplyEngineTorque(float _value)
+    {
+        EngineMaxTorque += _value;
+    }
+
+    private void ApplyBreakTorcue(float _value)
+    {
+        BrakeForce += _value;
+    }
+
+    private void ApplyCenterMass(Vector3 _dir)
+    {
+        CenterOfMass.position += _dir;
+    }
+    private void ApplyGravity(float _value)
+    {
+        Debug.LogError("ApplyGravity not realized");
+    }
+    private void ApplyRotation(float _value)
+    {
+        Debug.LogError("ApplyGravity not realized");
+    }
+    private void ApplySuspentionLift(float _value)
+    {
+        AngolarCoef += _value;
+    }
+    private void ApplySuspentionHardness(float _value)
+    {
+        Debug.LogError("ApplyGravity not realized");
+    }
+    private void ApplyTearsGrip(float _value)
+    {
+        Debug.LogError("ApplyGravity not realized");
+    }
+    private void ApplyTorquePercentForWd(float _value)
+    {
+        Debug.LogError("ApplyGravity not realized");
+    }
+    private void ApplyGearBox(float _value)
+    {
+        Debug.LogError("ApplyGravity not realized");
+    }
+    private void ApplyMaxRPM(float _value)
+    {
+        Debug.LogError("ApplyGravity not realized");
+    }
+    private void ApplyMaxSpeed(float _value)
+    {
+        Debug.LogError("ApplyGravity not realized");
+    }
+
 
 
 }
