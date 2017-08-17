@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using CodeStage.AntiCheat.ObscuredTypes;
 
-namespace Assets.Scripts
-{
-    class UserCarData
+
+public class UserCarData
     {
         public ObscuredString key;
 
         //public ObscuredInt 
 
     }
-}
+

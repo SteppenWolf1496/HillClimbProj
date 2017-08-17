@@ -55,6 +55,7 @@ public class TruckControll : BaseCar
 
     void Start()
     {
+        Init(Model.GetCarData(Key),null);
         Rigid.centerOfMass = CenterOfMass.localPosition;
 
         startRotaion = this.transform.rotation;

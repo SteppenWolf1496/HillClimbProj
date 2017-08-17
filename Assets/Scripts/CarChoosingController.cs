@@ -8,6 +8,12 @@ public class CarChoosingController : SingletonePattern<CarChoosingController>
     private static List<TruckControll> cars = new List<TruckControll>();
     public static int index = 0;
     public static TruckControll currentCar = null;
+    [SerializeField] protected MainGUI mainGui;
+
+    public string CurrentCarKey
+    {
+        get { return currentCar.Key; }
+    }
 	// Use this for initialization
 	void Start ()
 	{
@@ -21,6 +27,7 @@ public class CarChoosingController : SingletonePattern<CarChoosingController>
 	    currentCar = cars[index];
 	    currentCar.makeDEMO();
 	    currentCar.gameObject.SetActive(true);
+	    mainGui.UpdateButtons();
     }
 
     public void NextCar()

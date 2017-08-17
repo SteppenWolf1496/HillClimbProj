@@ -3,12 +3,17 @@ using UnityEngine;
 using System.Collections;
 public class MainGUI : MonoBehaviour
 {
-		//private GUIStyle style;
-		void Start ()
+    [SerializeField] private GameObject startBtn;
+    [SerializeField] private GameObject buyBtn;
+
+
+    //private GUIStyle style;
+    void Start ()
 		{
-				//style = new GUIStyle ();
-				//style.fontSize = 30;
-		}
+        //style = new GUIStyle ();
+        //style.fontSize = 30;
+		    UpdateButtons();
+    }
 	
 		// Update is called once per frame
 		void Update ()
@@ -16,11 +21,21 @@ public class MainGUI : MonoBehaviour
 		
 		}
 
+    public void UpdateButtons()
+    {
+        bool have = Model.UserCars.Exists(x => x.key == CarChoosingController.Instance.CurrentCarKey);
+
+        startBtn.SetActive(have);
+        buyBtn.SetActive(!have);
+    }
+
     public void NextCar()
     {
         Model.curCarIndex++;
        
         CarChoosingController.Instance.NextCar();
+        UpdateButtons();
+
         // (ScreenManager.getCurScreen() as StartMenuScreen).changeCar();
     }
 
@@ -29,6 +44,7 @@ public class MainGUI : MonoBehaviour
         Model.curCarIndex--;
         
         CarChoosingController.Instance.PrewCar();
+        UpdateButtons();
         //(ScreenManager.getCurScreen() as StartMenuScreen).changeCar();
     }
 

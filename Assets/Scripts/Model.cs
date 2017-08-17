@@ -9,7 +9,7 @@ public class Model : MonoBehaviour
 
     public static int curCarIndex = 0;
     private static List<BaseCarData> cars = new List<BaseCarData>();
-    public static List<UserCarData> ucars = new List<UserCarData>();
+    private static List<UserCarData> ucars = new List<UserCarData>();
    // UserMaps Data
     public static ObscuredInt BlackMetal;
     public static ObscuredInt GoldMetal;
@@ -22,7 +22,7 @@ public class Model : MonoBehaviour
             {
                 //ZALIPUHA POKA NETU ADMINKI
                 BaseCarData tmp = new BaseCarData();
-                tmp.key = "sedan";
+                tmp.key = "car";
                 cars.Add(tmp);
                 tmp = new BaseCarData();
                 tmp.key = "monster";
@@ -34,7 +34,26 @@ public class Model : MonoBehaviour
        
     }
 
-    //public static
+    public static BaseCarData GetCarData(string _key)
+    {
+        return BaseCars.Find(x => x.key == _key);
+    }
+
+    public static List<UserCarData> UserCars
+    {
+        get
+        {
+            if (ucars.Count == 0)
+            {
+                //Base initialisation for user
+                UserCarData tmp = new UserCarData();
+                tmp.key = "car";
+                ucars.Add(tmp);
+            }
+
+            return ucars;
+        }
+    }
 
 }
 

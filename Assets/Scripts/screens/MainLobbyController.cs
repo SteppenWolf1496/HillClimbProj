@@ -14,8 +14,13 @@ public class MainLobbyController : MonoBehaviour {
 		
 	}
 
-    public void GoToRacing()
+    public void GoToOfflineRacing()
     {
         ScreenManager.showScreen(ScreenManager.Screens.CHOOSE_CAR_MENU);
+    }
+
+    public void GoToOnlineRacing()
+    {
+        NotifyData.AddNew("Looking for updates");
     }
 }

@@ -9,13 +9,10 @@ public class RaceController : MonoBehaviour {
     public RacingGui truckGUI;
     // Use this for initialization
     void Start () {
-	    Object pPrefab = Resources.Load("perfabs/cars/" + Model.cars[CarChoosingController.index]);
+	    Object pPrefab = Resources.Load("perfabs/cars/" + Model.BaseCars[CarChoosingController.index].key);
 	    truck = (MonoBehaviour.Instantiate(pPrefab) as GameObject).GetComponent<TruckControll>();
 	    truck.gameObject.SetActive(true);
         
-
-
-
         truckGUI.truck = truck;
     }
 	

@@ -6,7 +6,12 @@ using UnityEngine;
 public class BaseCar : MonoBehaviour
 {
 
-    [SerializeField] protected string Key;
+    [SerializeField] protected string key;
+
+    public string Key
+    {
+        get { return key; }
+    }
 
     [Header("Suspension")]
     private ObscuredFloat spring;
@@ -16,12 +21,12 @@ public class BaseCar : MonoBehaviour
     [Header("Engine")]
     private ObscuredFloat torque;
     private ObscuredInt maxEngineRPM;
-    private Rigidbody rigid;
+    [SerializeField] private Rigidbody rigid;
     private ObscuredFloat engineMaxTorque;
     private ObscuredFloat brakeForce;
     private ObscuredFloat handBrakeForce;
 
-    private Transform centerOfMass;
+    [SerializeField] private Transform centerOfMass;
 
     private ObscuredFloat flySpeedResuce;
     private ObscuredFloat angolarCoef;
@@ -30,7 +35,7 @@ public class BaseCar : MonoBehaviour
     private ObscuredFloat rearGear;
     private ObscuredFloat maxSpeed;
 
-    private ParticleSystem[] exhaustSystem;
+    [SerializeField] private ParticleSystem[] exhaustSystem;
 
 
     [Header("Wheels")]
@@ -112,10 +117,10 @@ public class BaseCar : MonoBehaviour
             return rigid;
         }
 
-        set
+        /*set
         {
             rigid = value;
-        }
+        }*/
     }
 
     protected ObscuredFloat EngineMaxTorque
@@ -164,10 +169,7 @@ public class BaseCar : MonoBehaviour
             return centerOfMass;
         }
 
-        set
-        {
-            centerOfMass = value;
-        }
+       
     }
 
     protected ObscuredFloat FlySpeedResuce
@@ -242,10 +244,10 @@ public class BaseCar : MonoBehaviour
             return exhaustSystem;
         }
 
-        set
+        /*set
         {
             exhaustSystem = value;
-        }
+        }*/
     }
 
     protected ObscuredFloat ExtremumSlip
@@ -320,23 +322,23 @@ public class BaseCar : MonoBehaviour
         TargetPosition = _initData.TargetPosition;
         Torque = _initData.Torque;
         MaxEngineRPM = _initData.MaxEngineRPM;
-        Rigid = _initData.rigid;
+        //Rigid = _initData.rigid;
         EngineMaxTorque = _initData.engineMaxTorque;
         BrakeForce = _initData.brakeForce;
         HandBrakeForce = _initData.handBrakeForce;
-        CenterOfMass = _initData.CenterOfMass;
+        //CenterOfMass = _initData.CenterOfMass;
         FlySpeedResuce = _initData.FlySpeedResuce;
         AngolarCoef = _initData.angolarCoef;
         Gears = _initData.gears;
         RearGear = _initData.rearGear;
         MaxSpeed = _initData.maxSpeed;
-        ExhaustSystem = _initData.exhaustSystem;
+        //ExhaustSystem = _initData.exhaustSystem;
         ExtremumSlip = _initData.ExtremumSlip;
         ExtremumValue = _initData.ExtremumValue;
         AsymptoteSlip = _initData.AsymptoteSlip;
         AsymptoteValue = _initData.AsymptoteValue;
         Stiffness = _initData.Stiffness;
-
+        if (_modifs == null) return;
         foreach (var mod in _modifs)
         {
             ApplyModificator(mod);
