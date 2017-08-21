@@ -220,7 +220,7 @@ class PlayerPrefsEliteEditor extends EditorWindow {
 		 	 			}		
 		 	 		}
 		 		}
-		 		dataold=data;
+		 		olddata=data;
 			}
 		}else
 		if (Application.platform == RuntimePlatform.WindowsEditor){
@@ -618,7 +618,7 @@ class PlayerPrefsEliteEditor extends EditorWindow {
  				
   				if (data[editkey].type=="string"){
   			
-		  			olddata = EditorGUILayout.TextField ("", olddata,  GUILayout.MinWidth(30), GUILayout.MaxWidth(227));
+		  			olddata = EditorGUILayout.TextField ("", olddata as String,  GUILayout.MinWidth(30), GUILayout.MaxWidth(227));
   					if (GUILayout.Button(new GUIContent("", "Restore"), editorSkin.customStyles[48])){
   						GUIUtility.hotControl = 0;
     					GUIUtility.keyboardControl = 0;

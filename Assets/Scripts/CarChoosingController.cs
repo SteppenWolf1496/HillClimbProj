@@ -25,9 +25,22 @@ public class CarChoosingController : SingletonePattern<CarChoosingController>
         }
 
 	    currentCar = cars[index];
-	    currentCar.makeDEMO();
+	    
 	    currentCar.gameObject.SetActive(true);
 	    mainGui.UpdateButtons();
+
+
+        StartCoroutine(StartCar());
+    }
+
+    private IEnumerator StartCar()
+    {
+        while (currentCar.inited == false)
+        {
+            yield return new WaitForSeconds(1);
+
+        }
+        currentCar.makeDEMO();
     }
 
     public void NextCar()

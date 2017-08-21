@@ -41,15 +41,35 @@ public class ScreenManager : MonoBehaviour
 		            SceneChangeManager.Instance.loadNextScene("CarChoosing");
                 break;
 		        case Screens.CHOOSE_MAP_MENU:
-		            break;
+                    SceneChangeManager.Instance.loadNextScene("MapChoosing");
+                break;
 		        case Screens.GAME:
-		            SceneChangeManager.Instance.loadNextScene("RaceWillage");
+		            LoadGame();
+
+                   
                     break;
 		        default:
 		            throw new ArgumentOutOfRangeException();
 		    }
 		}
 
-    
+    private static void LoadGame()
+    {
+        switch (Model.curMap)
+        {
+            case "village":
+                SceneChangeManager.Instance.loadNextScene("RaceWillage");
+                break;
+            case "city":
+                SceneChangeManager.Instance.loadNextScene("City");
+                break;
+
+
+        }
+    }
+
+
+
+
 }
 

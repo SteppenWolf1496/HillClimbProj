@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CodeStage.AntiCheat.ObscuredTypes;
 using UnityEngine;
 
-public class BaseCarData : MonoBehaviour
+public class BaseCarData
 {
 
     
@@ -28,7 +28,7 @@ public class BaseCarData : MonoBehaviour
     [SerializeField] public ObscuredFloat FlySpeedResuce = 0.05f;
     [SerializeField] public ObscuredFloat angolarCoef = 0.1f;
 
-    [SerializeField] public ObscuredFloat[] gears = new ObscuredFloat[5] { 3.6f, 1.95f, 1.357f, 0.941f, 0.784f };
+    [SerializeField] public float[] gears = new float[5] { 3.6f, 1.95f, 1.357f, 0.941f, 0.784f };
     [SerializeField] public ObscuredFloat rearGear = 3;
     [SerializeField] public ObscuredFloat maxSpeed = 180;
 

@@ -37,15 +37,28 @@ public class MainController : MonoBehaviour
         //ScreenManager.showScreen (ScreenManager.Screens.START_MENU);
        
 	    terrain = GetComponent<TerrainDisplayer>();
+        if(terrain)
 	    terrain.Setup();
+
+        StartCoroutine(StartTerrain());
 
     }
 
+    private IEnumerator StartTerrain()
+    {
+        while (terrain == null)
+        {
+            yield return new WaitForEndOfFrame();
+            terrain = GetComponent<TerrainDisplayer>();
+        }
+        terrain.Setup();
+    }
 
-		
-	
-		// Update is called once per frame
-	void Update ()
+
+
+
+    // Update is called once per frame
+    void Update ()
 	{
 
 	}

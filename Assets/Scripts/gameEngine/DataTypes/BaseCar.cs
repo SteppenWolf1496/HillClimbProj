@@ -31,7 +31,7 @@ public class BaseCar : MonoBehaviour
     private ObscuredFloat flySpeedResuce;
     private ObscuredFloat angolarCoef;
 
-    private ObscuredFloat[] gears;
+    private float[] gears;
     private ObscuredFloat rearGear;
     private ObscuredFloat maxSpeed;
 
@@ -198,7 +198,7 @@ public class BaseCar : MonoBehaviour
         }
     }
 
-    protected ObscuredFloat[] Gears
+    protected float[] Gears
     {
         get
         {

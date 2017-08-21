@@ -8,8 +8,11 @@ public class Model : MonoBehaviour
 {
 
     public static int curCarIndex = 0;
+    public static int curMapIndex = 0;
+    public static string curMap;
     private static List<BaseCarData> cars = new List<BaseCarData>();
     private static List<UserCarData> ucars = new List<UserCarData>();
+    private static List<UserMapData> uMaps = new List<UserMapData>();
    // UserMaps Data
     public static ObscuredInt BlackMetal;
     public static ObscuredInt GoldMetal;
@@ -52,6 +55,23 @@ public class Model : MonoBehaviour
             }
 
             return ucars;
+        }
+    }
+
+    public static List<UserMapData> UserMaps
+    {
+        get
+        {
+            if (uMaps.Count == 0)
+            {
+                UserMapData tmp = new UserMapData();
+                tmp.Key = "vilage";
+                uMaps.Add(tmp);
+                tmp = new UserMapData();
+                tmp.Key = "city";
+                uMaps.Add(tmp);
+            }
+            return uMaps;
         }
     }
 

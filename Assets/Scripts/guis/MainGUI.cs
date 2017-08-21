@@ -50,7 +50,7 @@ public class MainGUI : MonoBehaviour
 
     public void StartGame()
     {
-        ScreenManager.showScreen(ScreenManager.Screens.GAME);
+        ScreenManager.showScreen(ScreenManager.Screens.CHOOSE_MAP_MENU);
     }
 
     public void MainScreen()

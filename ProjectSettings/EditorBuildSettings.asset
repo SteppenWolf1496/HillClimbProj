@@ -17,3 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RacingScenes/RaceWillage.unity
     guid: 5826dd93c99ef2141bfdd715456bba9b
+  - enabled: 1
+    path: Assets/Scenes/LobbyScenes/MapChoosing.unity
+    guid: 1e86193ad98be2d41bf7d4d0b87165ae
+  - enabled: 1
+    path: Assets/Scenes/RacingScenes/City.unity
+    guid: 18d153e7e3337e344aa8ebfbd603a324

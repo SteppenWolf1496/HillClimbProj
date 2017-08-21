@@ -219,7 +219,7 @@ public class TruckControll : BaseCar
     }
 
 
-    private bool inited = false;
+    public bool inited = false;
 
     public bool Inited
     {
@@ -325,6 +325,9 @@ public class TruckControll : BaseCar
 
     public float EngineRPM()
     {
+       /* if (Gears == null) return MaxEngineRPM;
+        if (Gears.Length == 0) return MaxEngineRPM;
+        if (Gears.Length <= curGear) return MaxEngineRPM;*/
         tmpRPM = wheelMiddleRPM * Gears[curGear];
         return tmpRPM>MaxEngineRPM? MaxEngineRPM : tmpRPM ;
     }
