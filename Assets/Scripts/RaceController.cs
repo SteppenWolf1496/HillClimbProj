@@ -6,6 +6,8 @@ using UnityEngine;
 public class RaceController : MonoBehaviour {
     private TerrainDisplayer terrain;
     private TruckControll truck;
+    private Vector3 startPosition;
+
     public RacingGui truckGUI;
     // Use this for initialization
     void Start () {
@@ -17,7 +19,9 @@ public class RaceController : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+	{
+	    truckGUI.Distance.text = (truck.transform.position.x - startPosition.x).ToString();
+
 	}
 }

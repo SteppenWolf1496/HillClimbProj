@@ -143,15 +143,18 @@ namespace Endless2DTerrain
                 if (settings.DrawDetailMeshRenderer)
                 {
                     MeshPiece meshPieceDetail = new MeshPiece(vg, MeshPiece.Plane.Detail, settings);
-                    topVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Detail, true);
-                    bottomVerticies = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Detail, false);
-                    meshPieceDetail.CreateCorner(topVerticies, bottomVerticies);
+                    List<Vector3>  topVerticies1 = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Detail, true);
+                    List<Vector3>  bottomVerticies1 = GetCornerVerts(previousTerrain, currentTerrain, MeshPiece.Plane.Detail, false);
+                    meshPieceDetail.CreateCorner(topVerticies1, bottomVerticies1);
                     MeshPieces.Add(meshPieceDetail);
                 }            
 
 
                 if (settings.DrawTopMeshCollider || settings.DrawTopMeshRenderer)
                 {
+
+
+
                     //Create the verticies for the top of our mesh, and add that too                  
                     MeshPiece meshPieceTop = new MeshPiece(vg, MeshPiece.Plane.Top, settings);
 

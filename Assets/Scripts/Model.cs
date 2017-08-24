@@ -13,9 +13,19 @@ public class Model : MonoBehaviour
     private static List<BaseCarData> cars = new List<BaseCarData>();
     private static List<UserCarData> ucars = new List<UserCarData>();
     private static List<UserMapData> uMaps = new List<UserMapData>();
-   // UserMaps Data
-    public static ObscuredInt BlackMetal;
-    public static ObscuredInt GoldMetal;
+    // UserMaps Data
+    private static ObscuredInt coins;
+    private static ObscuredInt RealMoney;
+
+    public static void AddCoins(int _value)
+    {
+        coins += _value;
+    }
+
+    public static int Coins
+    {
+        get { return coins; }
+    }
 
     public static List<BaseCarData> BaseCars
     {

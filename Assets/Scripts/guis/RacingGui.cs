@@ -13,6 +13,7 @@ namespace Assets.Scripts.guis
         [SerializeField] AdditionalMouseEvents accelButton;
         [SerializeField] Transform arrow;
         [SerializeField] public Text Gear;
+        [SerializeField] public Text Distance;
         public bool Ready = false;
 
         private GUIStyle style;
