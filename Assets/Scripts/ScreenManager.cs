@@ -57,7 +57,7 @@ public class ScreenManager : MonoBehaviour
     {
         switch (Model.curMap)
         {
-            case "village":
+            case "vilage":
                 SceneChangeManager.Instance.loadNextScene("RaceWillage");
                 break;
             case "city":

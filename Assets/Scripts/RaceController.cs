@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RaceController : MonoBehaviour {
     private TerrainDisplayer terrain;
-    private TruckControll truck;
+    private static TruckControll truck;
     private Vector3 startPosition;
 
     public RacingGui truckGUI;
@@ -16,6 +16,11 @@ public class RaceController : MonoBehaviour {
 	    truck.gameObject.SetActive(true);
         
         truckGUI.truck = truck;
+    }
+
+    public static TruckControll Truck
+    {
+        get { return truck; }
     }
 	
 	// Update is called once per frame

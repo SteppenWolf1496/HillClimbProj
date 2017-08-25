@@ -35,6 +35,9 @@ public class BaseCar : MonoBehaviour
     private ObscuredFloat rearGear;
     private ObscuredFloat maxSpeed;
 
+    private ObscuredFloat fuelTank;
+    private ObscuredFloat fuelCons;
+
     [SerializeField] private ParticleSystem[] exhaustSystem;
 
 
@@ -315,6 +318,32 @@ public class BaseCar : MonoBehaviour
         }
     }
 
+    public ObscuredFloat FuelTank
+    {
+        get
+        {
+            return fuelTank;
+        }
+
+        set
+        {
+            fuelTank = value;
+        }
+    }
+
+    public ObscuredFloat FuelCons
+    {
+        get
+        {
+            return fuelCons;
+        }
+
+        set
+        {
+            fuelCons = value;
+        }
+    }
+
     public void Init(BaseCarData _initData, List<BaseCarModificator> _modifs) 
     {
         Spring = _initData.Spring;
@@ -338,7 +367,11 @@ public class BaseCar : MonoBehaviour
         AsymptoteSlip = _initData.AsymptoteSlip;
         AsymptoteValue = _initData.AsymptoteValue;
         Stiffness = _initData.Stiffness;
+        FuelTank = _initData.fuelTank;
+        FuelCons = _initData.fuelCons;
+
         if (_modifs == null) return;
+
         foreach (var mod in _modifs)
         {
             ApplyModificator(mod);
@@ -373,6 +406,10 @@ public class BaseCar : MonoBehaviour
             case Enums.CarModificatorType.MaxRPM:
                 break;
             case Enums.CarModificatorType.MaxSpeed:
+                break;
+            case Enums.CarModificatorType.FuelTank:
+                break;
+            case Enums.CarModificatorType.FuelConsume:
                 break;
         }
     }

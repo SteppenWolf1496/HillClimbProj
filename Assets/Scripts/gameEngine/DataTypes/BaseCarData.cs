@@ -34,6 +34,9 @@ public class BaseCarData
 
     [SerializeField] public ParticleSystem[] exhaustSystem;
 
+    [SerializeField] public ObscuredFloat fuelTank = 45f;
+    [SerializeField] public ObscuredFloat fuelCons = 0.1f;
+
 
     [Header("Wheels")]
     [SerializeField] public ObscuredFloat ExtremumSlip = 0.4f;

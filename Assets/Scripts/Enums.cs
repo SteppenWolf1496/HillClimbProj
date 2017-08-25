@@ -22,7 +22,9 @@
         TorquePercentForWd,
         GearBox,
         MaxRPM,
-        MaxSpeed
+        MaxSpeed,
+        FuelTank,
+        FuelConsume
     }
 
     public enum CarModificationActivation

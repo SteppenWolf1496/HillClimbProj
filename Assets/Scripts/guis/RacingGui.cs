@@ -14,6 +14,7 @@ namespace Assets.Scripts.guis
         [SerializeField] Transform arrow;
         [SerializeField] public Text Gear;
         [SerializeField] public Text Distance;
+        [SerializeField] public Text Fuel;
         public bool Ready = false;
 
         private GUIStyle style;
@@ -47,6 +48,8 @@ namespace Assets.Scripts.guis
            
             arrow.rotation = Quaternion.Euler(0,0,truck.EngineRPM()/9000*(-180.0f));
             Gear.text = (truck.getGear()+1).ToString();
+
+            Fuel.text = (truck.GetFuel() / truck.FuelTank).ToString();
 
         }
 

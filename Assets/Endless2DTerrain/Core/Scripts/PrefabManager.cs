@@ -56,6 +56,7 @@ namespace Endless2DTerrain
 
                     //Save it because it is randomized and changes every time
                     float repeatDistance = rule.RepeatDistance;
+                    
 
                     if (rule.AddPrefab(repeatDistance))
                     {
@@ -94,6 +95,7 @@ namespace Endless2DTerrain
                                 {
                                     //Store the location of these prefabs as well
                                     angle = FindSlopeAngle(nextXLocation + increase);
+                                    
                                     prefabsToAdd.Add(new PrefabQueue() { location = nextLocation, angle = angle });
                                 }
 

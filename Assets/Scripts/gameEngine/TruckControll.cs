@@ -12,8 +12,6 @@ public class TruckControll : BaseCar
     Vector3 lastV;
     Vector3 currV;
 
-
-
     [Header("Debug")]
 
     public float GForce;
@@ -21,16 +19,18 @@ public class TruckControll : BaseCar
     public bool breaking = false;
     public bool rear = false;
 
-
     private Quaternion startRotaion;
 
     private int curGear = 0; //between 0 - gearscount;
     private float engineTorque;
 
-    
     private float speedbyGear;
     private float speed;
 
+    private bool CarWork = true;
+
+    private float fuel;
+    public float MaxDistance;
 
     int CompareCondition(Wheel itemA, Wheel itemB)
     {
@@ -102,9 +102,11 @@ public class TruckControll : BaseCar
         engineTorque = Gears[curGear] * EngineMaxTorque;
         middleTorq = engineTorque / radiusSumm;
 
+        MaxDistance = FuelTank / FuelCons; // Distance for count fuel
+        Fueling();
+
         inited = true;
     }
-
 
     private float wheelMiddleRPM = 0;
     private float wheelsRPMSumm = 0;
@@ -116,7 +118,7 @@ public class TruckControll : BaseCar
         {
             if (!rear && accel)
             {
-                wheels[wheels.Length - i - 1 - notDrive].collider.motorTorque = ((middleTorq*1) /*/ wheels [i].radius*/);
+                wheels[wheels.Length - i - 1 - notDrive].collider.motorTorque = ((middleTorq*1));
             }
             else if (rear)
             {
@@ -127,7 +129,6 @@ public class TruckControll : BaseCar
                 wheels[wheels.Length - i - 1 - notDrive].collider.motorTorque = 0;
             }
             wheelsRPMSumm += wheels[wheels.Length - i - 1 - notDrive].collider.rpm;
-            //	wheels [wheels.Length - i - 1 - notDrive].setWheelDefFreak (ExtremumSlip, ExtremumValue, AsymptoteSlip, AsymptoteValue);
         }
         wheelMiddleRPM = wheelsRPMSumm / wheels.Length - notDrive;
 
@@ -154,7 +155,7 @@ public class TruckControll : BaseCar
             countTorque();
             return;
         }
-        //Debug.Log("COUNT GEAR");
+        
         if (EngineRPM() >= (MaxEngineRPM - 2000))
         {
             UpGear();
@@ -163,20 +164,21 @@ public class TruckControll : BaseCar
             DownGear();
         }
 
-       
-        
         countTorque();
+    }
+
+    public void Fueling()
+    {
+        fuel = FuelTank;
     }
 
     private void UpGear()
     {
-       // Debug.Log("TRY UP GEAR");
         if (curGear < Gears.Length-1)
         {
             ++curGear;
             engineTorque = Gears[curGear] * EngineMaxTorque;
             middleTorq = engineTorque / radiusSumm;
-           // Debug.Log("UP GEAR");
         }
     }
 
@@ -187,7 +189,6 @@ public class TruckControll : BaseCar
             --curGear;
             engineTorque = Gears[curGear] * EngineMaxTorque;
             middleTorq = engineTorque / radiusSumm;
-            //Debug.Log("DOWN GEAR");
         }
     }
 
@@ -195,7 +196,7 @@ public class TruckControll : BaseCar
 
     public void makeDEMO()
     {
-        
+        CarWork = true;
         EngineMaxTorque = EngineMaxTorque/2;
         isDemo = true;
         updateGearValues();
@@ -206,16 +207,13 @@ public class TruckControll : BaseCar
         return curGear;
     }
 
-   /* public float getTorque()
-    {
-        return engineTorque;
-    }*/
-
     public void reset()
     {
+       
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 10,
             this.transform.position.z);
         this.transform.rotation = startRotaion;
+        CarWork = true;
     }
 
 
@@ -224,6 +222,14 @@ public class TruckControll : BaseCar
     public bool Inited
     {
         get { return inited; }
+    }
+
+    public void BreakCar()
+    {
+        CarWork = false;
+        accel = false;
+        breaking = true;
+        rear = false;
     }
    
     public bool isGrounded()
@@ -283,6 +289,7 @@ public class TruckControll : BaseCar
 
     void Update()
     {
+        if (!CarWork) return;
         if (!isGrounded())
         {
             if (Rigid.velocity.x > 0)
@@ -300,34 +307,53 @@ public class TruckControll : BaseCar
 
         CarMove();
 
-        if (isDemo)
-            MainController.mainCamera.transform.position = new Vector3(transform.position.x + 1,
-                transform.position.y+7, -8);
+        UpdateCameraPosition();
+
+        if (accel || rear)
+        {
+            fuel -= FuelCons * Time.deltaTime;
+        }
         else
-            MainController.mainCamera.transform.position = new Vector3(transform.position.x+3 + Mathf.Abs(Rigid.velocity.x / 2),
-                transform.position.y+3+ Mathf.Abs(Rigid.velocity.x/2), -8 - Mathf.Abs(Rigid.velocity.x));
-
-        
-    }
-
-   /* public WheelCollider tmpWheel = null;
-    public float WheelRPM
-    {
-
-        get { if (tmpWheel == null) return 0;
-            return tmpWheel.rpm;
+        {
+            fuel -= FuelCons * Time.deltaTime/2;
         }
         
-}*/
+
+        CheckFuel();
+    }
+
+    public float GetFuel()
+    {
+       
+
+        return fuel;
+    }
+
+    private void CheckFuel()
+    {
+        if (GetFuel() <=0)
+        {
+            BreakCar();
+        }
+    }
+
+    private void UpdateCameraPosition() //-------------------------------------- CAMERA POSITION --------------------------------------------
+    {
+        
+        if (isDemo)
+            MainController.mainCamera.transform.position = new Vector3(transform.position.x + 1,
+                transform.position.y + 7, -8);
+        else
+            MainController.mainCamera.transform.position = new Vector3(transform.position.x + 3 + Mathf.Abs(Rigid.velocity.x / 2),
+                transform.position.y + 3 + Mathf.Abs(Rigid.velocity.x / 2), -8 - Mathf.Abs(Rigid.velocity.x));
+    }
+
 
     private float tmpRPM = 0;
     private float drag = 0.2f;
 
     public float EngineRPM()
     {
-       /* if (Gears == null) return MaxEngineRPM;
-        if (Gears.Length == 0) return MaxEngineRPM;
-        if (Gears.Length <= curGear) return MaxEngineRPM;*/
         tmpRPM = wheelMiddleRPM * Gears[curGear];
         return tmpRPM>MaxEngineRPM? MaxEngineRPM : tmpRPM ;
     }

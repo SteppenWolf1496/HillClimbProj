@@ -454,6 +454,7 @@ public class TerrainEditor : Editor {
                 SerializedProperty offset = prefabRule.FindPropertyRelative("Offset");
                 SerializedProperty minRepeatDistance = prefabRule.FindPropertyRelative("MinRepeatDistance");
                 SerializedProperty maxRepeatDistance = prefabRule.FindPropertyRelative("MaxRepeatDistance");
+                SerializedProperty MinMaxEncreasing = prefabRule.FindPropertyRelative("MinMaxEncreasing");
                 SerializedProperty minGroupSize = prefabRule.FindPropertyRelative("MinGroupSize");
                 SerializedProperty maxGroupSize = prefabRule.FindPropertyRelative("MaxGroupSize");
                 SerializedProperty minGroupSpacing = prefabRule.FindPropertyRelative("MinGroupSpacing");
@@ -508,7 +509,8 @@ public class TerrainEditor : Editor {
                         EditorGUILayout.PropertyField(prefabToClone, new GUIContent("Prefab To Clone", "The prefab you want to clone."));
                         EditorGUILayout.PropertyField(offset, new GUIContent("Offset", "The amount the prefab will be offset fron the default placement."), true);
                         EditorGUILayout.PropertyField(minRepeatDistance, new GUIContent("Min Repeat Distance", "Minimum distance between prefab placement."));                        
-                        EditorGUILayout.PropertyField(maxRepeatDistance, new GUIContent("Max Repeat Distance", "Maximum distance between prefab placement."));
+                        EditorGUILayout.PropertyField(maxRepeatDistance, new GUIContent("Max Repeat Distance", "Maximum distance between prefab placement.")); 
+                        EditorGUILayout.PropertyField(MinMaxEncreasing, new GUIContent("MinMaxEncreasing", "MinMaxEncreasing distance between prefab placement.")); 
                         EditorGUILayout.PropertyField(minGroupSize, new GUIContent("Min Group Size", "Minimum group size for prefabs - used if you want more than one prefab generated at a time."));
                         EditorGUILayout.PropertyField(maxGroupSize, new GUIContent("Max Group Size", "Maximum group size for prefabs - used if you want more than one prefab generated at a time."));
                         EditorGUILayout.PropertyField(minGroupSpacing, new GUIContent("Min Group Spacing", "The minimum spacing between the prefabs in your group."));

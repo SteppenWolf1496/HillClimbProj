@@ -28,6 +28,7 @@ public class CoinPickup : MonoBehaviour
             insideObj = transform.GetChild(0);
         }
         anim.Play();
+        Model.AddCoins(money);
         /* //Assume only one terrain displayer at a time
          var terrainDisplayer = GameObject.FindObjectOfType(typeof(TerrainDisplayer)) as TerrainDisplayer;        
          if (terrainDisplayer != null && terrainDisplayer.PrefabManager != null && terrainDisplayer.PrefabManager.Pool != null)
@@ -43,7 +44,7 @@ public class CoinPickup : MonoBehaviour
     public void AnimationComplete()
     {
         insideObj.localPosition = Vector3.zero;
-        Model.AddCoins(money);
+        
         var terrainDisplayer = GameObject.FindObjectOfType(typeof(TerrainDisplayer)) as TerrainDisplayer;
         if (terrainDisplayer != null && terrainDisplayer.PrefabManager != null && terrainDisplayer.PrefabManager.Pool != null)
         {

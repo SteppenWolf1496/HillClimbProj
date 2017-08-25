@@ -72,7 +72,7 @@ namespace Endless2DTerrain
                 //First time through the loop?  Create our first piece of terrain
                 currentTerrain = GenerateTerrainPiece(null, settings.OriginalStartPoint,0);
             }
-            Debug.Log(VertexGenerator.lastY);
+            //Debug.Log(VertexGenerator.lastY);
             while (currentTerrain.NextTerrainOrigin.x < endX)
             {
                 //Generate our next terrain
