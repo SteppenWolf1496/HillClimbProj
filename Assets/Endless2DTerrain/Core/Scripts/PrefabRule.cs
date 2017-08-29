@@ -23,7 +23,7 @@ namespace Endless2DTerrain
         public float MaxRepeatDistance;
         public float MinMaxEncreasing = 0;
         [HideInInspector]
-        public int usingCount = 0;
+        private int usingCount = 0;
 
         public int MinGroupSize;
         public int MaxGroupSize;
@@ -56,8 +56,8 @@ namespace Endless2DTerrain
             prefab.transform.parent = prefabManager.transform;
             if (MinMaxEncreasing != 0)
             {
-                usingCount++;
-                Debug.Log("usingCount = " + usingCount);
+                UsingCount++;
+               // Debug.Log("usingCount = " + UsingCount);
             }
             //If we have an offset (and we are placing prefabs at an angle), get the direction of that offset.
             //In otherwords, if our offset says to move one up in the y direction, getting the transform direction means the 
@@ -115,7 +115,8 @@ namespace Endless2DTerrain
                 }
                 else
                 {
-                    return MaxRepeatDistance + MinMaxEncreasing * usingCount;
+                    //Debug.Log("PrefabRule::RepeatDistance usingCount =  "+ UsingCount);
+                    return MaxRepeatDistance + MinMaxEncreasing * UsingCount;
                 }
             }
         }
@@ -125,6 +126,19 @@ namespace Endless2DTerrain
             get
             {
                 return CurrentLocation.x - StartLocation.x;
+            }
+        }
+
+        public int UsingCount
+        {
+            get
+            {
+                return usingCount;
+            }
+
+            set
+            {
+                usingCount = value;
             }
         }
     }
