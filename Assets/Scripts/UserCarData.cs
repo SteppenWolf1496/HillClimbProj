@@ -8,6 +8,7 @@ using CodeStage.AntiCheat.ObscuredTypes;
 public class UserCarData
     {
         public ObscuredString key;
+        public List<string> modificators = new List<string>();
 
         //public ObscuredInt 
 
