@@ -12,11 +12,11 @@ public class BaseCarModificator
     public CarModificatorType ModificatorType;
     public CarModificationActivation ActivationType;
     public CarModifationRarity ModifationRarity;
-    
     public ObscuredInt MoficatorLvl;
     public ObscuredFloat ModificationValue;
-
     public ObscuredFloat LvlUpMuliplier;
-
     public string Title;
+
+
+    
 }

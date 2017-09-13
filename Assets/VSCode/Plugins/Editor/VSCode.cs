@@ -43,7 +43,8 @@ namespace dotBunny.Unity
         {
             get
             {
-		        string current = EditorPrefs.GetString("VSCode_CodePath", "");
+                
+                string current = EditorPrefs.GetString("VSCode_CodePath", "");
                 if(current == "" || !VSCodeExists(current))
                 {
                     //Value not set, set to "" or current path is invalid, try to autodetect it
