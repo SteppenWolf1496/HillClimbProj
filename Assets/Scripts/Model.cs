@@ -12,7 +12,12 @@ public class Model : MonoBehaviour
     public static string curMap;
     private static List<BaseCarData> cars = new List<BaseCarData>();
     private static List<UserCarData> ucars = new List<UserCarData>();
+    private static List<MapData> maps = new List<MapData>();
     private static List<UserMapData> uMaps = new List<UserMapData>();
+    private static List<BaseCarModificator> carModifs = new List<BaseCarModificator>();
+    private static List<UserCarModificator> uCarmodifs = new List<UserCarModificator>();
+
+
     // UserMaps Data
     private static ObscuredInt coins;
     private static ObscuredInt RealMoney;
@@ -83,6 +88,11 @@ public class Model : MonoBehaviour
             }
             return uMaps;
         }
+    }
+
+    public void SaveCar()
+    {
+        
     }
 
 }

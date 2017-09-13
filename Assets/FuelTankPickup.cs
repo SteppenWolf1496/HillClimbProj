@@ -5,7 +5,6 @@ using Endless2DTerrain;
 
 public class FuelTankPickup : MonoBehaviour
 {
-    private ObscuredInt money = 10;
     private Animation anim;
     private Transform insideObj;
 
