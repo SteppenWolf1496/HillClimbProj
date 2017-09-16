@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameUtility;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -151,13 +152,13 @@ namespace SSC
                 if (string.IsNullOrEmpty(val.identifier))
                 {
 
-                    Debug.LogError("Empty UI identifier not allowed");
+                    Log.Error("Empty UI identifier not allowed");
                     continue;
                 }
 
                 if (this.m_uiDictionary.ContainsKey(val.identifier))
                 {
-                    Debug.LogError("m_uiDictionary already contains a key : " + val.identifier);
+                    Log.Error("m_uiDictionary already contains a key : " + val.identifier);
                     continue;
                 }
 
@@ -526,7 +527,7 @@ namespace SSC
 
                 if (!this.m_uiDictionary.ContainsKey(id))
                 {
-                    Debug.LogWarning("(#if UNITY_EDITOR) m_uiDictionary not contain : " + id);
+                     Log.Warning("(#if UNITY_EDITOR) m_uiDictionary not contain : " + id);
                 }
 
             }

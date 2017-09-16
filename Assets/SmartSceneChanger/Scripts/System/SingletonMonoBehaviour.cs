@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GameUtility;
 using UnityEngine;
 
 namespace SSC
@@ -30,7 +31,7 @@ namespace SSC
 
                     if (instance == null)
                     {
-                        Debug.LogError(typeof(T) + " Not Found. You Must Attach This to a GameObject");
+                        Log.Error(typeof(T) + " Not Found. You Must Attach This to a GameObject");
                     }
                 }
 
@@ -87,7 +88,7 @@ namespace SSC
 
 
 #if UNITY_EDITOR
-            Debug.LogWarning("(#if UNITY_EDITOR) Destroy the object because an instance alresdy exists : " + this.gameObject.name);
+             Log.Warning("(#if UNITY_EDITOR) Destroy the object because an instance alresdy exists : " + this.gameObject.name);
 #endif
             Destroy(this.gameObject);
 

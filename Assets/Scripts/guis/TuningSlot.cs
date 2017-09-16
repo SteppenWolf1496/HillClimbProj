@@ -9,6 +9,8 @@ public class TuningSlot : MonoBehaviour
 
     [SerializeField] private Button change;
 
+
+    [HideInInspector] public int num;
 	/*// Use this for initialization
 	void Start () {
 		

@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System;
+using GameUtility;
 using UnityEditor;
 using UnityEngine;
 
@@ -261,7 +262,7 @@ namespace CodeStage.AntiCheat.EditorCode
 			if (style == null)
 			{
 				style = GUIStyle.none;
-				Debug.LogError(ActEditorGlobalStuff.LOG_PREFIX + "Can't find builtin style " + name);
+				Log.Error(ActEditorGlobalStuff.LOG_PREFIX + "Can't find builtin style " + name);
 			}
 
 			return style;

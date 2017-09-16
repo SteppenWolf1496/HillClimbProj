@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using GameUtility;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -82,7 +83,7 @@ namespace CodeStage.AntiCheat.EditorCode
 			string[] targetFiles = Directory.GetDirectories(assetsPath, INJECTION_SERVICE_FOLDER, SearchOption.AllDirectories);
 			if (targetFiles.Length == 0)
 			{
-				Debug.LogError(LOG_PREFIX + "Can't find " + INJECTION_SERVICE_FOLDER + " folder! Please report to " + REPORT_EMAIL);
+				Log.Error(LOG_PREFIX + "Can't find " + INJECTION_SERVICE_FOLDER + " folder! Please report to " + REPORT_EMAIL);
 			}
 			else
 			{
@@ -190,12 +191,12 @@ namespace CodeStage.AntiCheat.EditorCode
 			SerializedProperty calls = unityEvent.FindPropertyRelative("m_PersistentCalls.m_Calls");
 			if (calls == null)
 			{
-				Debug.LogError(LOG_PREFIX + " Can't find Unity Event calls! Please report to " + REPORT_EMAIL);
+				Log.Error(LOG_PREFIX + " Can't find Unity Event calls! Please report to " + REPORT_EMAIL);
 				return false;
 			}
 			if (!calls.isArray)
 			{
-				Debug.LogError(LOG_PREFIX + " Looks like Unity Event calls are not array anymore! Please report to " + REPORT_EMAIL);
+				Log.Error(LOG_PREFIX + " Looks like Unity Event calls are not array anymore! Please report to " + REPORT_EMAIL);
 				return false;
 			}
 
@@ -227,7 +228,7 @@ namespace CodeStage.AntiCheat.EditorCode
 				}
 				else
 				{
-					Debug.LogError(LOG_PREFIX + " Can't parse Unity Event call! Please report to " + REPORT_EMAIL);
+					Log.Error(LOG_PREFIX + " Can't parse Unity Event call! Please report to " + REPORT_EMAIL);
 				}
 			}
 			return result;

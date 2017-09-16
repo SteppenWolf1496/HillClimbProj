@@ -75,7 +75,7 @@ namespace CodeStage.AntiCheat.EditorCode.PropertyDrawers
 					union.b4.b4 = (byte)hiddenValue4.intValue;
 				}
 
-				/*Debug.Log("Int: " + union.i);*/
+				/*Log.Temp("Int: " + union.i);*/
 				val = ObscuredFloat.Decrypt(union.i, currentCryptoKey);
 			}
 

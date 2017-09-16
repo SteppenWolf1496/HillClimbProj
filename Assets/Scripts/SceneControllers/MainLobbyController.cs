@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainLobbyController : MonoBehaviour {
+public class MainLobbyController : BaseSceneController
+{
 
 	// Use this for initialization
 	void Start () {

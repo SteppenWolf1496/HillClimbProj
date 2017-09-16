@@ -327,7 +327,9 @@ public class Reporter : MonoBehaviour
 				gameObject.SendMessage("OnPreStart");
 			}
 			catch (System.Exception e) {
-				Debug.LogException(e);
+
+
+			    GameUtility.Log.Exception(e);
 			}
 #if UNITY_CHANGE3
 			scenes = new string[ SceneManager.sceneCountInBuildSettings ];
@@ -348,7 +350,7 @@ public class Reporter : MonoBehaviour
 			//addSample();
 		}
 		else {
-			Debug.LogWarning("tow manager is exists delete the second");
+		    GameUtility.Log.Warning("tow manager is exists delete the second");
 			DestroyImmediate(gameObject, true);
 			return;
 		}
@@ -1114,7 +1116,8 @@ public class Reporter : MonoBehaviour
 				gameObject.SendMessage("OnHideReporter");
 			}
 			catch (System.Exception e) {
-				Debug.LogException(e);
+
+			    GameUtility.Log.Exception(e);
 			}
 		}
 
@@ -1492,7 +1495,7 @@ public class Reporter : MonoBehaviour
 				selectedSample = samples[selectedLog.sampleId];
 			}
 			catch (System.Exception e) {
-				Debug.LogException(e);
+			    GameUtility.Log.Exception(e);
 			}
 
 			GUILayout.BeginHorizontal();
@@ -1774,7 +1777,7 @@ public class Reporter : MonoBehaviour
 			gameObject.SendMessage("OnShowReporter");
 		}
 		catch (System.Exception e) {
-			Debug.LogException(e);
+		    GameUtility.Log.Exception(e);
 		}
 	}
 
@@ -1876,7 +1879,7 @@ public class Reporter : MonoBehaviour
 
 		if (TotalMemUsage > maxSize) {
 			clear();
-			Debug.Log("Memory Usage Reach" + maxSize + " mb So It is Cleared");
+		    GameUtility.Log.Temp("Memory Usage Reach" + maxSize + " mb So It is Cleared");
 			return;
 		}
 
@@ -1941,7 +1944,7 @@ public class Reporter : MonoBehaviour
 			gameObject.SendMessage("OnLog", log);
 		}
 		catch (System.Exception e) {
-			Debug.LogException(e);
+		    GameUtility.Log.Exception(e);
 		}
 	}
 
@@ -1962,10 +1965,10 @@ public class Reporter : MonoBehaviour
 
 #if UNITY_CHANGE3
 		currentScene = SceneManager.GetActiveScene().name ;
-		Debug.Log( "Scene " + SceneManager.GetActiveScene().name + " is loaded");
+	    GameUtility.Log.Temp( "Scene " + SceneManager.GetActiveScene().name + " is loaded");
 #else
 		currentScene = Application.loadedLevelName;
-		Debug.Log("Scene " + Application.loadedLevelName + " is loaded");
+		Log.Temp("Scene " + Application.loadedLevelName + " is loaded");
 #endif
 	}
 
@@ -2020,7 +2023,7 @@ public class Reporter : MonoBehaviour
 		yield return www;
 
 		if (!string.IsNullOrEmpty(www.error)) {
-			Debug.LogError(www.error);
+		    GameUtility.Log.Error(www.error);
 		}
 		else {
 			buildDate = www.text;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using CodeStage.AntiCheat.ObscuredTypes;
+using GameUtility;
 using UnityEngine;
 
 public class BaseCar : MonoBehaviour
@@ -430,11 +431,11 @@ public class BaseCar : MonoBehaviour
     }
     private void ApplyGravity(float _value)
     {
-        Debug.LogError("ApplyGravity not realized");
+        Log.Error("ApplyGravity not realized");
     }
     private void ApplyRotation(float _value)
     {
-        Debug.LogError("ApplyGravity not realized");
+        Log.Error("ApplyGravity not realized");
     }
     private void ApplySuspentionLift(float _value)
     {
@@ -442,27 +443,27 @@ public class BaseCar : MonoBehaviour
     }
     private void ApplySuspentionHardness(float _value)
     {
-        Debug.LogError("ApplyGravity not realized");
+        Log.Error("ApplyGravity not realized");
     }
     private void ApplyTearsGrip(float _value)
     {
-        Debug.LogError("ApplyGravity not realized");
+        Log.Error("ApplyGravity not realized");
     }
     private void ApplyTorquePercentForWd(float _value)
     {
-        Debug.LogError("ApplyGravity not realized");
+        Log.Error("ApplyGravity not realized");
     }
     private void ApplyGearBox(float _value)
     {
-        Debug.LogError("ApplyGravity not realized");
+        Log.Error("ApplyGravity not realized");
     }
     private void ApplyMaxRPM(float _value)
     {
-        Debug.LogError("ApplyGravity not realized");
+        Log.Error("ApplyGravity not realized");
     }
     private void ApplyMaxSpeed(float _value)
     {
-        Debug.LogError("ApplyGravity not realized");
+        Log.Error("ApplyGravity not realized");
     }
 
 

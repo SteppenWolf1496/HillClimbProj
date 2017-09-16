@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapChoosingController : MonoBehaviour
+public class MapChoosingController : BaseSceneController
 {
 
     [SerializeField] private GameObject startBtn;

@@ -4,7 +4,7 @@ using System.Collections;
 
 using SSC;
 
-public class ScreenManager : MonoBehaviour
+public class ScreenManager : BaseSceneController
 {
 
 		public enum Screens

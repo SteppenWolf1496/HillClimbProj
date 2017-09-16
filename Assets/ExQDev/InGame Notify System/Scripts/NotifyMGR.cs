@@ -86,7 +86,7 @@ public class NotifyMGR : MonoBehaviour {
                         anima.AddClip(animHide, animHide.name);
                         anima.clip = animHide;
                         anima.playAutomatically = false;
-                        //Debug.Log(animHide.name);
+                        //Log.Temp(animHide.name);
                         anima[animHide.name].speed = 1 / showTime;
                         anima.Play(animHide.name);
                         
@@ -146,7 +146,7 @@ public class NotifyMGR : MonoBehaviour {
                         anima.AddClip(animShow, animShow.name);
                         anima.clip = animShow;
                         anima.playAutomatically = false;
-                        //Debug.Log(animShow.name);
+                        //Log.Temp(animShow.name);
                         anima[animShow.name].speed = 1 / showTime;
                         anima.Play(animShow.name);
                     }

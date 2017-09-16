@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using CodeStage.AntiCheat.ObscuredTypes;
+using GameUtility;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -957,7 +958,7 @@ namespace CodeStage.AntiCheat.EditorCode.Windows
 				switch (prefType)
 				{
 					case PrefsType.Unknown:
-						Debug.LogError(ActEditorGlobalStuff.LOG_PREFIX + "Can't save Pref of unknown type!");
+						Log.Error(ActEditorGlobalStuff.LOG_PREFIX + "Can't save Pref of unknown type!");
 						break;
 					case PrefsType.String:
 						PlayerPrefs.SetString(newSavedKey, savedString);
@@ -998,7 +999,7 @@ namespace CodeStage.AntiCheat.EditorCode.Windows
 				{
 					case PrefsType.Unknown:
 						success = false;
-						Debug.LogError(ActEditorGlobalStuff.LOG_PREFIX + "Can't encrypt pref of unknown type!");
+						Log.Error(ActEditorGlobalStuff.LOG_PREFIX + "Can't encrypt pref of unknown type!");
 						break;
 					case PrefsType.String:
 						obscuredType = ObscuredPrefs.DataType.String;

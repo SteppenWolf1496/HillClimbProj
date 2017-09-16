@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
+using GameUtility;
 using UnityEngine;
 
 namespace SSC
@@ -61,7 +62,7 @@ namespace SSC
 
             catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Log.Error(e.Message);
             }
 
             return "";
@@ -81,7 +82,8 @@ namespace SSC
 
             if (value == "12345678901234567890123456789012")
             {
-                Debug.LogWarning("You should not use default password " + value);
+                
+                 Log.Warning("You should not use default password " + value);
             }
 
 #endif
@@ -101,7 +103,7 @@ namespace SSC
 
             catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Log.Error(e.Message);
             }
 
             return new byte[] { };
@@ -132,7 +134,7 @@ namespace SSC
 
             catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Log.Error(e.Message);
             }
 
             return new byte[] { };

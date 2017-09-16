@@ -14,6 +14,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Threading;
+using GameUtility;
 #if UNITY_CHANGE3
 using UnityEngine.SceneManagement;
 #endif
@@ -45,7 +46,7 @@ public class TestReporter : MonoBehaviour
 		Application.runInBackground = true;
 
 		reporter = FindObjectOfType(typeof(Reporter)) as Reporter;
-		Debug.Log("test long text sdf asdfg asdfg sdfgsdfg sdfg sfg" +
+	    Log.Temp("test long text sdf asdfg asdfg sdfgsdfg sdfg sfg" +
 				  "sdfgsdfg sdfg sdf gsdfg sfdg sf gsdfg sdfg asdfg " +
 				  "sdfgsdfg sdfg sdf gsdfg sfdg sf gsdfg sdfg asdfg " +
 				  "sdfgsdfg sdfg sdf gsdfg sfdg sf gsdfg sdfg asdfg " +
@@ -63,15 +64,15 @@ public class TestReporter : MonoBehaviour
 		style.wordWrap = true;
 
 		for (int i = 0; i < 10; i++) {
-			Debug.Log("Test Collapsed log");
-			Debug.LogWarning("Test Collapsed Warning");
-			Debug.LogError("Test Collapsed Error");
+		    Log.Temp("Test Collapsed log");
+			 Log.Warning("Test Collapsed Warning");
+			Log.Error("Test Collapsed Error");
 		}
 
 		for (int i = 0; i < 10; i++) {
-			Debug.Log("Test Collapsed log");
-			Debug.LogWarning("Test Collapsed Warning");
-			Debug.LogError("Test Collapsed Error");
+			Log.Temp("Test Collapsed log");
+			 Log.Warning("Test Collapsed Warning");
+			Log.Error("Test Collapsed Error");
 		}
 
 		rect1 = new Rect(Screen.width / 2 - 120, Screen.height / 2 - 225, 240, 50);
@@ -93,9 +94,9 @@ public class TestReporter : MonoBehaviour
 	void threadLogTest()
 	{
 		for (int i = 0; i < threadLogTestCount; i++) {
-			Debug.Log("Test Log from Thread");
-			Debug.LogWarning("Test Warning from Thread");
-			Debug.LogError("Test Error from Thread");
+		    Log.Temp("Test Log from Thread");
+			 Log.Warning("Test Warning from Thread");
+			Log.Error("Test Error from Thread");
 		}
 	}
 
@@ -104,9 +105,9 @@ public class TestReporter : MonoBehaviour
 	{
 		int drawn = 0;
 		while (currentLogTestCount < logTestCount && drawn < 10) {
-			Debug.Log("Test Log " + currentLogTestCount);
-			Debug.LogError("Test LogError " + currentLogTestCount);
-			Debug.LogWarning("Test LogWarning " + currentLogTestCount);
+		    Log.Temp("Test Log " + currentLogTestCount);
+			Log.Error("Test LogError " + currentLogTestCount);
+			 Log.Warning("Test LogWarning " + currentLogTestCount);
 			drawn++;
 			currentLogTestCount++;
 		}
@@ -114,7 +115,7 @@ public class TestReporter : MonoBehaviour
 		elapsed += Time.deltaTime;
 		if (elapsed >= 1) {
 			elapsed = 0;
-			Debug.Log("One Second Passed");
+		    Log.Temp("One Second Passed");
 		}
 	}
 

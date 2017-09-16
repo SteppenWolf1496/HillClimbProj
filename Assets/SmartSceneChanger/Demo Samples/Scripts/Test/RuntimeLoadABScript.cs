@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GameUtility;
 using UnityEngine;
 
 namespace SSCSample
@@ -55,7 +56,7 @@ namespace SSCSample
 
         void failedFunc(WWW www)
         {
-            Debug.LogError("failedFunc");
+            Log.Error("failedFunc");
         }
 
         void progressFunc(WWW www)

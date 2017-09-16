@@ -2,7 +2,7 @@
 using System.Collections;
 using Endless2DTerrain;
 
-public class MainController : MonoBehaviour
+public class MainController : BaseSceneController
 {
 
 	// Use this for initialization

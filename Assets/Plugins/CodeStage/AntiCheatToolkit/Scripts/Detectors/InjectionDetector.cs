@@ -30,6 +30,7 @@ using System.IO;
 using System.Reflection;
 using CodeStage.AntiCheat.Common;
 using CodeStage.AntiCheat.ObscuredTypes;
+using GameUtility;
 using Debug = UnityEngine.Debug;
 using UnityEngine;
 using UnityEngine.Events;
@@ -90,7 +91,7 @@ namespace CodeStage.AntiCheat.Detectors
 			}
 			else
 			{
-				Debug.LogError(FINAL_LOG_PREFIX + "can't be started since it doesn't exists in scene or not yet initialized!");
+				Log.Error(FINAL_LOG_PREFIX + "can't be started since it doesn't exists in scene or not yet initialized!");
 			}
 		}
 
@@ -221,42 +222,42 @@ namespace CodeStage.AntiCheat.Detectors
 		{
 			if (isRunning)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "already running!", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "already running!", this);
 				return;
 			}
 
 			if (!enabled)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "disabled but StartDetection still called from somewhere (see stack trace for this message)!", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "disabled but StartDetection still called from somewhere (see stack trace for this message)!", this);
 				return;
 			}
 
 #if UNITY_EDITOR
             if (!UnityEditor.EditorPrefs.GetBool("ACTDIDEnabledGlobal", false))
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "is not enabled in Anti-Cheat Toolkit Settings!\nPlease, check readme.pdf for details.", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "is not enabled in Anti-Cheat Toolkit Settings!\nPlease, check readme.pdf for details.", this);
 				DisposeInternal();
 				return;
 			}
 #if !DEBUG_NORMAL
 			if (Application.isEditor)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "does not work in editor (check readme.pdf for details).", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "does not work in editor (check readme.pdf for details).", this);
 				DisposeInternal();
 				return;
 			}
 #else
-			Debug.LogWarning(FINAL_LOG_PREFIX + "works in debug mode. There WILL BE false positives in editor, it's fine!", this);
+			 Log.Warning(FINAL_LOG_PREFIX + "works in debug mode. There WILL BE false positives in editor, it's fine!", this);
 #endif
 #endif
 			if ((callback != null || callbackWithArgument != null) && detectionEventHasListener)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "has properly configured Detection Event in the inspector, but still get started with Action callback. Both Action and Detection Event will be called on detection. Are you sure you wish to do this?", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "has properly configured Detection Event in the inspector, but still get started with Action callback. Both Action and Detection Event will be called on detection. Are you sure you wish to do this?", this);
 			}
 
 			if ((callback == null && callbackWithArgument == null) && !detectionEventHasListener)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "was started without any callbacks. Please configure Detection Event in the inspector, or pass the callback Action to the StartDetection method.", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "was started without any callbacks. Please configure Detection Event in the inspector, or pass the callback Action to the StartDetection method.", this);
 				enabled = false;
 				return;
 			}
@@ -336,12 +337,12 @@ namespace CodeStage.AntiCheat.Detectors
 		private void OnNewAssemblyLoaded(object sender, AssemblyLoadEventArgs args)
 		{
 #if ACTK_DEBUG_NORMAL
-			Debug.Log(Constants.LOG_PREFIX + "New assembly loaded: " + args.LoadedAssembly.FullName, this);
+			Log.Temp(Constants.LOG_PREFIX + "New assembly loaded: " + args.LoadedAssembly.FullName, this);
 #endif
 			if (!AssemblyAllowed(args.LoadedAssembly))
 			{
 #if ACTK_DEBUG_NORMAL
-				Debug.Log(Constants.LOG_PREFIX + "Injected Assembly found:\n" + args.LoadedAssembly.FullName, this);
+				Log.Temp(Constants.LOG_PREFIX + "Injected Assembly found:\n" + args.LoadedAssembly.FullName, this);
 #endif
 				OnCheatingDetected(args.LoadedAssembly.FullName);
 			}
@@ -359,7 +360,7 @@ namespace CodeStage.AntiCheat.Detectors
 			{
 #if ACTK_DEBUG_NORMAL
 				stopwatch.Stop();
-				Debug.Log(Constants.LOG_PREFIX + "0 assemblies in current domain! Not genuine behavior.", this);
+				Log.Temp(Constants.LOG_PREFIX + "0 assemblies in current domain! Not genuine behavior.", this);
 				stopwatch.Start();
 #endif
 				cause = "no assemblies";
@@ -371,14 +372,14 @@ namespace CodeStage.AntiCheat.Detectors
 				{
 #if ACTK_DEBUG_VERBOSE
 				stopwatch.Stop();
-				Debug.Log(Constants.LOG_PREFIX + "Currently loaded assembly:\n" + ass.FullName, this);
+				Log.Temp(Constants.LOG_PREFIX + "Currently loaded assembly:\n" + ass.FullName, this);
 				stopwatch.Start();
 #endif
 					if (!AssemblyAllowed(ass))
 					{
 #if ACTK_DEBUG_NORMAL
 						stopwatch.Stop();
-						Debug.Log(Constants.LOG_PREFIX + "Injected Assembly found:\n" + ass.FullName + "\n" + GetAssemblyHash(ass), this);
+						Log.Temp(Constants.LOG_PREFIX + "Injected Assembly found:\n" + ass.FullName + "\n" + GetAssemblyHash(ass), this);
 						stopwatch.Start();
 #endif
 						cause = ass.FullName;
@@ -390,7 +391,7 @@ namespace CodeStage.AntiCheat.Detectors
 
 #if ACTK_DEBUG_NORMAL
 			stopwatch.Stop();
-			Debug.Log(Constants.LOG_PREFIX + "Loaded assemblies scan duration: " + stopwatch.ElapsedMilliseconds + " ms.", this);
+			Log.Temp(Constants.LOG_PREFIX + "Loaded assemblies scan duration: " + stopwatch.ElapsedMilliseconds + " ms.", this);
 #endif
 			return result;
 		}
@@ -427,7 +428,7 @@ namespace CodeStage.AntiCheat.Detectors
 		private void LoadAndParseAllowedAssemblies()
 		{
 #if ACTK_DEBUG_NORMAL
-			Debug.Log(Constants.LOG_PREFIX + "Starting LoadAndParseAllowedAssemblies()", this);
+			Log.Temp(Constants.LOG_PREFIX + "Starting LoadAndParseAllowedAssemblies()", this);
 			Stopwatch sw = Stopwatch.StartNew();
 #endif
 			TextAsset assembliesSignatures = (TextAsset)Resources.Load("fndid", typeof(TextAsset));
@@ -439,7 +440,7 @@ namespace CodeStage.AntiCheat.Detectors
 
 #if ACTK_DEBUG_NORMAL
 			sw.Stop();
-			Debug.Log(Constants.LOG_PREFIX + "Creating separator array and opening MemoryStream", this);
+			Log.Temp(Constants.LOG_PREFIX + "Creating separator array and opening MemoryStream", this);
 			sw.Start();
 #endif
 
@@ -452,7 +453,7 @@ namespace CodeStage.AntiCheat.Detectors
 
 #if ACTK_DEBUG_NORMAL
 			sw.Stop();
-			Debug.Log(Constants.LOG_PREFIX + "Allowed assemblies count from MS: " + count, this);
+			Log.Temp(Constants.LOG_PREFIX + "Allowed assemblies count from MS: " + count, this);
 			sw.Start();
 #endif
 
@@ -463,20 +464,20 @@ namespace CodeStage.AntiCheat.Detectors
 				string line = br.ReadString();
 #if ACTK_DEBUG_PARANOID
 				sw.Stop();
-				Debug.Log(Constants.LOG_PREFIX + "Line: " + line, this);
+				Log.Temp(Constants.LOG_PREFIX + "Line: " + line, this);
 				sw.Start();
 #endif
 				line = ObscuredString.EncryptDecrypt(line, "Elina");
 #if ACTK_DEBUG_PARANOID
 				sw.Stop();
-				Debug.Log(Constants.LOG_PREFIX + "Line decrypted : " + line, this);
+				Log.Temp(Constants.LOG_PREFIX + "Line decrypted : " + line, this);
 				sw.Start();
 #endif
 				string[] strArr = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 				int stringsCount = strArr.Length;
 #if ACTK_DEBUG_PARANOID
 				sw.Stop();
-				Debug.Log(Constants.LOG_PREFIX + "stringsCount : " + stringsCount, this);
+				Log.Temp(Constants.LOG_PREFIX + "stringsCount : " + stringsCount, this);
 				sw.Start();
 #endif
 				if (stringsCount > 1)
@@ -508,7 +509,7 @@ namespace CodeStage.AntiCheat.Detectors
 
 #if ACTK_DEBUG_NORMAL
 			sw.Stop();
-			Debug.Log(Constants.LOG_PREFIX + "Allowed Assemblies parsing duration: " + sw.ElapsedMilliseconds + " ms.", this);
+			Log.Temp(Constants.LOG_PREFIX + "Allowed Assemblies parsing duration: " + sw.ElapsedMilliseconds + " ms.", this);
 #endif
 
 			hexTable = new string[256];
@@ -592,24 +593,24 @@ namespace CodeStage.AntiCheat.Detectors
 		{
 			get
 			{
-				Debug.LogError(FINAL_LOG_PREFIX + "is not supported on selected platform!");
+				Log.Error(FINAL_LOG_PREFIX + "is not supported on selected platform!");
 				return null;
 			}
 		}
 
 		public static void StopDetection()
 		{
-			Debug.LogError(FINAL_LOG_PREFIX + "is not supported on selected platform!");
+			Log.Error(FINAL_LOG_PREFIX + "is not supported on selected platform!");
 		}
 
 		public static void Dispose()
 		{
-			Debug.LogError(FINAL_LOG_PREFIX + "is not supported on selected platform!");
+			Log.Error(FINAL_LOG_PREFIX + "is not supported on selected platform!");
 		}
 
 		public static void StartDetection(UnityAction callback)
 		{
-			Debug.LogError(FINAL_LOG_PREFIX + "is not supported on selected platform!");
+			Log.Error(FINAL_LOG_PREFIX + "is not supported on selected platform!");
 		}
 
 		protected override void PauseDetector()

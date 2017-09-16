@@ -6,6 +6,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using GameUtility;
 
 namespace SSC
 {
@@ -219,7 +220,7 @@ namespace SSC
 
             if(!SystemInfo.graphicsDeviceType.ToString().ToLower().Contains("opengl"))
             {
-                Debug.LogWarning("(#if UNITY_EDITOR) Use OpenGLES, or you will see pink shader, perhaps.");
+                 Log.Warning("(#if UNITY_EDITOR) Use OpenGLES, or you will see pink shader, perhaps.");
             }
 
 #endif
@@ -235,7 +236,7 @@ namespace SSC
 
 #if UNITY_EDITOR
 
-            Debug.LogWarning("(#if UNITY_EDITOR) You must override this function as you want.");
+             Log.Warning("(#if UNITY_EDITOR) You must override this function as you want.");
 
 #endif
             // sample
@@ -672,7 +673,7 @@ namespace SSC
 #if UNITY_EDITOR
                                 if (absCombined.Count >= 2)
                                 {
-                                    Debug.LogWarning("(#if UNITY_EDITOR) Duplicated AssetBundle scene is not supported : " + keyNameDotVariant);
+                                     Log.Warning("(#if UNITY_EDITOR) Duplicated AssetBundle scene is not supported : " + keyNameDotVariant);
                                 }
 #endif
 
@@ -1096,7 +1097,7 @@ namespace SSC
 
                 if (kv.Value.Count >= 2)
                 {
-                    Debug.LogWarning("(#if UNITY_EDITOR) Duplicated AssetBundle loading is not recommended (but, no problem) : " + kv.Key);
+                     Log.Warning("(#if UNITY_EDITOR) Duplicated AssetBundle loading is not recommended (but, no problem) : " + kv.Key);
                 }
 
             }

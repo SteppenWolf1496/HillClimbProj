@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using GameUtility;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace SSC
         }
         static void onBuildTargetChanged()
         {
-            Debug.LogWarning("Don't forget to change Editor's Graphics API");
+             Log.Warning("Don't forget to change Editor's Graphics API");
         }
     }
 
@@ -476,7 +477,7 @@ namespace SSC
 
             catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Log.Error(e.Message);
             }
 
             return false;
@@ -613,7 +614,7 @@ namespace SSC
 
                 else
                 {
-                    Debug.LogError("Empty Data " + originFilePath);
+                    Log.Error("Empty Data " + originFilePath);
                     return false;
                 }
 
@@ -621,8 +622,8 @@ namespace SSC
 
             catch (Exception e)
             {
-                Debug.LogError(originFilePath);
-                Debug.LogError(e.Message);
+                Log.Error(originFilePath);
+                Log.Error(e.Message);
                 throw (e);
             }
 

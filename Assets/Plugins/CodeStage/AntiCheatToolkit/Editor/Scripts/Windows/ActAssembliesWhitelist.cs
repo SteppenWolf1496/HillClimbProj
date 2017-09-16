@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using CodeStage.AntiCheat.ObscuredTypes;
+using GameUtility;
 using UnityEditor;
 using UnityEngine;
 
@@ -273,7 +274,7 @@ namespace CodeStage.AntiCheat.EditorCode.Windows
 				}
 				else
 				{
-					Debug.LogWarning("Error parsing whitelist file line! Please report to " + ActEditorGlobalStuff.REPORT_EMAIL);
+					 Log.Warning("Error parsing whitelist file line! Please report to " + ActEditorGlobalStuff.REPORT_EMAIL);
 				}
 			}
 

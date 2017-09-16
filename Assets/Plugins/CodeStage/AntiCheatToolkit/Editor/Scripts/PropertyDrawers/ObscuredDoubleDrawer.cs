@@ -110,7 +110,7 @@ namespace CodeStage.AntiCheat.EditorCode.PropertyDrawers
 					union.b8.b7 = (byte)hiddenValue7.intValue;
 					union.b8.b8 = (byte)hiddenValue8.intValue;
 				}
-				/*Debug.Log("Long: " + union.l);*/
+				/*Log.Temp("Long: " + union.l);*/
 				val = ObscuredDouble.Decrypt(union.l, currentCryptoKey);
 			}
 

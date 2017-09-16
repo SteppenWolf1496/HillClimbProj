@@ -14,6 +14,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using CodeStage.AntiCheat.Common;
+using GameUtility;
 using Random = UnityEngine.Random;
 
 #if !UNITY_4_3 && !UNITY_4_5 && !UNITY_4_6 && !UNITY_4_7
@@ -270,7 +271,7 @@ namespace CodeStage.AntiCheat.Detectors
 			}
 			else
 			{
-				Debug.LogError(FINAL_LOG_PREFIX + "can't be started since it doesn't exists in scene or not yet initialized!");
+				Log.Error(FINAL_LOG_PREFIX + "can't be started since it doesn't exists in scene or not yet initialized!");
 			}
 		}
 
@@ -505,24 +506,24 @@ namespace CodeStage.AntiCheat.Detectors
 		{
 			if (isRunning)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "already running!", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "already running!", this);
 				return;
 			}
 
 			if (!enabled)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "disabled but StartDetection still called from somewhere (see stack trace for this message)!", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "disabled but StartDetection still called from somewhere (see stack trace for this message)!", this);
 				return;
 			}
 
 			if (callback != null && detectionEventHasListener)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "has properly configured Detection Event in the inspector, but still get started with Action callback. Both Action and Detection Event will be called on detection. Are you sure you wish to do this?", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "has properly configured Detection Event in the inspector, but still get started with Action callback. Both Action and Detection Event will be called on detection. Are you sure you wish to do this?", this);
 			}
 
 			if (callback == null && !detectionEventHasListener)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "was started without any callbacks. Please configure Detection Event in the inspector, or pass the callback Action to the StartDetection method.", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "was started without any callbacks. Please configure Detection Event in the inspector, or pass the callback Action to the StartDetection method.", this);
 				enabled = false;
 				return;
 			}
@@ -533,7 +534,7 @@ namespace CodeStage.AntiCheat.Detectors
 				int layerId = LayerMask.NameToLayer("Ignore Raycast");
                 if (Physics.GetIgnoreLayerCollision(layerId, layerId))
 				{
-					Debug.LogError(FINAL_LOG_PREFIX + "IgnoreRaycast physics layer should collide with itself to avoid false positives! See readme's troubleshooting section for details.");
+					Log.Error(FINAL_LOG_PREFIX + "IgnoreRaycast physics layer should collide with itself to avoid false positives! See readme's troubleshooting section for details.");
 				}
 			}
 #endif
@@ -662,14 +663,14 @@ namespace CodeStage.AntiCheat.Detectors
 
 					if (wfShader == null)
 					{
-						Debug.LogError(FINAL_LOG_PREFIX + "can't find '" + WIREFRAME_SHADER_NAME + "' shader!\nPlease make sure you have it included at the Editor > Project Settings > Graphics.", this);
+						Log.Error(FINAL_LOG_PREFIX + "can't find '" + WIREFRAME_SHADER_NAME + "' shader!\nPlease make sure you have it included at the Editor > Project Settings > Graphics.", this);
 						checkWireframe = false;
 					}
 					else
 					{
 						if (!wfShader.isSupported)
 						{
-							Debug.LogError(FINAL_LOG_PREFIX + "can't detect wireframe cheats on this platform!", this);
+							Log.Error(FINAL_LOG_PREFIX + "can't detect wireframe cheats on this platform!", this);
 							checkWireframe = false;
 						}
 						else
@@ -885,7 +886,7 @@ namespace CodeStage.AntiCheat.Detectors
 			if (rigidPlayer.transform.localPosition.z <= 1f && rigidbodyDetections > 0)
 			{
 #if ACTK_UNITY_DEBUG_ENABLED
-				Debug.Log(FINAL_LOG_PREFIX + "rigidbody success shot! False positives counter reset.", this);
+				Log.Temp(FINAL_LOG_PREFIX + "rigidbody success shot! False positives counter reset.", this);
 #endif
 				rigidbodyDetections = 0;
 			}
@@ -914,7 +915,7 @@ namespace CodeStage.AntiCheat.Detectors
 			if (charControllerPlayer.transform.localPosition.z <= 1f && controllerDetections > 0)
 			{
 #if ACTK_UNITY_DEBUG_ENABLED
-				Debug.Log(FINAL_LOG_PREFIX + "controller success shot! False positives counter reset.", this);
+				Log.Temp(FINAL_LOG_PREFIX + "controller success shot! False positives counter reset.", this);
 #endif
 				controllerDetections = 0;
 			}
@@ -1010,7 +1011,7 @@ namespace CodeStage.AntiCheat.Detectors
 				if (wireframeDetections > 0)
 				{
 #if ACTK_UNITY_DEBUG_ENABLED
-					Debug.Log(FINAL_LOG_PREFIX + "wireframe success shot! False positives counter reset.", this);
+					Log.Temp(FINAL_LOG_PREFIX + "wireframe success shot! False positives counter reset.", this);
 #endif
 					wireframeDetections = 0;
 				}
@@ -1021,7 +1022,7 @@ namespace CodeStage.AntiCheat.Detectors
 				wireframeDetected = Detect();
 
 #if WALLHACK_DEBUG
-				Debug.Log(FINAL_LOG_PREFIX + "wireframe wallhack detected. Details below:\n" +
+				Log.Temp(FINAL_LOG_PREFIX + "wireframe wallhack detected. Details below:\n" +
 						  "wfColor1: " + (Color32)wfColor1 + ", wfColor2: " + (Color32)wfColor2 + "\n" +
 						  (Color32)targetTexture.GetPixel(0, 3) + " != wfColor1: " + (targetTexture.GetPixel(0, 3) != wfColor1) + "\n" +
                           (Color32)targetTexture.GetPixel(0, 1) + " != wfColor2: " + (targetTexture.GetPixel(0, 1) != wfColor2) + "\n" +
@@ -1061,7 +1062,7 @@ namespace CodeStage.AntiCheat.Detectors
 				if (raycastDetections > 0)
 				{
 #if ACTK_UNITY_DEBUG_ENABLED
-					Debug.Log(FINAL_LOG_PREFIX + "raycast success shot! False positives counter reset.", this);
+					Log.Temp(FINAL_LOG_PREFIX + "raycast success shot! False positives counter reset.", this);
 #endif
 					raycastDetections = 0;
 				}
@@ -1156,7 +1157,7 @@ namespace CodeStage.AntiCheat.Detectors
                 raycastDetections > maxFalsePositives)
 			{
 #if ACTK_UNITY_DEBUG_ENABLED
-				Debug.LogWarning(FINAL_LOG_PREFIX + "final detection!", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "final detection!", this);
 #endif
 				OnCheatingDetected();
 				result = true;
@@ -1164,7 +1165,7 @@ namespace CodeStage.AntiCheat.Detectors
 #if ACTK_UNITY_DEBUG_ENABLED
 			else
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "detection!", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "detection!", this);
 			}
 #endif
 

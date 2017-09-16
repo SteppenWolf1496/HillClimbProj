@@ -10,6 +10,7 @@ using CodeStage.AntiCheat.ObscuredTypes;
 
 // If you're going to use detectors from code you'll need to use this name space:
 using CodeStage.AntiCheat.Detectors;
+using GameUtility;
 
 namespace CodeStage.AntiCheat.Examples
 {
@@ -93,34 +94,34 @@ namespace CodeStage.AntiCheat.Examples
 		public void OnSpeedHackDetected()
 		{
 			speedHackDetected = true;
-			Debug.Log("Speed hack Detected!");
+			Log.Temp("Speed hack Detected!");
 		}
 
 #if UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_ANDROID
 		public void OnInjectionDetected()
 		{
 			injectionDetected = true;
-			Debug.Log("Injection Detected!");
+			Log.Temp("Injection Detected!");
 		}
 
 		// cause will have detection cause or full assembly name
 		public void OnInjectionDetectedWithCause(string cause)
 		{
 			injectionDetected = true;
-			Debug.Log("Injection Detected! Cause: " + cause);
+			Log.Temp("Injection Detected! Cause: " + cause);
 		}
 #endif
 
 		public void OnObscuredTypeCheatingDetected()
 		{
 			obscuredTypeCheatDetected = true;
-			Debug.Log("Obscured Vars Cheating Detected!");
+			Log.Temp("Obscured Vars Cheating Detected!");
 		}
 
 		public void OnWallHackDetected()
 		{
 			wallHackCheatDetected = true;
-			Debug.Log("Wall hack Detected!");
+			Log.Temp("Wall hack Detected!");
 		}
 		#endregion
 
@@ -219,7 +220,7 @@ namespace CodeStage.AntiCheat.Examples
 			ObscuredString obscured = regular;
 			logBuilder.AppendLine("How your string is stored in memory when obscured:\n" + obscured.GetEncrypted());
 
-			Debug.Log(logBuilder);
+			Log.Temp(logBuilder);
 		}
 
 		private void ObscuredIntExample()
@@ -251,7 +252,7 @@ namespace CodeStage.AntiCheat.Examples
 
 			logBuilder.AppendLine("Lives count after few usual operations: " + obscured + " (" + obscured.ToString("X") + "h)");
 
-			Debug.Log(logBuilder);
+			Log.Temp(logBuilder);
 		}
 
 		private void ObscuredFloatExample()
@@ -281,7 +282,7 @@ namespace CodeStage.AntiCheat.Examples
 
 			logBuilder.AppendLine("Health bar after few usual operations: " + obscured);
 
-			Debug.Log(logBuilder);
+			Log.Temp(logBuilder);
 		}
 
 		private void ObscuredVector3Example()
@@ -301,7 +302,7 @@ namespace CodeStage.AntiCheat.Examples
 			ObscuredVector3.RawEncryptedVector3 encrypted = obscured.GetEncrypted();
 			logBuilder.AppendLine("How your position is stored in memory when obscured: (" + encrypted.x + ", " + encrypted.y + ", " + encrypted.z + ")");
 
-			Debug.Log(logBuilder);
+			Log.Temp(logBuilder);
 		}
 
 		private void SavesAlterationDetected()

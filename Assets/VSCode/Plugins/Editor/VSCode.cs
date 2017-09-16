@@ -9,6 +9,9 @@
  * Authors:
  *   Matthew Davey <matthew.davey@dotbunny.com>
  */
+
+using GameUtility;
+
 namespace dotBunny.Unity
 {
     using System;
@@ -735,7 +738,7 @@ namespace dotBunny.Unity
         /// </summary>
         static void PrintNotFound(string path)
         {
-            UnityEngine.Debug.LogError("[VSCode] Code executable in '" + path + "' not found. Check your" +
+            Log.Error("[VSCode] Code executable in '" + path + "' not found. Check your" +
             "Visual Studio Code installation and insert the correct path in the Preferences menu.");
         }
 
@@ -1088,7 +1091,7 @@ namespace dotBunny.Unity
                 {
                     if (VSCode.Debug)
                     {
-                        UnityEngine.Debug.LogWarning("[VSCode] Unable to determine debug port.");
+                        Log.Warning("[VSCode] Unable to determine debug port.");
                     }
                 }
             }

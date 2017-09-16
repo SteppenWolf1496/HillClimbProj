@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameUtility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -138,17 +139,17 @@ namespace SSC
 
             if (!this.m_refInputBlocker)
             {
-                Debug.LogWarning("(#if UNITY_EDITOR) m_refInputBlocker is null");
+                 Log.Warning("(#if UNITY_EDITOR) m_refInputBlocker is null");
             }
 
             if (!this.m_refOkDialog)
             {
-                Debug.LogWarning("(#if UNITY_EDITOR) m_refOkDialog is null");
+                 Log.Warning("(#if UNITY_EDITOR) m_refOkDialog is null");
             }
 
             if (!this.m_refYesNoDialog)
             {
-                Debug.LogWarning("(#if UNITY_EDITOR) m_refYesNoDialog is null");
+                 Log.Warning("(#if UNITY_EDITOR) m_refYesNoDialog is null");
             }
 
 #endif
@@ -220,7 +221,7 @@ namespace SSC
             if (dialogMessages == null)
             {
 #if UNITY_EDITOR
-                Debug.LogWarning("(#if UNITY_EDITOR) You should override this function if you want to store error messages");
+                 Log.Warning("(#if UNITY_EDITOR) You should override this function if you want to store error messages");
 #endif
                 return;
             }
@@ -233,7 +234,7 @@ namespace SSC
             }
 
 #if UNITY_EDITOR
-            Debug.LogError("(#if UNITY_EDITOR) " + dialogMessages.urlIfNeeded + " | " + dialogMessages.mainMessage);
+            Log.Error("(#if UNITY_EDITOR) " + dialogMessages.urlIfNeeded + " | " + dialogMessages.mainMessage);
 #endif
 
             if (this.m_numberOfErrorStack <= 0)

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Assets.Scripts.guis;
 using UnityEngine;
 
-public class RaceController : MonoBehaviour {
+public class RaceController : BaseSceneController
+{
     private TerrainDisplayer terrain;
     private static TruckControll truck;
     private Vector3 startPosition;

@@ -90,6 +90,11 @@ public class Model : MonoBehaviour
         }
     }
 
+    public static UserCarData GetUserCarData(string _key)
+    {
+        return ucars.Find(x => x.key == _key);
+    }
+
     public void SaveCar()
     {
         

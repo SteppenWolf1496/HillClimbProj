@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System.IO;
+using GameUtility;
 using UnityEditor;
 using UnityEngine;
 
@@ -32,7 +33,7 @@ namespace CodeStage.AntiCheat.EditorCode.Windows
 				EditorPrefs.SetBool(ActEditorGlobalStuff.PREFS_INJECTION_ENABLED, enableInjectionDetector);
 				if (enableInjectionDetector && !ActPostprocessor.IsInjectionDetectorTargetCompatible())
 				{
-					Debug.LogWarning(ActEditorGlobalStuff.LOG_PREFIX + "Injection Detector is not available on selected platform (" + EditorUserBuildSettings.activeBuildTarget + ")");
+					 Log.Warning(ActEditorGlobalStuff.LOG_PREFIX + "Injection Detector is not available on selected platform (" + EditorUserBuildSettings.activeBuildTarget + ")");
 				}
 
 				if (!enableInjectionDetector)
@@ -88,7 +89,7 @@ namespace CodeStage.AntiCheat.EditorCode.Windows
 						}
 						else
 						{
-							Debug.LogError("Can't find " + WIREFRAME_SHADER_NAME + " shader! Please report this to the  " + ActEditorGlobalStuff.REPORT_EMAIL + " including your Unity version number.");
+							Log.Error("Can't find " + WIREFRAME_SHADER_NAME + " shader! Please report this to the  " + ActEditorGlobalStuff.REPORT_EMAIL + " including your Unity version number.");
 						}
 					}
 					if (GUILayout.Button("Open Graphics Settings to manage it manually (see readme.pdf for details)"))

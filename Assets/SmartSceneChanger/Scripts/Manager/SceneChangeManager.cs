@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using GameUtility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -148,7 +149,7 @@ namespace SSC
             if (scState.stateEnum != SceneChangeState.StateEnum.ScenePlaying)
             {
 #if UNITY_EDITOR
-                Debug.LogWarning("(#if UNITY_EDITOR) Discard loadNextScene : " + sceneName);
+                 Log.Warning("(#if UNITY_EDITOR) Discard loadNextScene : " + sceneName);
 #endif
                 return;
             }
@@ -161,7 +162,7 @@ namespace SSC
 //                if (SceneManager.GetSceneByName(sceneName).buildIndex < 0)
 //                {
 //#if UNITY_EDITOR
-//                    Debug.LogWarning("(#if UNITY_EDITOR) Not found scene : " + sceneName);
+//                     Log.Warning("(#if UNITY_EDITOR) Not found scene : " + sceneName);
 //#endif
 //                    return;
 //                }

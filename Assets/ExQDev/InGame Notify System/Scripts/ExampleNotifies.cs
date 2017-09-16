@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GameUtility;
 
 public class ExampleNotifies : MonoBehaviour {
 
@@ -12,7 +13,7 @@ public class ExampleNotifies : MonoBehaviour {
 	}
     public void MSGToDebug()
     {
-        Debug.Log("Notify event activated!");
+        Log.Temp("Notify event activated!");
     }
     public void CreateNewNotifyOnHide()
     {

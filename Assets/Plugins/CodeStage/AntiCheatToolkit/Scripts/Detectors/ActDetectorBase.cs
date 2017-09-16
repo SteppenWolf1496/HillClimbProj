@@ -1,4 +1,5 @@
 ﻿using CodeStage.AntiCheat.Common;
+using GameUtility;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -205,7 +206,7 @@ namespace CodeStage.AntiCheat.Detectors
 		{
 			if (instance != null && instance != this && instance.keepAlive)
 			{
-				Debug.LogWarning(Constants.LOG_PREFIX + name + 
+				 Log.Warning(Constants.LOG_PREFIX + name + 
 					": self-destroying, other instance already exists & only one instance allowed!", gameObject);
 				Destroy(this);
 				return false;

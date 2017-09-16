@@ -29,8 +29,8 @@ public class DeathTrigger : MonoBehaviour
     {
         //item.
         myCar.BreakCar();
-        //Debug.Log("Hello", gameObject);
-        //Debug.Log("Hello");
+        //Log.Temp("Hello", gameObject);
+        //Log.Temp("Hello");
         /* //Assume only one terrain displayer at a time
          var terrainDisplayer = GameObject.FindObjectOfType(typeof(TerrainDisplayer)) as TerrainDisplayer;        
          if (terrainDisplayer != null && terrainDisplayer.PrefabManager != null && terrainDisplayer.PrefabManager.Pool != null)

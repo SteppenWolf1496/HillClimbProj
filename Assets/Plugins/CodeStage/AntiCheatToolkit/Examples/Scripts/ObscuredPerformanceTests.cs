@@ -2,6 +2,7 @@
 using System.Text;
 using CodeStage.AntiCheat.Common;
 using CodeStage.AntiCheat.ObscuredTypes;
+using GameUtility;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -75,7 +76,7 @@ namespace CodeStage.AntiCheat.Examples
 			if (vector3Test) TestVector3();
 			if (prefsTest) TestPrefs();
 
-			Debug.Log(logBuilder);
+			Log.Temp(logBuilder);
 		}
 
 		private void TestBool()

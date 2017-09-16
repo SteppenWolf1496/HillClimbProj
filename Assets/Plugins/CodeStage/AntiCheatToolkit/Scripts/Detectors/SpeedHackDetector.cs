@@ -12,6 +12,7 @@ using UnityEngine.SceneManagement;
 #endif
 
 using CodeStage.AntiCheat.Common;
+using GameUtility;
 using UnityEngine;
 using UnityEngine.Events;
 using Debug = UnityEngine.Debug;
@@ -82,7 +83,7 @@ namespace CodeStage.AntiCheat.Detectors
 			}
 			else
 			{
-				Debug.LogError(FINAL_LOG_PREFIX + "can't be started since it doesn't exists in scene or not yet initialized!");
+				Log.Error(FINAL_LOG_PREFIX + "can't be started since it doesn't exists in scene or not yet initialized!");
 			}
 		}
 
@@ -269,14 +270,14 @@ namespace CodeStage.AntiCheat.Detectors
 					if (currentFalsePositives > maxFalsePositives)
 					{
 #if ACTK_DEBUG_ENABLED
-						Debug.LogWarning(Constants.LOG_PREFIX + "SpeedHackDetector: final detection!", this);
+						 Log.Warning(Constants.LOG_PREFIX + "SpeedHackDetector: final detection!", this);
 #endif
 						OnCheatingDetected();
 					}
 					else
 					{
 #if ACTK_DEBUG_ENABLED
-						Debug.LogWarning(Constants.LOG_PREFIX + "SpeedHackDetector: detection! Allowed false positives left: " + (maxFalsePositives - currentFalsePositives), this);
+						 Log.Warning(Constants.LOG_PREFIX + "SpeedHackDetector: detection! Allowed false positives left: " + (maxFalsePositives - currentFalsePositives), this);
 #endif
 						currentCooldownShots = 0;
 						ResetStartTicks();
@@ -285,13 +286,13 @@ namespace CodeStage.AntiCheat.Detectors
 				else if (currentFalsePositives > 0 && coolDown > 0)
 				{
 #if ACTK_DEBUG_ENABLED
-					Debug.LogWarning(Constants.LOG_PREFIX + "SpeedHackDetector: success shot! Shots till cool down: " + (coolDown - currentCooldownShots), this);
+					 Log.Warning(Constants.LOG_PREFIX + "SpeedHackDetector: success shot! Shots till cool down: " + (coolDown - currentCooldownShots), this);
 #endif
 					currentCooldownShots++;
 					if (currentCooldownShots >= coolDown)
 					{
 #if ACTK_DEBUG_ENABLED
-						Debug.LogWarning(Constants.LOG_PREFIX + "SpeedHackDetector: cool down!", this);
+						 Log.Warning(Constants.LOG_PREFIX + "SpeedHackDetector: cool down!", this);
 #endif
 						currentFalsePositives = 0;
 					}
@@ -306,24 +307,24 @@ namespace CodeStage.AntiCheat.Detectors
 		{
 			if (isRunning)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "already running!", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "already running!", this);
 				return;
 			}
 
 			if (!enabled)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "disabled but StartDetection still called from somewhere (see stack trace for this message)!", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "disabled but StartDetection still called from somewhere (see stack trace for this message)!", this);
 				return;
 			}
 
 			if (callback != null && detectionEventHasListener)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "has properly configured Detection Event in the inspector, but still get started with Action callback. Both Action and Detection Event will be called on detection. Are you sure you wish to do this?", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "has properly configured Detection Event in the inspector, but still get started with Action callback. Both Action and Detection Event will be called on detection. Are you sure you wish to do this?", this);
 			}
 
 			if (callback == null && !detectionEventHasListener)
 			{
-				Debug.LogWarning(FINAL_LOG_PREFIX + "was started without any callbacks. Please configure Detection Event in the inspector, or pass the callback Action to the StartDetection method.", this);
+				 Log.Warning(FINAL_LOG_PREFIX + "was started without any callbacks. Please configure Detection Event in the inspector, or pass the callback Action to the StartDetection method.", this);
 				enabled = false;
 				return;
 			}

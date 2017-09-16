@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using CodeStage.AntiCheat.Common;
 using CodeStage.AntiCheat.Utils;
+using GameUtility;
 using UnityEngine;
 
 namespace CodeStage.AntiCheat.ObscuredTypes
@@ -161,7 +162,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			else
 			{
-				Debug.LogWarning(Constants.LOG_PREFIX + "ObscuredPrefs.ForceLockToDeviceInit() is called, but device ID is already obtained!");
+				 Log.Warning(Constants.LOG_PREFIX + "ObscuredPrefs.ForceLockToDeviceInit() is called, but device ID is already obtained!");
 			}
 		}
 
@@ -188,7 +189,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptIntValue(key, value));
@@ -283,7 +284,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptUIntValue(key, value));
@@ -358,7 +359,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptStringValue(key, value));
@@ -451,7 +452,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptFloatValue(key, value));
@@ -546,7 +547,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptDoubleValue(key, value));
@@ -621,7 +622,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptDecimalValue(key, value));
@@ -696,7 +697,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptLongValue(key, value));
@@ -771,7 +772,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptULongValue(key, value));
@@ -846,7 +847,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptBoolValue(key, value));
@@ -921,7 +922,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptByteArrayValue(key, value));
@@ -1012,7 +1013,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptVector2Value(key, value));
@@ -1103,7 +1104,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptVector3Value(key, value));
@@ -1200,7 +1201,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptQuaternionValue(key, value));
@@ -1305,7 +1306,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptColorValue(key, encodedColor));
@@ -1379,7 +1380,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			}
 			catch (PlayerPrefsException exception)
 			{
-				Debug.LogException(exception);
+				Log.TempException(exception);
 			}
 #else
 			PlayerPrefs.SetString(EncryptKey(key), EncryptRectValue(key, value));
@@ -1566,7 +1567,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 			{
 				if (PlayerPrefs.HasKey(key))
 				{
-					Debug.LogWarning(Constants.LOG_PREFIX + "Are you trying to read regular PlayerPrefs data using ObscuredPrefs (key = " + key + ")?");
+					 Log.Warning(Constants.LOG_PREFIX + "Are you trying to read regular PlayerPrefs data using ObscuredPrefs (key = " + key + ")?");
 				}
 			}
 			return result;
@@ -1744,7 +1745,7 @@ namespace CodeStage.AntiCheat.ObscuredTypes
 #if !ACTK_PREVENT_READ_PHONE_STATE
 			if (string.IsNullOrEmpty(id)) id = SystemInfo.deviceUniqueIdentifier;
 #else
-			Debug.LogError(Constants.LOG_PREFIX + "Looks like you forced ACTK_PREVENT_READ_PHONE_STATE flag, but still use LockToDevice feature. It will work incorrect!");
+			Log.Error(Constants.LOG_PREFIX + "Looks like you forced ACTK_PREVENT_READ_PHONE_STATE flag, but still use LockToDevice feature. It will work incorrect!");
 #endif
 			return id;
 		}

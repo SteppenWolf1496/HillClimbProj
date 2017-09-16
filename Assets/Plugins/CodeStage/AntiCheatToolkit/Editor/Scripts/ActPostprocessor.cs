@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using CodeStage.AntiCheat.ObscuredTypes;
+using GameUtility;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using Debug = UnityEngine.Debug;
@@ -53,7 +54,7 @@ namespace CodeStage.AntiCheat.EditorCode
 					if (deletedAsset.IndexOf(ActEditorGlobalStuff.INJECTION_DATA_FILE) > -1 && !EditorApplication.isCompiling)
 					{
 #if (ACTK_DEBUG || ACTK_DEBUG_VERBOSE || ACTK_DEBUG_PARANIOD)
-						Debug.LogWarning("Looks like Injection Detector data file was accidentally removed! Re-creating...\nIf you wish to remove " + ActEditorGlobalStuff.INJECTION_DATA_FILE + " file, just disable Injection Detecotr in the ACTk Settings window.");
+						 Log.Warning("Looks like Injection Detector data file was accidentally removed! Re-creating...\nIf you wish to remove " + ActEditorGlobalStuff.INJECTION_DATA_FILE + " file, just disable Injection Detecotr in the ACTk Settings window.");
 #endif
 						InjectionAssembliesScan();
 					}
@@ -95,8 +96,8 @@ namespace CodeStage.AntiCheat.EditorCode
 			Stopwatch sw = Stopwatch.StartNew();
 #if (ACTK_DEBUG_VERBOSE || ACTK_DEBUG_PARANIOD)
 			sw.Stop();
-			Debug.Log(ActEditorGlobalStuff.LOG_PREFIX + "Injection Detector Assemblies Scan\n");
-			Debug.Log(ActEditorGlobalStuff.LOG_PREFIX + "Paths:\n" +
+			Log.Temp(ActEditorGlobalStuff.LOG_PREFIX + "Injection Detector Assemblies Scan\n");
+			Log.Temp(ActEditorGlobalStuff.LOG_PREFIX + "Paths:\n" +
 
 			          "Assets: " + ActEditorGlobalStuff.ASSETS_PATH + "\n" +
 			          "Assemblies: " + ActEditorGlobalStuff.ASSEMBLIES_PATH + "\n" +
@@ -107,7 +108,7 @@ namespace CodeStage.AntiCheat.EditorCode
 
 #if (ACTK_DEBUG_VERBOSE || ACTK_DEBUG_PARANIOD)
 			sw.Stop();
-			Debug.Log(ActEditorGlobalStuff.LOG_PREFIX + "Looking for all assemblies in current project...");
+			Log.Temp(ActEditorGlobalStuff.LOG_PREFIX + "Looking for all assemblies in current project...");
 			sw.Start();
 #endif
 			allLibraries.Clear();
@@ -117,7 +118,7 @@ namespace CodeStage.AntiCheat.EditorCode
 			allLibraries.AddRange(ActEditorGlobalStuff.FindLibrariesAt(ActEditorGlobalStuff.assembliesPath));
 #if (ACTK_DEBUG_VERBOSE || ACTK_DEBUG_PARANIOD)
 			sw.Stop();
-			Debug.Log(ActEditorGlobalStuff.LOG_PREFIX + "Total libraries found: " + allLibraries.Count);
+			Log.Temp(ActEditorGlobalStuff.LOG_PREFIX + "Total libraries found: " + allLibraries.Count);
 			sw.Start();
 #endif
 			const string editorSubdir = "/editor/";
@@ -127,7 +128,7 @@ namespace CodeStage.AntiCheat.EditorCode
 				string libraryPathLowerCase = libraryPath.ToLower();
 #if (ACTK_DEBUG_PARANIOD)
 				sw.Stop();
-				Debug.Log(ActEditorGlobalStuff.LOG_PREFIX + "Checking library at the path: " + libraryPathLowerCase);
+				Log.Temp(ActEditorGlobalStuff.LOG_PREFIX + "Checking library at the path: " + libraryPathLowerCase);
 				sw.Start();
 #endif
 				if (libraryPathLowerCase.Contains(editorSubdir)) continue;
@@ -167,14 +168,14 @@ namespace CodeStage.AntiCheat.EditorCode
 				trace = allowedAssembly.hashes.Aggregate(trace, (current, hash) => current + ("    Hash: " + hash + "\n"));
 			}
 
-			Debug.Log(trace);
+			Log.Temp(trace);
 			sw.Start();
 #endif
 			if (!Directory.Exists(ActEditorGlobalStuff.resourcesPath))
 			{
 #if (ACTK_DEBUG_VERBOSE || ACTK_DEBUG_PARANIOD)
 				sw.Stop();
-				Debug.Log(ActEditorGlobalStuff.LOG_PREFIX + "Creating resources folder: " + ActEditorGlobalStuff.RESOURCES_PATH);
+				Log.Temp(ActEditorGlobalStuff.LOG_PREFIX + "Creating resources folder: " + ActEditorGlobalStuff.RESOURCES_PATH);
 				sw.Start();
 #endif
 				Directory.CreateDirectory(ActEditorGlobalStuff.resourcesPath);
@@ -188,7 +189,7 @@ namespace CodeStage.AntiCheat.EditorCode
 
 #if (ACTK_DEBUG_VERBOSE || ACTK_DEBUG_PARANIOD)
 			sw.Stop();
-			Debug.Log(ActEditorGlobalStuff.LOG_PREFIX + "Processing default whitelist");
+			Log.Temp(ActEditorGlobalStuff.LOG_PREFIX + "Processing default whitelist");
 			sw.Start();
 #endif
 
@@ -213,13 +214,13 @@ namespace CodeStage.AntiCheat.EditorCode
 				sw.Stop();
 #endif
 				bw.Close();
-				Debug.LogError(ActEditorGlobalStuff.LOG_PREFIX + "Can't find " + ActEditorGlobalStuff.INJECTION_DEFAULT_WHITELIST_FILE + " file!\nPlease, report to " + ActEditorGlobalStuff.REPORT_EMAIL);
+				Log.Error(ActEditorGlobalStuff.LOG_PREFIX + "Can't find " + ActEditorGlobalStuff.INJECTION_DEFAULT_WHITELIST_FILE + " file!\nPlease, report to " + ActEditorGlobalStuff.REPORT_EMAIL);
 				return;
 			}
 
 #if (ACTK_DEBUG_VERBOSE || ACTK_DEBUG_PARANIOD)
 			sw.Stop();
-			Debug.Log(ActEditorGlobalStuff.LOG_PREFIX + "Processing user whitelist");
+			Log.Temp(ActEditorGlobalStuff.LOG_PREFIX + "Processing user whitelist");
 			sw.Start();
 #endif
 
@@ -241,7 +242,7 @@ namespace CodeStage.AntiCheat.EditorCode
 
 #if (ACTK_DEBUG_VERBOSE || ACTK_DEBUG_PARANIOD)
 			sw.Stop();
-			Debug.Log(ActEditorGlobalStuff.LOG_PREFIX + "Processing project assemblies");
+			Log.Temp(ActEditorGlobalStuff.LOG_PREFIX + "Processing project assemblies");
 			sw.Start();
 #endif
 
@@ -263,7 +264,7 @@ namespace CodeStage.AntiCheat.EditorCode
 				string line = ObscuredString.EncryptDecrypt(name + ActEditorGlobalStuff.INJECTION_DATA_SEPARATOR + hashes, "Elina");
 
 #if (ACTK_DEBUG_VERBOSE || ACTK_DEBUG_PARANIOD)
-				Debug.Log(ActEditorGlobalStuff.LOG_PREFIX + "Writing assembly:\n" + name + ActEditorGlobalStuff.INJECTION_DATA_SEPARATOR + hashes);
+				Log.Temp(ActEditorGlobalStuff.LOG_PREFIX + "Writing assembly:\n" + name + ActEditorGlobalStuff.INJECTION_DATA_SEPARATOR + hashes);
 #endif
 				bw.Write(line);
 			}
@@ -271,12 +272,12 @@ namespace CodeStage.AntiCheat.EditorCode
 			bw.Close();
 #if (ACTK_DEBUG || ACTK_DEBUG_VERBOSE || ACTK_DEBUG_PARANIOD)
 			sw.Stop();
-			Debug.Log(ActEditorGlobalStuff.LOG_PREFIX + "Assemblies scan duration: " + sw.ElapsedMilliseconds + " ms.");
+			Log.Temp(ActEditorGlobalStuff.LOG_PREFIX + "Assemblies scan duration: " + sw.ElapsedMilliseconds + " ms.");
 #endif
 
 			if (allowedAssembliesCount == 0)
 			{
-				Debug.LogError(ActEditorGlobalStuff.LOG_PREFIX + "Can't find any assemblies!\nPlease, report to " + ActEditorGlobalStuff.REPORT_EMAIL);
+				Log.Error(ActEditorGlobalStuff.LOG_PREFIX + "Can't find any assemblies!\nPlease, report to " + ActEditorGlobalStuff.REPORT_EMAIL);
 			}
 
 			AssetDatabase.Refresh();
@@ -297,7 +298,7 @@ namespace CodeStage.AntiCheat.EditorCode
 			if (!IsInjectionDetectorTargetCompatible())
 			{
 				if (!File.Exists(ActEditorGlobalStuff.injectionDataPath)) return;
-				Debug.LogWarning(ActEditorGlobalStuff.LOG_PREFIX + "Injection Detector is not available on selected platform (" + EditorUserBuildSettings.activeBuildTarget + ") and will be disabled!");
+				 Log.Warning(ActEditorGlobalStuff.LOG_PREFIX + "Injection Detector is not available on selected platform (" + EditorUserBuildSettings.activeBuildTarget + ") and will be disabled!");
 				ActEditorGlobalStuff.CleanInjectionDetectorData();
 			}
 		}

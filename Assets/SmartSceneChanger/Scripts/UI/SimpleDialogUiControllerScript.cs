@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameUtility;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -185,7 +186,7 @@ namespace SSC
             if (dialogMessages == null)
             {
 #if UNITY_EDITOR
-                Debug.LogWarning("(#if UNITY_EDITOR) You should override this function");
+                 Log.Warning("(#if UNITY_EDITOR) You should override this function");
 #endif
                 this.clear();
                 return;

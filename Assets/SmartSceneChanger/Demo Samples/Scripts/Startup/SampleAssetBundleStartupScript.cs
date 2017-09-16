@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GameUtility;
 using UnityEngine;
 
 namespace SSCSample
@@ -34,7 +35,7 @@ namespace SSCSample
 
         public override void failed(WWW www)
         {
-            Debug.LogError(www.url + " " + www.error);
+            Log.Error(www.url + " " + www.error);
         }
 
         public override void progress(WWW www)

@@ -57,7 +57,7 @@ namespace Endless2DTerrain
             if (MinMaxEncreasing != 0)
             {
                 UsingCount++;
-               // Debug.Log("usingCount = " + UsingCount);
+               // Log.Temp("usingCount = " + UsingCount);
             }
             //If we have an offset (and we are placing prefabs at an angle), get the direction of that offset.
             //In otherwords, if our offset says to move one up in the y direction, getting the transform direction means the 
@@ -115,7 +115,7 @@ namespace Endless2DTerrain
                 }
                 else
                 {
-                    //Debug.Log("PrefabRule::RepeatDistance usingCount =  "+ UsingCount);
+                    //Log.Temp("PrefabRule::RepeatDistance usingCount =  "+ UsingCount);
                     return MaxRepeatDistance + MinMaxEncreasing * UsingCount;
                 }
             }

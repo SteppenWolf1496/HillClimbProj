@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GameUtility;
 using UnityEngine;
 
 namespace Endless2DTerrain
@@ -72,7 +73,7 @@ namespace Endless2DTerrain
                 //First time through the loop?  Create our first piece of terrain
                 currentTerrain = GenerateTerrainPiece(null, settings.OriginalStartPoint,0);
             }
-            //Debug.Log(VertexGenerator.lastY);
+            //Log.Temp(VertexGenerator.lastY);
             while (currentTerrain.NextTerrainOrigin.x < endX)
             {
                 //Generate our next terrain
@@ -263,7 +264,7 @@ namespace Endless2DTerrain
 
         private void DebugVertex(string message, Vector3 vertex)
         {
-            Debug.Log(message + " " + vertex.x + " " + vertex.y + " " + vertex.z);
+            Log.Temp(message + " " + vertex.x + " " + vertex.y + " " + vertex.z);
         }
       
     }
