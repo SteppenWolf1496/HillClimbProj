@@ -14,7 +14,7 @@ public class Log : MonoBehaviour {
 
     public static void Error(string _message)
     {
-        Log.Error(_message);
+        Debug.LogError(_message);
     }
 
     public static void Warning(string _message)
@@ -38,8 +38,8 @@ public class Log : MonoBehaviour {
 
     public static void Error(string format, params object[] args)
     {
-       
-        Log.Error(Utility.Format(format, args));
+
+        Debug.LogError(Utility.Format(format, args));
     }
 
     public static void Warning(string format, params object[] args)

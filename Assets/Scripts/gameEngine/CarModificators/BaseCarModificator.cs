@@ -8,14 +8,12 @@ using UnityEngine;
 [Serializable]
 public class BaseCarModificator
 {
-    public ObscuredString key;
-    public CarModificatorType ModificatorType;
-    public CarModificationActivation ActivationType;
-    public CarModifationRarity ModifationRarity;
-    public ObscuredInt MoficatorLvl;
-    public ObscuredFloat ModificationValue;
-    public ObscuredFloat LvlUpMuliplier;
-    public string Title;
+    public ObscuredString key;//ключь
+    public CarModificatorType ModificatorType;//тип модифа
+    //public CarModificationActivation ActivationType;//активный/пассивный
+    public ObscuredFloat ModificationValue;//во сколько раз базово повышает
+    public ObscuredFloat LvlUpMuliplier;//во сколько раз повышает параметр с уровнем(ModificationValue+ModificationValue*LvlUpMuliplier)
+    
 
 
     

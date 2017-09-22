@@ -9,6 +9,7 @@ public class CarChoosingController : SingletonePattern<CarChoosingController>
     public static int index = 0;
     public static TruckControll currentCar = null;
     [SerializeField] protected MainGUI mainGui;
+    [SerializeField] protected TuningGuiController tuningGui;
 
     public string CurrentCarKey
     {
@@ -24,13 +25,37 @@ public class CarChoosingController : SingletonePattern<CarChoosingController>
 
         }
 
-	    currentCar = cars[index];
+
+	    InitCar(index);
+
+        /*currentCar = cars[index];
 	    
-	    currentCar.gameObject.SetActive(true);
+	    currentCar.gameObject.SetActive(true);*/
 	    mainGui.UpdateButtons();
 
 
         StartCoroutine(StartCar());
+    }
+
+    private void InitCar(int _index)
+    {
+        bool hadCar = currentCar != null;
+        Vector3 tmpPos = Vector3.zero;
+        if (hadCar)
+        {
+            tmpPos = currentCar.transform.position;
+            currentCar.gameObject.SetActive(false);
+        }
+       
+        
+        currentCar = cars[_index];
+        currentCar.makeDEMO();
+        if (hadCar)
+        {
+            currentCar.transform.position = tmpPos + Vector3.up * 3;
+        }
+        currentCar.gameObject.SetActive(true);
+        tuningGui.InitSlotsData();
     }
 
     private IEnumerator StartCar()
@@ -51,11 +76,13 @@ public class CarChoosingController : SingletonePattern<CarChoosingController>
             index = 0;
         }
         Vector3 tmpPos = currentCar.transform.position;
-        currentCar.gameObject.SetActive(false);
-        currentCar = cars[index];
+        //currentCar.gameObject.SetActive(false);
+
+        InitCar(index);
+        /*currentCar = cars[index];
         currentCar.makeDEMO();
         currentCar.transform.position = tmpPos + Vector3.up * 3;
-        currentCar.gameObject.SetActive(true);
+        currentCar.gameObject.SetActive(true);*/
     }
 
     public void PrewCar()
@@ -65,11 +92,12 @@ public class CarChoosingController : SingletonePattern<CarChoosingController>
         {
             index = cars.Count-1;
         }
-        Vector3 tmpPos = currentCar.transform.position;
-        currentCar.gameObject.SetActive(false);
-        currentCar = cars[index];
+       // Vector3 tmpPos = currentCar.transform.position;
+        //currentCar.gameObject.SetActive(false);
+        InitCar(index);
+        /*currentCar = cars[index];
         currentCar.makeDEMO();
         currentCar.transform.position = tmpPos + Vector3.up * 3;
-        currentCar.gameObject.SetActive(true);
+        currentCar.gameObject.SetActive(true);*/
     }
 }

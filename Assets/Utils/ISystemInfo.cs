@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameUtility;
+using UnityEngine;
 
 #if UNITY_IPHONE
 using UnityEngine.iOS;

@@ -39,4 +39,12 @@
         Rare,
         Epic
     }
+
+    public enum ChestRarity
+    {
+        Common,
+        Rare,
+        Epic,
+        free
+    }
 }

@@ -556,30 +556,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114046756491676390, guid: fe72459c2bd4bfd4aaacc8d57ffb6485,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114995404773770364, guid: fe72459c2bd4bfd4aaacc8d57ffb6485,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114339857617605806, guid: fe72459c2bd4bfd4aaacc8d57ffb6485,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 224650040695252086, guid: fe72459c2bd4bfd4aaacc8d57ffb6485,
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114657556226944710, guid: fe72459c2bd4bfd4aaacc8d57ffb6485,
-        type: 2}
-      propertyPath: m_ignoreErrorExceptManifest
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fe72459c2bd4bfd4aaacc8d57ffb6485, type: 2}
