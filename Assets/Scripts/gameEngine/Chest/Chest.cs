@@ -8,6 +8,7 @@ public class Chest
 {
 
     public string Key;
+    public string Title;
     public ChestRarity Rarity;
     public ObscuredInt GoldFrom;
     public ObscuredInt GoldTo;

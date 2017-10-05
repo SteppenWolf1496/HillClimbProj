@@ -8,14 +8,27 @@ using UnityEngine;
 public class StaticData : MonoBehaviour
 {
     [SerializeField] protected ObscuredString key;
-   // [SerializeField] protected List<Card> carModificators;
+    [SerializeField] protected GameObject chestsContainer;
+
+    
+
+    // [SerializeField] protected List<Card> carModificators;
 
     void Awake()
     {
         LoadStaticCardsData();
         LoadStaticChestsData();
+        
 
     }
+    
+    
+    void Start()
+    {
+        
+    }
+
+    
 
     private void LoadStaticCardsData()
     {

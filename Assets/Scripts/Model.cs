@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
 using CodeStage.AntiCheat.ObscuredTypes;
+using Enums;
 using GameUtility;
 
 public class Model : MonoBehaviour
@@ -321,6 +322,11 @@ public class Model : MonoBehaviour
         }
 
         return true;
+    }
+
+    public static Chest GetChestData(ChestRarity _rarity)
+    {
+        return Chests.Find(x => x.Rarity == _rarity);
     }
 
 }
