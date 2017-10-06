@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UserChestData
 {
-    public ObscuredDouble TimeWhenOpen;
+    public ObscuredInt TimeWhenOpen;
     public int TimeWhenAdd;
     public ChestRarity Rarity;
     public ObscuredInt Lvl;
@@ -21,7 +21,7 @@ public class UserChestData
     {
         string[] data = _data.Split('%');
 
-        TimeWhenOpen = double.Parse(data[0]);
+        TimeWhenOpen = int.Parse(data[0]);
         Rarity = (ChestRarity) int.Parse(data[1]);
         Lvl = int.Parse(data[2]);
         state = (ChestState)int.Parse(data[3]);

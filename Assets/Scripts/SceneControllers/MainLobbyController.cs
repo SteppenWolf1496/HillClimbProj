@@ -67,10 +67,13 @@ public class MainLobbyController : SingletonePattern<MainLobbyController>
                     slot = Instantiate(metalChest, chestsLayout.transform).GetComponent<ChestSlot>();
                     break;
                 case ChestRarity.Rare:
+                    slot = Instantiate(silverChest, chestsLayout.transform).GetComponent<ChestSlot>();
                     break;
                 case ChestRarity.Epic:
+                    slot = Instantiate(goldChest, chestsLayout.transform).GetComponent<ChestSlot>();
                     break;
                 case ChestRarity.free:
+                    slot = Instantiate(freeChest, chestsLayout.transform).GetComponent<ChestSlot>();
                     break;
                 default:
                     slot = null;

@@ -261,8 +261,8 @@ MonoBehaviour:
     inited: 1
   TimeToOpen:
     currentCryptoKey: 444444
-    hiddenValue: 444444
-    fakeValue: 0
+    hiddenValue: 440476
+    fakeValue: 28800
     inited: 1
 --- !u!1 &46853219
 GameObject:
@@ -612,7 +612,7 @@ Prefab:
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 250.75
       objectReference: {fileID: 0}
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
@@ -637,7 +637,7 @@ Prefab:
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
@@ -647,7 +647,7 @@ Prefab:
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
@@ -990,7 +990,7 @@ Prefab:
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -320
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
@@ -1964,8 +1964,8 @@ MonoBehaviour:
     inited: 1
   TimeToOpen:
     currentCryptoKey: 444444
-    hiddenValue: 444444
-    fakeValue: 0
+    hiddenValue: 451116
+    fakeValue: 10800
     inited: 1
 --- !u!1 &1387154496
 GameObject:
@@ -1976,6 +1976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1387154498}
   - component: {fileID: 1387154497}
+  - component: {fileID: 1387154499}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -2003,6 +2004,7 @@ MonoBehaviour:
   goldChest: {fileID: 650551722}
   freeChest: {fileID: 1705607732}
   chestsLayout: {fileID: 918573884}
+  slots: []
 --- !u!4 &1387154498
 Transform:
   m_ObjectHideFlags: 0
@@ -2016,6 +2018,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1387154499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1387154496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181076b2b95c71f4dbb99ce1df7c0624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1670762048
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,7 +2160,7 @@ Prefab:
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -320
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
@@ -2419,8 +2432,8 @@ MonoBehaviour:
     inited: 1
   TimeToOpen:
     currentCryptoKey: 444444
-    hiddenValue: 444444
-    fakeValue: 0
+    hiddenValue: 418012
+    fakeValue: 43200
     inited: 1
 --- !u!1 &1920972909
 GameObject:
@@ -2797,7 +2810,7 @@ Prefab:
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -320
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224501839956827720, guid: da62ecf4ce6fe4c4589f6dfeb07a99b4,
         type: 2}
