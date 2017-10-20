@@ -27,6 +27,7 @@ public class MainLobbyController : SingletonePattern<MainLobbyController>
         Model.LoadMetal();
         Model.LoadMoney();
         Model.LoadChests();
+        Model.LoadUCards();
     }
 	// Use this for initialization
 	void Start ()

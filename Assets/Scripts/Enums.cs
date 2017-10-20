@@ -35,17 +35,17 @@
 
     public enum CarModifationRarity
     {
-        Common,
-        Rare,
-        Epic
+        Common = 0,
+        Rare = 1,
+        Epic = 2
     }
 
     public enum ChestRarity
     {
-        Common,
-        Rare,
-        Epic,
-        free
+        Common = 0,
+        Rare = 1,
+        Epic = 2,
+        free = 3
     }
 
     public enum ChestState

@@ -546,6 +546,8 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
+    1: CHEATS
+    4: CHEATS
     7: CHEATS
   platformArchitecture:
     iOS: 2

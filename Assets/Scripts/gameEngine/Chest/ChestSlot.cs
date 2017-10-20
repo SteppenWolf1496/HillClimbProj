@@ -82,11 +82,28 @@ public class ChestSlot : MonoBehaviour
     public void GetReward()
     {
         MainLobbyController.Instance.slots.Remove(this);
+        CountDrop();
+
+
         Model.UChests.Remove(uchest);
         Model.SaveChests();
         MainLobbyController.Instance.UpdateChests();
         Destroy(gameObject);
 
 
+    }
+
+    private void CountDrop()
+    {
+        List<Card.DropCard> common = new List<Card.DropCard>();
+        List<Card.DropCard> silver = new List<Card.DropCard>();
+        List<Card.DropCard> gold = new List<Card.DropCard>();
+        int cardCount = StaticData.CountCardsByRarity(Enums.CarModifationRarity.Common, uchest.Rarity);
+        int totalCards = UnityEngine.Random.Range(chest.CommonFrom, chest.CommonTo);
+        //while
+        
+        //Model.GetUserCard()
+
+        Model.SaveCards();
     }
 }

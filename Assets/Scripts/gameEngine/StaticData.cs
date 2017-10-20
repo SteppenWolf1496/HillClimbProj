@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CodeStage.AntiCheat.ObscuredTypes;
+using Enums;
 using UnityEngine;
 
 [Serializable]
@@ -45,6 +46,12 @@ public class StaticData : MonoBehaviour
             tmp.ModifationRarity = card.ModifationRarity;
             tmp.NeedCollectForLvl = card.NeedCollectForLvl;
             tmp.NeedCollectForLvlMult = card.NeedCollectForLvlMult;
+
+            tmp.LvlsWhereDrop = new int[card.LvlsWhereDrop.Length];
+            for (int j = 0; j < card.LvlsWhereDrop.Length; j++)
+            {
+                tmp.LvlsWhereDrop[j] = card.LvlsWhereDrop[j];
+            }
             Model.Cards.Add(tmp);
         }
     }
@@ -71,6 +78,24 @@ public class StaticData : MonoBehaviour
             chest.TimeToOpen = chestEditor.TimeToOpen;
             Model.Chests.Add(chest);
         }
+    }
+
+    public static int CountCardsByRarity(CarModifationRarity _cardRar, ChestRarity _chestRar)
+    {
+        int ret = 3 - (int)_cardRar;
+        if (_chestRar == ChestRarity.Common)
+        {
+            ret += (int)UnityEngine.Random.Range(0, 4);
+        }
+        if (_chestRar == ChestRarity.Rare)
+        {
+            ret += (int)UnityEngine.Random.Range(0, 2);
+        }
+        if (_chestRar == ChestRarity.Epic)
+        {
+            ret += (int)UnityEngine.Random.Range(0, 1);
+        }
+        return ret;
     }
 
     /*

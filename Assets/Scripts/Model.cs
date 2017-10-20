@@ -17,6 +17,7 @@ public class Model : MonoBehaviour
     private const string METAL = "HC_METAL";
     private const string MONEY = "HC_MONEY";
     private const string CHESTS = "HC_CHESTS";
+    private const string CARDS = "HC_CHESTS";
 
     public static int curCarIndex = 0;
     public static int curMapIndex = 0;
@@ -113,6 +114,24 @@ public class Model : MonoBehaviour
         UserCard ret = uCards.Find(x => x.key == _key);
         
         return ret;
+    }
+
+    public static void AddUserCard(string _key,int _count)
+    {
+        UserCard card = GetUserCard(_key);
+        if (card)
+        {
+            card.CollectedItems += _count;
+        }
+        else
+        {
+            card = new UserCard();
+            card.key = _key;
+            card.CollectedItems = _count;
+            card.Lvl = 0;
+            uCards.Add(card);
+        }
+        
     }
 
     public static List<Card> Cards
@@ -271,6 +290,55 @@ public class Model : MonoBehaviour
            UserCarData tmp = new UserCarData();
            tmp.SetData(s);
            ucars.Add(tmp);
+        }
+
+        return true;
+    }
+
+    public static void SaveCards()
+    {
+        string[] toSave = new string[uCards.Count];
+        int i = 0;
+        foreach (UserCard card in uCards)
+        {
+            toSave[i] = card.GetSave();
+            ++i;
+        }
+        PlayerPrefsElite.SetStringArray(CARDS, toSave);
+    }
+    public static bool LoadUCards()
+    {
+        try
+        {
+            if (PlayerPrefsElite.VerifyArray(CARDS))
+            {
+                ArrayList data = new ArrayList(PlayerPrefsElite.GetStringArray(CARDS));
+                return ProcessLoadUCards(data);
+            }
+            else
+            {
+
+                //firstInitData = true;
+
+                return true;
+            }
+        }
+        catch (Exception e)
+        {
+            Log.Error("[SavedDataManager::LoadUCards] EXCEPTION: {0}", e.ToString());
+
+            return false;
+        }
+    }
+
+    private static bool ProcessLoadUCards(ArrayList _data)
+    {
+        uCards.Clear();
+        foreach (string s in _data)
+        {
+            UserCard tmp = new UserCard();
+            tmp.SetData(s);
+            uCards.Add(tmp);
         }
 
         return true;

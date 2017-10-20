@@ -15,7 +15,7 @@ public class CardEditor : MonoBehaviour
     public ObscuredFloat NeedCollectForLvlMult; // множитель для каждого последующего уровня
     public ObscuredInt MaxLVL; // максимальный кровень
     public CarModifationRarity ModifationRarity;//рарность
-
+    public ObscuredInt[] LvlsWhereDrop; //На каких уровнях(картах) дропается 
 
 
 }
